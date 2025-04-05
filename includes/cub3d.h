@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:19:26 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/05 12:21:45 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:07:02 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,13 @@ typedef struct s_config
     int		ceiling_color;
     char	**map;
 } t_config;
+
+/*error*/
+void    printError(char *str);
+/*parser*/
+char	**fillInfos(char *path);
+/*utils.c*/
+int		isOnlyWhitespace(const char *str);
+char	*ft_strdup(const char *s);
 
 #endif

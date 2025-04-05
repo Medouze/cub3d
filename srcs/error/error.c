@@ -6,13 +6,13 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:02:49 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/05 12:04:47 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/05 15:41:29 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void    print_error(char *str)
+void    printError(char *str)
 {
     printf("%s\n", str);
     exit(EXIT_FAILURE);

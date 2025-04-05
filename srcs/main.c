@@ -6,29 +6,16 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:19:56 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/05 12:21:11 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/05 16:06:52 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int main(void)
+int main(int ac, char **av)
 {
-	void	*mlx;
-	void	*win;
 
-	// Initialize MLX
-	mlx = mlx_init();
-	if (!mlx)
-		return (1);
-
-	// Create a window 800x600 titled "Hello, MLX!"
-	win = mlx_new_window(mlx, 800, 600, "Hello, MLX!");
-	if (!win)
-		return (1);
-
-	// Wait until user closes the window
-	mlx_loop(mlx);
-
+    (void)ac;
+	fillInfos(av[1]);
 	return (0);
 }
