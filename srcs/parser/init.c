@@ -1,26 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 11:19:56 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/05 18:24:09 by mlavergn         ###   ########.fr       */
+/*   Created: 2025/04/05 17:36:40 by mlavergn          #+#    #+#             */
+/*   Updated: 2025/04/05 17:36:52 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
-
-
-int	main(int ac, char **av)
+void	init_config(t_config *config)
 {
-	t_config	data;
-	
-	if (ac == 1)
-		print_error("Enter a path for map", NULL, NULL);
-	init_config(&data);
-	parser(&data, av[1]);
-	return (0);
+	config->no_texture = NULL;
+	config->so_texture = NULL;
+	config->we_texture = NULL;
+	config->ea_texture = NULL;
+	config->floor_color = 0;
+	config->ceiling_color = 0;
+	config->map = NULL;
 }
