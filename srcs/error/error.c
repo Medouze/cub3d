@@ -1,34 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 11:19:56 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/05 12:21:11 by mlavergn         ###   ########.fr       */
+/*   Created: 2025/04/05 12:02:49 by mlavergn          #+#    #+#             */
+/*   Updated: 2025/04/05 12:04:47 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
-int main(void)
+void    print_error(char *str)
 {
-	void	*mlx;
-	void	*win;
-
-	// Initialize MLX
-	mlx = mlx_init();
-	if (!mlx)
-		return (1);
-
-	// Create a window 800x600 titled "Hello, MLX!"
-	win = mlx_new_window(mlx, 800, 600, "Hello, MLX!");
-	if (!win)
-		return (1);
-
-	// Wait until user closes the window
-	mlx_loop(mlx);
-
-	return (0);
+    printf("%s\n", str);
+    exit(EXIT_FAILURE);
 }

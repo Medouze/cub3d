@@ -1,34 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   getInfos.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 11:19:56 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/05 12:21:11 by mlavergn         ###   ########.fr       */
+/*   Created: 2025/04/05 11:57:23 by mlavergn          #+#    #+#             */
+/*   Updated: 2025/04/05 12:04:46 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/cub3d.h"
+#include "../../includes/cub3d.h"
 
-int main(void)
+
+void    parse_file(t_config *data)
 {
-	void	*mlx;
-	void	*win;
-
-	// Initialize MLX
-	mlx = mlx_init();
-	if (!mlx)
-		return (1);
-
-	// Create a window 800x600 titled "Hello, MLX!"
-	win = mlx_new_window(mlx, 800, 600, "Hello, MLX!");
-	if (!win)
-		return (1);
-
-	// Wait until user closes the window
-	mlx_loop(mlx);
-
-	return (0);
+    char    *line;
+    int     fd;
+    
+    fd = open("../../maps/maptest.cub", O_RDONLY);
+    if (fd == -1)
+        ft_error("Error with file\n");
+    while (line)
+    {
+        line = get_next_line()
+    }
 }
