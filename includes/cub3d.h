@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:19:26 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/05 22:25:14 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/05 22:44:37 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,11 @@ typedef struct s_config
 	char	**map;
 }	t_config;
 
-
 /*init*/
 void	init_config(t_config *config);
 /*error*/
 void	print_error(char *str, t_config *data);
-void    free_double(char **infos);
+void	free_double(char **infos);
 /*parser*/
 void	parser(t_config *data, char *path);
 void	fill_data(t_config *data, char *path);
@@ -53,6 +52,5 @@ void	ft_trim_in_place(char *str, const char *set);
 char	**ft_split(char const *s, char c);
 int		ft_is_space(char c);
 int		ft_atoi(const char *str);
-
 
 #endif

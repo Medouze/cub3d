@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:41:03 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/05 22:37:54 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/05 22:43:37 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,11 @@ void	add_xmp(t_config *data, char **data_text, char *texture)
 		print_error(ERR_XPMSYNTAX, data);
 }
 
-static int info_empty(t_config *data)
+static int	info_empty(t_config *data)
 {
-	if (!(data->no_texture || data->ceiling_color == -1 || data->floor_color == -1 || data->so_texture || data->we_texture || data->ea_texture))
+	if (!(data->no_texture || data->ceiling_color == -1
+			|| data->floor_color == -1 || data->so_texture
+			|| data->we_texture || data->ea_texture))
 		return (1);
 	return (0);
 }
@@ -73,7 +75,7 @@ void	check_valid_infos(t_config *data, char *line)
 		add_xmp(data, &data->we_texture, line);
 	else if (ft_strncmp(line, "EA", 2) == 0)
 		add_xmp(data, &data->ea_texture, line);
-	else if (ft_strncmp(line, "F", 1 ) == 0)
+	else if (ft_strncmp(line, "F", 1) == 0)
 		check_valid_rgb(data, &data->floor_color, line);
 	else if (ft_strncmp(line, "C", 1) == 0)
 		check_valid_rgb(data, &data->ceiling_color, line);
