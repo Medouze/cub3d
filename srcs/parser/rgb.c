@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 21:23:07 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/05 22:17:05 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/07 00:25:20 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	check_valid_rgb(t_config *data, int *value, char *rgb)
 	int		count;
 
 	count = 0;
+	ft_trim_in_place(rgb, " \n\t");
 	while (*rgb && !ft_is_digit(*rgb))
 		rgb++;
 	if (!is_valid_rgb_number(rgb))

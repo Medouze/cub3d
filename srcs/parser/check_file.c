@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:41:03 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/05 22:43:37 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/07 00:24:46 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	add_xmp(t_config *data, char **data_text, char *texture)
 	int	i;
 
 	i = 0;
+	ft_trim_in_place(texture, " \n\t");
 	if (*data_text)
 		print_error(ERR_MULTI, data);
 	if (!has_spaces(texture))
@@ -56,7 +57,7 @@ void	add_xmp(t_config *data, char **data_text, char *texture)
 		print_error(ERR_XPMSYNTAX, data);
 }
 
-static int	info_empty(t_config *data)
+int	info_empty(t_config *data)
 {
 	if (!(data->no_texture || data->ceiling_color == -1
 			|| data->floor_color == -1 || data->so_texture

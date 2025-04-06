@@ -6,37 +6,11 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:57:23 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/05 21:49:43 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/07 00:24:57 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-// static int	count_lines(char *path)
-// {
-// 	int		size;
-// 	char	*line;
-// 	int		fd;
-
-// 	fd = open(path, O_RDONLY);
-// 	if (fd == -1)
-// 		print_error(ERR_OPEN, NULL, NULL);
-// 	size = 0;
-// 	while (1)
-// 	{
-// 		line = get_next_line(fd);
-// 		if (line)
-// 		{
-// 			if (!is_only_whitespace(line))
-// 				size++;
-// 		}
-// 		else
-// 			break ;
-// 		free(line);
-// 	}
-// 	close(fd);
-// 	return (size);
-// }
 
 void	print_infos(char **infos) // delete plus tard
 {
@@ -57,6 +31,63 @@ void	print_infos(char **infos) // delete plus tard
 	}
 }
 
+int	count_check_map_lines(t_config *data, int fd)
+{
+	int		count;
+	char	*line;
+	int		eof;
+
+	count = 0;
+	eof = 0;
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		if (is_only_whitespace(line))
+			eof = 1;
+		if (eof == 1 && !is_only_whitespace(line))
+			print_error(ERR_EMPTYMAP, data);
+		count++;
+		free(line);
+	}
+	return (count);
+}
+
+void	allocate_map(t_config *data, int fd)
+{
+	int		size;
+	
+	size = count_check_map_lines(data, fd);
+	data->map = malloc(sizeof(char *) * (size + 1));
+	if (!data->map)
+		print_error(ERR_MALLOC, data);
+	close(fd);
+}
+
+void	copy_map(t_config *data, int fd, char *path)
+{
+	char	*line;
+	int		i = 0;
+
+	allocate_map(data, fd);
+	fd = open(path, O_RDONLY);
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		if ((line[0] == '0' || line[0] == '1'))
+		{
+			ft_trim_in_place(line, " \n\t");
+			data->map[i] = ft_strdup(line);
+			i++;
+		}
+		free(line);
+	}
+	data->map[i] = NULL;
+}
+
 void	fill_data(t_config *data, char *path)
 {
 	char	*line;
@@ -68,17 +99,20 @@ void	fill_data(t_config *data, char *path)
 	while (1)
 	{
 		line = get_next_line(fd);
-		if (line)
-		{
-			if (!is_only_whitespace(line))
-			{
-				ft_trim_in_place(line, " \n\t");
-				check_valid_infos(data, line);
-			}
-			free(line);
-		}
-		else
+		if (!line)
 			break ;
+		if (!is_only_whitespace(line))
+		{
+			if (line[0] == '0' || line[0] == '1')
+			{
+				if (info_empty(data))
+					print_error(ERR_MAPEOF, data);
+				free(line);
+				copy_map(data, fd, path);
+				return ;
+			}
+			check_valid_infos(data, line);
+		}
+		free(line);
 	}
-	close(fd);
 }

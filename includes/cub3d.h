@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:19:26 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/05 22:44:37 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/06 22:22:14 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	check_valid_rgb(t_config *data, int *value, char *rgb);
 /*check*/
 void	check_file(char *path);
 void	check_valid_infos(t_config *data, char *line);
+int		info_empty(t_config *data);
 /*utils*/
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		is_only_whitespace(const char *str);

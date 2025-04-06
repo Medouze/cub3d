@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 17:34:46 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/05 22:44:11 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/07 00:14:36 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,11 @@ void	print_config(const t_config *config)
 	printf("Map:\n");
 	if (config->map) 
 	{
-		while (config->map[i++])
+		while (config->map[i])
+		{
 			printf("  [%d] %s\n", i, config->map[i] ? config->map[i] : "(null row)");
+			i++;
+		}
 	}
 	else
 		printf("  (null)\n");
