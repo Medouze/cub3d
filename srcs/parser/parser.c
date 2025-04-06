@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 17:34:46 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/07 00:14:36 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/07 00:36:30 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	parser(t_config *data, char *path)
 {
 	check_file(path);
 	fill_data(data, path);
+	if (info_empty(data) || !data->map)
+		print_error(ERR_MISSINGTEXT, data);
 	print_config(data);
 	print_error("FREED ALL", data);
 }

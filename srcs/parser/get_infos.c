@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:57:23 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/07 00:24:57 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/07 00:37:04 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	fill_data(t_config *data, char *path)
 			if (line[0] == '0' || line[0] == '1')
 			{
 				if (info_empty(data))
-					print_error(ERR_MAPEOF, data);
+					print_error(ERR_MISSINGTEXT, data);
 				free(line);
 				copy_map(data, fd, path);
 				return ;
@@ -115,4 +115,6 @@ void	fill_data(t_config *data, char *path)
 		}
 		free(line);
 	}
+	if (info_empty(data) || !data->map)
+		print_error(ERR_MISSINGTEXT, data);
 }

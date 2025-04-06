@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:41:03 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/07 00:27:57 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/07 00:33:20 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ void	add_xmp(t_config *data, char **data_text, char *texture)
 		print_error(ERR_XPMSYNTAX, data);
 }
 
-int	info_empty(t_config *data)
+int info_empty(t_config *data)
 {
-	if (!(data->no_texture || data->ceiling_color == -1
-			|| data->floor_color == -1 || data->so_texture
-			|| data->we_texture || data->ea_texture))
-		return (1);
-	return (0);
+    // Check if any of the required fields are still empty (NULL or -1)
+    if (!data->no_texture || !data->so_texture || !data->we_texture || !data->ea_texture
+        || data->floor_color == -1 || data->ceiling_color == -1)
+        return (1);  // Return 1 if any required field is empty
+    return (0);  // Return 0 if all fields are filled
 }
 
 void	check_valid_infos(t_config *data, char *line)
@@ -82,6 +82,4 @@ void	check_valid_infos(t_config *data, char *line)
 		check_valid_rgb(data, &data->ceiling_color, line);
 	else
 		print_error(ERR_UNKNOWNID, data);
-	if (info_empty(data))
-		print_error(ERR_MISSINGTEXT, data);
 }

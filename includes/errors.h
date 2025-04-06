@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 21:16:42 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/07 00:26:25 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/07 00:35:09 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define ERR_NOARG "Argument needed !"
 # define ERR_MULTI "Multiple declaration xpm"
 # define ERR_UNKNOWNID "Invalid line in .cub file"
-# define ERR_MISSINGTEXT "Texture missing"
+# define ERR_MISSINGTEXT "Something is missing in .cub file"
 # define ERR_EMPTYMAP "Empty line in map"
 # define ERR_INVALIDMAPCHAR "Invalid char in map"
 # define ERR_MAPEOF "Map line should be at the end of file"
