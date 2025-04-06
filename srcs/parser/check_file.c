@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:41:03 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/07 00:24:46 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/07 00:27:57 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ void	check_valid_infos(t_config *data, char *line)
 		check_valid_rgb(data, &data->floor_color, line);
 	else if (ft_strncmp(line, "C", 1) == 0)
 		check_valid_rgb(data, &data->ceiling_color, line);
-	else if (line[0] == '1' || line[0] == '0')
-		;
 	else
 		print_error(ERR_UNKNOWNID, data);
 	if (info_empty(data))
