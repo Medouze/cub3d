@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:57:23 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/07 00:37:04 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:54:35 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,16 @@ void	copy_map(t_config *data, int fd, char *path)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if ((line[0] == '0' || line[0] == '1'))
+		if (ft_strchr(VALID_STARTMAP, line[0]) && !is_only_whitespace(line))
 		{
-			ft_trim_in_place(line, " \n\t");
+			ft_trim_in_place(line, "\n");
 			data->map[i] = ft_strdup(line);
 			i++;
 		}
 		free(line);
 	}
 	data->map[i] = NULL;
+	valid_map(data);
 }
 
 void	fill_data(t_config *data, char *path)
@@ -102,19 +103,11 @@ void	fill_data(t_config *data, char *path)
 		if (!line)
 			break ;
 		if (!is_only_whitespace(line))
-		{
-			if (line[0] == '0' || line[0] == '1')
-			{
-				if (info_empty(data))
-					print_error(ERR_MISSINGTEXT, data);
-				free(line);
-				copy_map(data, fd, path);
-				return ;
-			}
 			check_valid_infos(data, line);
-		}
 		free(line);
 	}
-	if (info_empty(data) || !data->map)
+	if (info_empty(data))
 		print_error(ERR_MISSINGTEXT, data);
+	copy_map(data, fd, path);
+	return ;
 }
