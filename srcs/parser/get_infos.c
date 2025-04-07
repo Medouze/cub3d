@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:57:23 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/07 16:54:35 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/07 21:43:33 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	count_check_map_lines(t_config *data, int fd)
 void	allocate_map(t_config *data, int fd)
 {
 	int		size;
-	
+
 	size = count_check_map_lines(data, fd);
 	data->map = malloc(sizeof(char *) * (size + 1));
 	if (!data->map)
@@ -68,8 +68,9 @@ void	allocate_map(t_config *data, int fd)
 void	copy_map(t_config *data, int fd, char *path)
 {
 	char	*line;
-	int		i = 0;
+	int		i;
 
+	i = 0;
 	allocate_map(data, fd);
 	fd = open(path, O_RDONLY);
 	while (1)

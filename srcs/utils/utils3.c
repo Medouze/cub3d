@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 21:26:44 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/05 22:23:52 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/07 21:33:21 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,39 @@ int	ft_atoi(const char *str)
 		str++;
 	}
 	return (result * sign);
+}
+
+char	**copy_double(char **map)
+{
+	int		i;
+	char	**copy;
+
+	i = 0;
+	while (map[i])
+		i++;
+	copy = malloc(sizeof(char *) * (i + 1));
+	if (!copy)
+		return (NULL);
+	i = 0;
+	while (map[i])
+	{
+		copy[i] = ft_strdup(map[i]);
+		if (!copy[i])
+		{
+			while (i-- > 0)
+				free(copy[i]);
+			free(copy);
+			return (NULL);
+		}
+		i++;
+	}
+	copy[i] = NULL;
+	return (copy);
+}
+
+int	ft_isalpha(int c)
+{
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		return (1024);
+	return (0);
 }

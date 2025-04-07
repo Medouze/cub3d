@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 17:36:40 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/07 00:28:51 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/07 17:09:43 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,8 @@ void	init_config(t_config *config)
 	config->ea_texture = NULL;
 	config->floor_color = -1;
 	config->ceiling_color = -1;
+	config->player_pos_x = 0;
+	config->player_pos_y = 0;
+	config->player_direction = ' ';
 	config->map = NULL;
 }

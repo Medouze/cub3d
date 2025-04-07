@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 17:34:46 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/07 00:36:30 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/07 18:18:18 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	print_config(const t_config *config)
 		printf("Config is NULL\n");
 		return;
 	}
-	printf("\n=== Configuration ===\n");
+	printf("=== Configuration ===\n");
 	printf("NO Texture: %s\n", config->no_texture ? config->no_texture : "(null)");
 	printf("SO Texture: %s\n", config->so_texture ? config->so_texture : "(null)");
 	printf("WE Texture: %s\n", config->we_texture ? config->we_texture : "(null)");
@@ -49,5 +49,5 @@ void	parser(t_config *data, char *path)
 	if (info_empty(data) || !data->map)
 		print_error(ERR_MISSINGTEXT, data);
 	print_config(data);
-	print_error("FREED ALL", data);
+	free_config(data);
 }

@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 21:16:42 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/07 16:49:27 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/07 21:37:16 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 
 # define VALID_ID "NSWAEO  \t"
 # define VALID_MAPCHAR "10NESW  \n"
-# define VALID_STARTMAP "1 \n"
+# define PLAYERCHAR "NESW"
+# define VALID_STARTMAP "1 \n\t"
 # define ERR_MALLOC "Malloc failed"
 # define ERR_XPMSPACE "Has space in xpm name"
 # define ERR_XPMSYNTAX "Texture syntax"
@@ -32,4 +33,9 @@
 # define ERR_EMPTYMAP "Empty line in map"
 # define ERR_INVALIDMAPCHAR "Invalid char in map"
 # define ERR_MAPEOF "Map line should be at the end of file"
+# define ERR_MULTPLAYER "Multiple players on the map"
+# define ERR_NOPLAYER "No player on the map"
+# define ERR_PLAYERSTUCK "Player is stuck in spawn"
+# define ERR_MAPUNCLOSED "Map is not closed"
+# define ERR_TABMAP "Tab not allowed in map"
 #endif
