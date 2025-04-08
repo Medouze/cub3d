@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/08 18:34:16 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/08 19:21:57 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,13 @@ void render_wall(t_mlx mlx)
 
 	float dif_x = (v1.x - v2.x) / WIDTH;
 	float dif_y = (v1.y - v2.y) / WIDTH;
-	int count = 0;
-	while (count <= WIDTH)
+	int count = WIDTH - 1;
+	while (count >= 0)
 	{
 		draw_wall(mlx, v1.x, v1.y, count);
 		v1.x -= dif_x;
 		v1.y -= dif_y;
-		count++;
+		count--;
 	}
 }
 
