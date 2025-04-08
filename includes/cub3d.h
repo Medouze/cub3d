@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:19:26 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/08 17:59:48 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/08 22:37:45 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	check_valid_rgb(t_config *data, int *value, char *rgb);
 void	check_file(char *path);
 void	check_valid_infos(t_config *data, char *line);
 int		info_empty(t_config *data);
-void    valid_map(t_config *data);
+void	valid_map(t_config *data);
 /*map*/
 char	**pad_map_lines(char **map);
 void	check_walls(char **map, t_config *data);

@@ -6,17 +6,11 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/08 19:21:57 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/08 22:51:10 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void put_pixel(t_mlx mlx, int x, int y, int color)
-{
-	char *dst = mlx.address + y * mlx.size_line +  x * (mlx.bits_per_pixel / 8);
-	*(unsigned int *)dst = color;
-}
 
 t_point	near_wall(t_mlx mlx, float delta[2], float tmp[2], int color)
 {
@@ -34,14 +28,14 @@ t_point	near_wall(t_mlx mlx, float delta[2], float tmp[2], int color)
 			hit = 1;
 			if (fabs(delta[0]) > fabs(delta[1])) {
 				if (delta[0] < 0)
-					p.wall = EAST;
+					p.color = EAST;
 				else
-					p.wall = WEST;
+					p.color = WEST;
             } else {
 				if (delta[0] < 0)
-					p.wall = SOUTH;
+					p.color = SOUTH;
 				else
-					p.wall = NORTH;
+					p.color = NORTH;
             }
 		}
 
@@ -58,59 +52,93 @@ t_point cast_ray(t_mlx mlx, float x, float y, int color)
 	t_point	wall;
 	float length;
 
-	delta[0] = (x * mlx.scaling - mlx.player.pos.x * mlx.scaling);
-	delta[1] = (y * mlx.scaling - mlx.player.pos.y * mlx.scaling);
+	delta[0] = (x * mlx.scaling - mlx.player.x * mlx.scaling);
+	delta[1] = (y * mlx.scaling - mlx.player.y * mlx.scaling);
 	length = sqrt(delta[0] * delta[0] + delta[1] * delta[1]);
 	delta[0] /= length;
 	delta[1] /= length;
-	tmp[0] = mlx.player.pos.x * mlx.scaling;
-	tmp[1] = mlx.player.pos.y * mlx.scaling;
+	tmp[0] = mlx.player.x * mlx.scaling;
+	tmp[1] = mlx.player.y * mlx.scaling;
 	wall = near_wall(mlx, delta, tmp, color);
 	return (wall);
 } 
 
-void draw_wall(t_mlx mlx, float x, float y, int i)
+t_point	raycast(t_mlx mlx, float rad_angle)
 {
-	t_point wall;
-	char	*dst;
+	int		hit;
+	t_point	p;
+	float	delta[2];
 
-	wall = cast_ray(mlx, x, y, 0xFF0000);
-	float dis = sqrtf((wall.x-mlx.player.pos.x) * (wall.x-mlx.player.pos.x) + (wall.y-mlx.player.pos.y) * (wall.y-mlx.player.pos.y));
-	if (dis < mlx.player.view_distance)
+
+	
+	hit = 0;
+	delta[0] = cos(rad_angle);
+	delta[1] = sin(rad_angle);
+	float x;
+	float y;
+
+	x = mlx.player.x * mlx.scaling;
+	y = mlx.player.y * mlx.scaling;
+	while (!hit)
 	{
-		float tmp = (float) mlx.player.view_distance / (float) HEIGHT; // store 1/600e of 100%;
-		float count = mlx.player.view_distance;
-		for (int j = 0; j < HEIGHT / 2; j++)
+		//put_pixel(mlx, roundf(x), roundf(y), 0xFFFFFF); //tmp
+		x += delta[0];
+		y += delta[1];
+		if (mlx.map[(int) (y / mlx.scaling)][(int) (x / mlx.scaling)] == '1')
 		{
-			if (count > dis)
-			{
-				dst = mlx.address + ((HEIGHT / 2 - j) * mlx.size_line) + (i * (mlx.bits_per_pixel / 8));
-				*(unsigned int *)dst = wall.wall;
-				dst = mlx.address + ((HEIGHT / 2 + j) * mlx.size_line) + (i * (mlx.bits_per_pixel / 8));
-				*(unsigned int *)dst = wall.wall;
-				count -= tmp * 2;
-			}
+			hit = 1;
+			if (fabs(delta[0]) > fabs(delta[1])) {
+				if (delta[0] < 0)
+					p.color = EAST;
+				else
+					p.color = WEST;
+            } else {
+				if (delta[0] < 0)
+					p.color = SOUTH;
+				else
+					p.color = NORTH;
+            }
 		}
 	}
+	p.x = x / mlx.scaling;
+	p.y = y / mlx.scaling;
+	return (p);
 }
 
 void render_wall(t_mlx mlx)
 {
-	t_point v1;
-	t_point v2;
+	// test
+	int line = -1;
 
-	v1 = calculate_point(&mlx, mlx.player.rotation + mlx.player.fov / 2);
-	v2 = calculate_point(&mlx, mlx.player.rotation - mlx.player.fov / 2);
-
-	float dif_x = (v1.x - v2.x) / WIDTH;
-	float dif_y = (v1.y - v2.y) / WIDTH;
-	int count = WIDTH - 1;
-	while (count >= 0)
+	t_point v = calculate_point(&mlx, mlx.player.rotation);
+	float step = to_radians((float) mlx.player.fov / (float) WIDTH);
+	float base_angle = atan2(v.y - mlx.player.y, v.x - mlx.player.x);
+	float angle = base_angle - to_radians(mlx.player.fov / 2);
+	while (++line < WIDTH)
 	{
-		draw_wall(mlx, v1.x, v1.y, count);
-		v1.x -= dif_x;
-		v1.y -= dif_y;
-		count--;
+		t_point wall = raycast(mlx, angle);
+		//test
+		char *dst;
+		float dis = sqrtf((wall.x-mlx.player.x) * (wall.x-mlx.player.x) + (wall.y-mlx.player.y) * (wall.y-mlx.player.y));
+		if (dis < mlx.player.view_distance)
+		{
+			float tmp = (float) mlx.player.view_distance / (float) HEIGHT; // store 1/600e of 100%;
+			float count = mlx.player.view_distance;
+			for (int j = 0; j < HEIGHT / 2; j++)
+			{
+				if (count > dis)
+				{
+					dst = mlx.address + ((HEIGHT / 2 - j) * mlx.size_line) + (line * (mlx.bits_per_pixel / 8));
+					*(unsigned int *)dst = wall.color;
+					dst = mlx.address + ((HEIGHT / 2 + j) * mlx.size_line) + (line * (mlx.bits_per_pixel / 8));
+					*(unsigned int *)dst = wall.color;
+					count -= tmp * 2;
+				}
+			}
+		}
+		//test
+		//printf("angle = %f, base = %f\n", angle, base_angle);
+		angle += step;
 	}
 }
 
@@ -192,13 +220,14 @@ void rendering(t_config data)
 
 	t_mlx mlx = init_window(&data);
 	mlx.map = map;
-	mlx.player.pos.x = 2.5;
-	mlx.player.pos.y = 2.5;
+	mlx.player.x = 2.5;
+	mlx.player.y = 2.5;
 	mlx.scaling = 30;
 	mlx.img = NULL;
 	mlx.address = NULL;
 
 	//mlx_key_hook(mlx.win_ptr, handle_keypress, &mlx);
+	render_frame(&mlx);
 	mlx_hook(mlx.win_ptr, 2, 1L << 0, handle_keypress, &mlx);
 	mlx_loop(mlx.mlx_ptr);
 }

@@ -6,26 +6,22 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:48:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/08 19:22:17 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/08 22:55:05 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-float	to_radians(int degree)
-{
-	return (degree * PI/180);
-}
-
 t_point	calculate_point(t_mlx *mlx, int rotation)
 {
+	float	x;
+	float	y;
 	t_point p;
 
-	p.x = mlx->player.pos.x + mlx->player.dir.x;
-	p.y = mlx->player.pos.y + mlx->player.dir.y;
-
-	float x = cos(to_radians(rotation)) * (p.x - mlx->player.pos.x) - sin(to_radians(rotation)) * (p.y - mlx->player.pos.y) + mlx->player.pos.x;
-	float y = sin(to_radians(rotation)) * (p.x - mlx->player.pos.x) - cos(to_radians(rotation)) * (p.y - mlx->player.pos.y) + mlx->player.pos.y;
+	p.x = mlx->player.x + mlx->player.x_dir;
+	p.y = mlx->player.y + mlx->player.y_dir;
+	x = cos(to_radians(rotation)) * (p.x - mlx->player.x) - sin(to_radians(rotation)) * (p.y - mlx->player.y) + mlx->player.x;
+	y = sin(to_radians(rotation)) * (p.x - mlx->player.x) - cos(to_radians(rotation)) * (p.y - mlx->player.y) + mlx->player.y;
 	p.x = x;
 	p.y = y;
 	return (p);
@@ -40,25 +36,26 @@ int handle_keypress(int key, t_mlx *mlx)
 		mlx_destroy_image(mlx->mlx_ptr, mlx->img);
 		mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
 		mlx_destroy_display(mlx->mlx_ptr);
+		free(mlx->mlx_ptr);
 		exit(0);
 	}
 	if (key == 65362) //up
 	{
 		t_point v = calculate_point(mlx, mlx->player.rotation);
-		float dif_x = (mlx->player.pos.x - v.x) * 0.1;
-		float dif_y = (mlx->player.pos.y - v.y) * 0.1;
+		float dif_x = (mlx->player.x - v.x) * 0.1;
+		float dif_y = (mlx->player.y - v.y) * 0.1;
 		printf("difx = %f, dify = %f\n", dif_x, dif_y);
-		mlx->player.pos.x -= dif_x;
-		mlx->player.pos.y -= dif_y;
+		mlx->player.x -= dif_x;
+		mlx->player.y -= dif_y;
 	}
 	if (key == 65364) //down
 	{
 		t_point v = calculate_point(mlx, mlx->player.rotation);
-		float dif_x = (mlx->player.pos.x - v.x) * 0.1;
-		float dif_y = (mlx->player.pos.y - v.y) * 0.1;
+		float dif_x = (mlx->player.x - v.x) * 0.1;
+		float dif_y = (mlx->player.y - v.y) * 0.1;
 		printf("difx = %f, dify = %f\n", dif_x, dif_y);
-		mlx->player.pos.x += dif_x;
-		mlx->player.pos.y += dif_y;
+		mlx->player.x += dif_x;
+		mlx->player.y += dif_y;
 	}
 	if (key == 65361) //left
 	{

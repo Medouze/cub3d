@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I $(LIBFT_INC) -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -I $(LIBFT_INC) -g -fsanitize=address
 MLX_FLAGS = -lX11 -lXext -lXrandr -lXrender -lXfixes -lm -lbsd
 
 # Directories
@@ -24,6 +24,8 @@ SRC_LIST = main.c\
 			render/key_hook.c\
 			render/init.c\
 			render/rendering.c\
+			render/destroy_window.c\
+			render/utils.c\
 			parser/get_infos.c\
 			parser/init.c\
 			parser/rgb.c\
@@ -93,5 +95,8 @@ norm:
 
 test: all
 	./$(NAME) maps/maptest.cub
+
+leak: all
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) maps/maptest.cub
 
 .PHONY: all clean fclean re norm

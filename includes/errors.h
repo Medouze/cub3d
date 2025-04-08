@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 21:16:42 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/08 14:14:19 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/08 22:38:00 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERRORS_H
 # define ERRORS_H
 
-#define MAX_MAP_LINES 1024
+# define MAX_MAP_LINES 1024
 
 # define VALID_ID "NSWAEO  \t"
 # define VALID_MAPCHAR "10NESW  \n"
