@@ -6,30 +6,40 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:47:59 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/08 16:56:52 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:13:22 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_player init_player(void)
+t_player init_player(t_mlx mlx)
 {
 	t_player player;
 
-	player.pos.x = 2.5;
-	player.pos.y = 2.5;
+	player.pos.x = mlx.config->player_pos_x + 0.5;
+	player.pos.y = mlx.config->player_pos_y + 0.5;
 	player.dir.x = 0;
-	player.dir.y = -1;
-	player.fov = 60;
+	player.dir.y = 0;
+	if (mlx.config->player_direction == 'N')
+		player.dir.y = -1;
+	else if (mlx.config->player_direction == 'S')
+		player.dir.y = 1;
+	else if (mlx.config->player_direction == 'W')
+		player.dir.x = -1;
+	else
+		player.dir.x = 1;
+	player.fov = 80;
 	player.view_distance = 10;
 	return (player);
 }
 
-t_mlx	init_window(void)
+t_mlx	init_window(t_config *data)
 {
 	t_mlx	mlx;
 
 	mlx.show_map = 1;
+	mlx.config = data;
+	mlx.map = data->map;
 	mlx.mlx_ptr = mlx_init();
 	//protect
 	if (!mlx.mlx_ptr)
@@ -44,6 +54,6 @@ t_mlx	init_window(void)
 		printf("ERROR");
 		exit(0);
 	}
-	mlx.player = init_player();
+	mlx.player = init_player(mlx);
 	return (mlx);
 }

@@ -92,6 +92,6 @@ norm:
 	@norminette src
 
 test: all
-	./$(NAME)
+	./$(NAME) maps/maptest.cub
 
 .PHONY: all clean fclean re norm

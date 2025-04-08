@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/08 16:55:46 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:14:45 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_point	near_wall(t_mlx mlx, float delta[2], float tmp[2], int color)
 		put_pixel(mlx, roundf(tmp[0]), roundf(tmp[1]), color); //tmp
 		tmp[0] += delta[0];
 		tmp[1] += delta[1];
-		if (mlx.map[((int) tmp[1]) / mlx.scaling][((int) tmp[0]) / mlx.scaling])
+		if (mlx.map[((int) tmp[1]) / mlx.scaling][((int) tmp[0]) / mlx.scaling] == '1')
 		{
 			hit = 1;
 			if (fabs(delta[0]) > fabs(delta[1])) {
@@ -128,7 +128,7 @@ void draw_map(t_mlx mlx)
 				for (int j = 0; j < mlx.scaling; j++)
 				{
 					char *dst = mlx.address + ((y * mlx.scaling + i) * mlx.size_line + (x * mlx.scaling + j) * (mlx.bits_per_pixel / 8));
-					if (mlx.map[y][x] == 1)
+					if (mlx.map[y][x] == '1')
 						*(unsigned int *)dst = 0xFF0000;
 					else
 						*(unsigned int *)dst = 0x00FF00;
@@ -173,5 +173,33 @@ void render_frame(t_mlx mlx)
 	if (mlx.show_map)
 		draw_map(mlx);
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.img, 0, 0);
+}
+
+void rendering(t_config data)
+{
+	// to remove
+	char *map[] = {
+			"11111",
+			"10101",
+			"10001",
+			"10001",
+			"11011",
+			"11011",
+			"10001",
+			"11101",
+			"10001",
+			"11111"};
+
+	t_mlx mlx = init_window(&data);
+	mlx.map = map;
+	mlx.player.pos.x = 2.5;
+	mlx.player.pos.y = 2.5;
+	mlx.scaling = 30;
+	mlx.img = NULL;
+	mlx.address = NULL;
+
+	//mlx_key_hook(mlx.win_ptr, handle_keypress, &mlx);
+	mlx_hook(mlx.win_ptr, 2, 1L << 0, handle_keypress, &mlx);
+	mlx_loop(mlx.mlx_ptr);
 }
 

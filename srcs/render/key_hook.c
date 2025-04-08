@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:48:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/07 17:19:53 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:15:25 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,15 @@ int handle_keypress(int key, t_mlx *mlx)
 	}
 	if (key == 65361) //left
 	{
-		mlx->player.rotation += 10;
-		if (mlx->player.rotation >= 360)
-			mlx->player.rotation = 0;
-	}
-	if (key == 65363) //right
-	{
 		mlx->player.rotation -= 10;
 		if (mlx->player.rotation < 0)
 			mlx->player.rotation = 350;
+	}
+	if (key == 65363) //right
+	{
+		mlx->player.rotation += 10;
+		if (mlx->player.rotation >= 360)
+			mlx->player.rotation = 0;
 	}
 	if (key == 109) // M
 	{

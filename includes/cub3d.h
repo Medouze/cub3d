@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:19:26 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/08 17:26:15 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:59:48 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,6 @@ int		ft_is_space(char c);
 int		ft_atoi(const char *str);
 char	**copy_double(char **map);
 int		ft_isalpha(int c);
-
+/* Render */
+void	rendering(t_config data);
 #endif
