@@ -1,45 +1,97 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/04/05 11:24:00 by mlavergn          #+#    #+#              #
-#    Updated: 2025/04/07 21:42:53 by mlavergn         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+# Compiler and flags
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -I $(LIBFT_INC) -fsanitize=address -g
+MLX_FLAGS = -lX11 -lXext -lXrandr -lXrender -lXfixes -lm -lbsd
 
-NAME        = cub3D
-DIR         = srcs/
-GNL         = gnl/
-CC          = gcc
-FLAGS       = -Wall -Werror -Wextra
-MLX         = libmlx.a
-MFLAGS      = -L. $(MLX) -lXext -lX11 -lm -fsanitize=address -g
-PARSER		= srcs/parser/
-ERROR		= srcs/error/
-UTILS		= srcs/utils/
-SRCS =      $(GNL)get_next_line.c $(GNL)get_next_line_utils.c $(DIR)main.c\
-			$(PARSER)get_infos.c  $(UTILS)utils.c  $(PARSER)check_file.c\
-			$(PARSER)parser.c $(PARSER)init.c  $(PARSER)rgb.c $(UTILS)utils2.c \
-			$(UTILS)utils3.c $(PARSER)map.c $(PARSER)map_utils.c $(ERROR)error.c
-OBJS =      $(SRCS:.c=.o)
+# Directories
+SRC_DIR = srcs
+OBJ_DIR = obj
+OBJ_FOLDER = obj
+LIBFT_DIR = libft
 
-all: $(NAME)
+# Name
+NAME = cub3D
+LIBFT = $(LIBFT_DIR)/libft.a
+MLX_LIB = minilibx-linux/libmlx.a
 
-%.o: %.c
-	$(CC) $(FLAGS) -I$(GNL) -I$(DIR) -I$(DIR)parser -c $< -o $@
+# Header
+INC = includes
+LIBFT_INC = libft/includes
+MLX_INC = minilibx-linux
 
-$(NAME): $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) $(MFLAGS) -o $(NAME)
+# Source and Object files
+SRC_LIST = main.c\
+			render/key_hook.c\
+			render/init.c\
+			render/rendering.c\
+			parser/get_infos.c\
+			parser/init.c\
+			parser/rgb.c\
+			parser/check_file.c\
+			parser/map.c\
+			parser/map_utils.c\
+			parser/parser.c\
+			utils/utils.c\
+			utils/utils2.c\
+			utils/utils3.c\
+			error/error.c\
+
+
+SRC = $(addprefix $(SRC_DIR)/,$(SRC_LIST))
+OBJ = $(addprefix $(OBJ_DIR)/,$(SRC_LIST:.c=.o))
+
+# Colors
+YELLOW = \033[0;33m
+RED = \033[0;31m
+RESET = \033[0m
+
+# Main
+all: $(OBJ_DIR) $(NAME)
+
+# Create path for object
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(OBJ_DIR)/render
+	@mkdir -p $(OBJ_DIR)/error
+	@mkdir -p $(OBJ_DIR)/parser
+	@mkdir -p $(OBJ_DIR)/utils
+
+# Linking object files
+$(NAME): $(MLX_LIB) $(OBJ) $(LIBFT)
+	@$(CC) $(CFLAGS) -I $(INC) $(OBJ) $(LIBFT) $(MLX_LIB) -o $(NAME) $(MLX_FLAGS)
+	@echo "$(YELLOW)Exec $(NAME) created.$(RESET)"
+
+# Compiling source files to object files
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c $(INC) $(LIBFT_INC) $(MLX_INC)
+	@$(CC) $(CFLAGS) -I $(INC) -I $(MLX_INC) -c $< -o $@
+
+$(LIBFT):
+	@make -C $(LIBFT_DIR) --no-print-directory
+
+$(MLX_LIB):
+	@make -C $(MLX_INC) --no-print-directory
 
 clean:
-	rm -f $(OBJS)
+	@rm -rf $(OBJ_FOLDER)
+	@make clean -C $(LIBFT_DIR) --no-print-directory
+	@make clean -C $(MLX_INC) --no-print-directory
+	@echo "$(RED)cub3d: Cleaned object files$(RESET)"
 
-fclean: clean
-	rm -f $(NAME)
+fclean:
+	@rm -f $(NAME)
+	@rm -rf $(OBJ_FOLDER)
+	@rm -rf minilibx-linux/obj
+	@make fclean -C $(LIBFT_DIR) --no-print-directory
+	@echo "$(RED)cub3d: Removed binary files$(RESET)"
 
 re: fclean all
 
-.PHONY: all clean fclean re
+norm:
+	@norminette includes
+	@norminette libft
+	@norminette src
+
+test: all
+	./$(NAME)
+
+.PHONY: all clean fclean re norm

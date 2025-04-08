@@ -1,27 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 17:36:40 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/08 17:30:28 by qmorinea         ###   ########.fr       */
+/*   Created: 2024/10/17 15:46:58 by qmorinea          #+#    #+#             */
+/*   Updated: 2024/10/24 14:53:27 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	init_config(t_config *config)
+void	printf_putchar_fd(char c, int fd, int *count)
 {
-	config->no_texture = NULL;
-	config->so_texture = NULL;
-	config->we_texture = NULL;
-	config->ea_texture = NULL;
-	config->floor_color = -1;
-	config->ceiling_color = -1;
-	config->player_pos_x = 0;
-	config->player_pos_y = 0;
-	config->player_direction = ' ';
-	config->map = NULL;
+	int	i;
+
+	i = write(fd, &c, 1);
+	if (i < 0 || (*count) == -1)
+		(*count) = -1;
+	else
+		(*count)++;
+}
+
+void	printf_putstr_fd(char *s, int fd, int *count)
+{
+	size_t	i;
+
+	i = 0;
+	if (!s)
+	{
+		printf_putstr_fd("(null)", fd, count);
+		return ;
+	}
+	while (s[i])
+	{
+		printf_putchar_fd(s[i++], fd, count);
+		if (*count == -1)
+			return ;
+	}
 }

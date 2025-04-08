@@ -1,0 +1,64 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
+/*   Updated: 2025/04/08 17:25:56 by qmorinea         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef RENDER_H
+#define RENDER_H
+
+#define WIDTH 800
+#define HEIGHT 600
+#ifndef PI
+#define PI 3.14159265
+#endif
+
+#define NORTH 0xFF0000
+#define SOUTH 0x0000FF
+#define EAST  0x00FF00
+#define WEST 0xFFFF00
+
+typedef struct s_point
+{
+	float x;
+	float y;
+	int		wall;
+}	t_point;
+
+typedef struct s_player
+{
+	t_point pos;
+	t_point ray;
+	t_point	dir;
+	int fov;
+	int view_distance;
+	int rotation;
+}	t_player;
+
+typedef struct s_mlx
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+	void	*img;
+	void	*address;
+	int		bits_per_pixel;
+	int		size_line;
+	int		endians;
+	int 	**map;
+	int		scaling;
+	int 	show_map;
+	t_player player;
+}	t_mlx;
+
+t_mlx	init_window(void);
+int handle_keypress(int key, t_mlx *mlx);
+void render_frame(t_mlx mlx);
+t_point	calculate_point(t_mlx *mlx, int rotation);
+
+#endif

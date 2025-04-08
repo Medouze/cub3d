@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:19:26 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/08 16:05:28 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:26:15 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 
 # include <fcntl.h>
 # include <stdio.h>
-# include "../minilibx-linux/mlx.h"
-# include "../gnl/get_next_line.h"
+# include <math.h>
+# include <stdio.h>
+# include "mlx.h"
+# include "libft.h"
 # include "errors.h"
+# include "render.h"
 
 typedef struct s_config
 {
