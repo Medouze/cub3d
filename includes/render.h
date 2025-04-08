@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/08 22:53:44 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/08 23:34:45 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ t_point	calculate_point(t_mlx *mlx, int rotation);
 /******************** MLX ********************/
 
 void	destroy_window(t_mlx *mlx, int is_error);
+
+/****************** MINIMAP ******************/
+
+void	draw_map(t_mlx mlx);
+void	show_minimap(t_mlx mlx);
 
 /******************* UTILS *******************/
 

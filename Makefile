@@ -25,6 +25,7 @@ SRC_LIST = main.c\
 			render/init.c\
 			render/rendering.c\
 			render/destroy_window.c\
+			render/minimap.c\
 			render/utils.c\
 			parser/get_infos.c\
 			parser/init.c\
