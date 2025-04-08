@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 21:40:36 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/08 16:14:43 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/08 21:38:40 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ char	**pad_map_lines(char **map)
 char	get_tile(char **map, int i, int j)
 {
 	if (i < 0 || !map[i])
-		return (0); // NULL tile
+		return (0);
 	if (j < 0 || j >= (int)ft_strlen(map[i]))
-		return (0); // Out of bounds
+		return (0);
 	return (map[i][j]);
 }
 
@@ -98,7 +98,6 @@ void	check_walls(char **map, t_config *data)
 			tile = map[i][j];
 			if (tile == '0' || tile == 'N' || tile == 'S' || tile == 'E' || tile == 'W')
 			{
-				// If any surrounding tile is NULL (get_tile returns 0) or '2', error
 				if (get_tile(map, i - 1, j) == 0 || get_tile(map, i - 1, j) == '2' ||
 					get_tile(map, i + 1, j) == 0 || get_tile(map, i + 1, j) == '2' ||
 					get_tile(map, i, j - 1) == 0 || get_tile(map, i, j - 1) == '2' ||
