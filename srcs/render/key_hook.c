@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:48:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/08 18:15:25 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:33:57 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,6 @@ int handle_keypress(int key, t_mlx *mlx)
 	{
 		mlx->show_map = !mlx->show_map;
 	}
-	render_frame(*mlx);
+	render_frame(mlx);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/08 17:59:40 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:33:10 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_mlx
 
 t_mlx	init_window(t_config *data);
 int handle_keypress(int key, t_mlx *mlx);
-void render_frame(t_mlx mlx);
+void render_frame(t_mlx *mlx);
 t_point	calculate_point(t_mlx *mlx, int rotation);
 
 #endif

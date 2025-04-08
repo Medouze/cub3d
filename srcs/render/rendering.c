@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/08 18:14:45 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/08 18:34:16 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,26 +153,26 @@ void draw_map(t_mlx mlx)
 	}
 }
 
-void render_frame(t_mlx mlx)
+void render_frame(t_mlx *mlx)
 {
-	if (mlx.img)
-		mlx_destroy_image(mlx.mlx_ptr, mlx.img);
-	mlx.img = mlx_new_image(mlx.mlx_ptr, WIDTH, HEIGHT);
-	if (!mlx.img)
+	if (mlx->img)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->img);
+	mlx->img = mlx_new_image(mlx->mlx_ptr, WIDTH, HEIGHT);
+	if (!mlx->img)
 	{
 		printf("ERROR");
 		exit(0);
 	}
-	mlx.address = mlx_get_data_addr(mlx.img, &mlx.bits_per_pixel, &mlx.size_line, &mlx.endians);
-	if (!mlx.address)
+	mlx->address = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->size_line, &mlx->endians);
+	if (!mlx->address)
 	{
 		printf("ERROR");
 		exit(0);
 	}
-	render_wall(mlx);
-	if (mlx.show_map)
-		draw_map(mlx);
-	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.img, 0, 0);
+	render_wall(*mlx);
+	if (mlx->show_map)
+		draw_map(*mlx);
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img, 0, 0);
 }
 
 void rendering(t_config data)
