@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:31:36 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/07 21:45:14 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:16:00 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,16 @@ void	check_map_info(t_config *data, char **map)
 		print_error(ERR_NOPLAYER, data);
 }
 
+void	print_map(char **map)
+{
+	int i = 0;
+	while (map[i])
+	{
+		printf("%s\n", map[i]);
+		i++;
+	}
+}
+
 void	valid_map(t_config *data)
 {
 	char	**map_copy;
@@ -77,6 +87,6 @@ void	valid_map(t_config *data)
 	check_map_info(data, data->map);
 	map_copy = pad_map_lines(data->map);
 	check_player_stuck(data);
-	check_walls(map_copy, data->player_pos_x, data->player_pos_y, data);
+	check_walls(map_copy, data);
 	free_double(map_copy);
 }

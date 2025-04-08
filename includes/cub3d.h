@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:19:26 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/07 21:42:09 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:05:28 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		info_empty(t_config *data);
 void    valid_map(t_config *data);
 /*map*/
 char	**pad_map_lines(char **map);
-void	check_walls(char **map, int y, int x, t_config *data);
+void	check_walls(char **map, t_config *data);
 void	check_player_stuck(t_config *data);
 /*utils*/
 int		ft_strncmp(const char *s1, const char *s2, size_t n);

@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 21:40:36 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/07 21:48:15 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/08 16:14:43 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,21 +76,43 @@ char	**pad_map_lines(char **map)
 	padded_map[height] = NULL;
 	return (padded_map);
 }
-
-void	check_walls(char **map, int y, int x, t_config *data)
+char	get_tile(char **map, int i, int j)
 {
-	if (y < 0 || !map[y] || x < 0 || x >= (int)ft_strlen(map[y]))
-		print_error(ERR_MAPUNCLOSED, data);
-	if (map[y][x] == '1' || map[y][x] == 'F')
-		return ;
-	if (map[y][x] == '2')
-		print_error(ERR_MAPUNCLOSED, data);
-	map[y][x] = 'F';
-	check_walls(map, y + 1, x, data);
-	check_walls(map, y - 1, x, data);
-	check_walls(map, y, x + 1, data);
-	check_walls(map, y, x - 1, data);
+	if (i < 0 || !map[i])
+		return (0); // NULL tile
+	if (j < 0 || j >= (int)ft_strlen(map[i]))
+		return (0); // Out of bounds
+	return (map[i][j]);
 }
+
+
+void	check_walls(char **map, t_config *data)
+{
+	int	i, j;
+	char	tile;
+
+	for (i = 0; map[i]; i++)
+	{
+		for (j = 0; map[i][j]; j++)
+		{
+			tile = map[i][j];
+			if (tile == '0' || tile == 'N' || tile == 'S' || tile == 'E' || tile == 'W')
+			{
+				// If any surrounding tile is NULL (get_tile returns 0) or '2', error
+				if (get_tile(map, i - 1, j) == 0 || get_tile(map, i - 1, j) == '2' ||
+					get_tile(map, i + 1, j) == 0 || get_tile(map, i + 1, j) == '2' ||
+					get_tile(map, i, j - 1) == 0 || get_tile(map, i, j - 1) == '2' ||
+					get_tile(map, i, j + 1) == 0 || get_tile(map, i, j + 1) == '2' ||
+					get_tile(map, i - 1, j - 1) == 0 || get_tile(map, i - 1, j - 1) == '2' ||
+					get_tile(map, i - 1, j + 1) == 0 || get_tile(map, i - 1, j + 1) == '2' ||
+					get_tile(map, i + 1, j - 1) == 0 || get_tile(map, i + 1, j - 1) == '2' ||
+					get_tile(map, i + 1, j + 1) == 0 || get_tile(map, i + 1, j + 1) == '2')
+					print_error("Map is not surrounded by walls", data);
+			}
+		}
+	}
+}
+
 
 void	check_player_stuck(t_config *data)
 {

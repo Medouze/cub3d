@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:57:23 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/07 21:43:33 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/08 14:25:57 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	copy_map(t_config *data, int fd, char *path)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (ft_strchr(VALID_STARTMAP, line[0]) && !is_only_whitespace(line))
+		if (ft_strchr(VALID_STARTMAP, line[0]))
 		{
 			ft_trim_in_place(line, "\n");
 			data->map[i] = ft_strdup(line);
@@ -105,10 +105,13 @@ void	fill_data(t_config *data, char *path)
 			break ;
 		if (!is_only_whitespace(line))
 			check_valid_infos(data, line);
+		if (ft_strchr(VALID_STARTMAP, line[0]))
+		{
+			if (info_empty(data))
+				print_error(ERR_MISSINGTEXT, data);
+			copy_map(data, fd, path);
+		}
 		free(line);
 	}
-	if (info_empty(data))
-		print_error(ERR_MISSINGTEXT, data);
-	copy_map(data, fd, path);
 	return ;
 }
