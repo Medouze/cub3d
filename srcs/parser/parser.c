@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 17:34:46 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/08 17:30:38 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/09 17:56:45 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,5 @@ void	parser(t_config *data, char *path)
 	if (info_empty(data) || !data->map)
 		print_error(ERR_MISSINGTEXT, data);
 	print_config(data);
-	free_config(data);
+	//free_config(data);
 }

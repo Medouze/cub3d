@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/08 23:34:45 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/09 13:04:52 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ typedef struct s_config	t_config;
 
 typedef struct s_point
 {
-	float	x;
-	float	y;
+	double	x;
+	double	y;
 	int		color;
 }	t_point;
 
@@ -76,7 +76,7 @@ void	show_minimap(t_mlx mlx);
 
 /******************* UTILS *******************/
 
-float	to_radians(float degree);
+double	to_radians(double degree);
 void	put_pixel(t_mlx mlx, int x, int y, int color);
 
 #endif

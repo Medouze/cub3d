@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:47:59 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/08 22:58:33 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:04:39 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ t_player init_player(t_mlx mlx)
 	player.x_dir = 0;
 	player.y_dir = 0;
 	if (mlx.config->player_direction == 'N')
-		player.y_dir = -1;
-	else if (mlx.config->player_direction == 'S')
 		player.y_dir = 1;
+	else if (mlx.config->player_direction == 'S')
+		player.y_dir = -1;
 	else if (mlx.config->player_direction == 'W')
 		player.x_dir = -1;
 	else

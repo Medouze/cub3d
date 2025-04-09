@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I $(LIBFT_INC) -g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I $(LIBFT_INC) -g -fsanitize=address -O3
 MLX_FLAGS = -lX11 -lXext -lXrandr -lXrender -lXfixes -lm -lbsd
 
 # Directories

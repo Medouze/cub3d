@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:48:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/08 22:55:05 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:07:55 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_point	calculate_point(t_mlx *mlx, int rotation)
 
 int handle_keypress(int key, t_mlx *mlx)
 {
-	printf("key = %d\n", key);
+	//printf("key = %d\n", key);
 	if (key == 65307) //esc
 	{
 		mlx_loop_end(mlx->mlx_ptr);
@@ -39,7 +39,7 @@ int handle_keypress(int key, t_mlx *mlx)
 		free(mlx->mlx_ptr);
 		exit(0);
 	}
-	if (key == 65362) //up
+	else if (key == 65362) //up
 	{
 		t_point v = calculate_point(mlx, mlx->player.rotation);
 		float dif_x = (mlx->player.x - v.x) * 0.1;
@@ -48,7 +48,7 @@ int handle_keypress(int key, t_mlx *mlx)
 		mlx->player.x -= dif_x;
 		mlx->player.y -= dif_y;
 	}
-	if (key == 65364) //down
+	else if (key == 65364) //down
 	{
 		t_point v = calculate_point(mlx, mlx->player.rotation);
 		float dif_x = (mlx->player.x - v.x) * 0.1;
@@ -59,15 +59,15 @@ int handle_keypress(int key, t_mlx *mlx)
 	}
 	if (key == 65361) //left
 	{
-		mlx->player.rotation -= 10;
-		if (mlx->player.rotation < 0)
-			mlx->player.rotation = 350;
-	}
-	if (key == 65363) //right
-	{
-		mlx->player.rotation += 10;
+		mlx->player.rotation += 3;
 		if (mlx->player.rotation >= 360)
 			mlx->player.rotation = 0;
+	}
+	else if (key == 65363) //right
+	{
+		mlx->player.rotation -= 3;
+		if (mlx->player.rotation < 0)
+			mlx->player.rotation = 357;
 	}
 	if (key == 109) // M
 	{

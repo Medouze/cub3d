@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 23:31:04 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/08 23:37:12 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:03:44 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,14 @@ t_point cast_ray(t_mlx mlx, float x, float y, int color)
 void draw_map(t_mlx mlx)
 {
 
-	for (int y = 0; y < 10; y++)
+	int y;
+	int x;
+
+	y = -1;
+	while (++y < mlx.scaling && mlx.map[y])
 	{
-		for (int x = 0; x < 5; x++)
+		x = -1;
+		while (++x < mlx.scaling && mlx.map[y][x])
 		{
 			for (int i = 0; i < mlx.scaling; i++)
 			{
@@ -76,9 +81,9 @@ void draw_map(t_mlx mlx)
 				{
 					char *dst = mlx.address + ((y * mlx.scaling + i) * mlx.size_line + (x * mlx.scaling + j) * (mlx.bits_per_pixel / 8));
 					if (mlx.map[y][x] == '1')
-						*(unsigned int *)dst = 0xFF0000;
+						*(unsigned int *)dst = 0xFFFFFF;
 					else
-						*(unsigned int *)dst = 0x00FF00;
+						*(unsigned int *)dst = 0x000000;
 				}
 			}
 		}
