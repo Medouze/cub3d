@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/10 00:16:16 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/10 00:24:11 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@ t_point	raycast(t_mlx mlx, float rad_angle)
 			//printf("x = %f, y = %f\n", x / mlx.scaling , y / mlx.scaling);
 			//printf("%f > %f\n", fabs(roundf(x / mlx.scaling) - x / mlx.scaling), fabs(roundf(y / mlx.scaling) - y / mlx.scaling));
 			if (fabs(round(x / mlx.scaling) - x / mlx.scaling) < fabs(round(y / mlx.scaling) - y / mlx.scaling)) {
-				//printf("true\n");
+				printf("true\n");
 				if (delta[0] < 0)
 					p.color = EAST;
 				else
 					p.color = WEST;
             } else {
-				//printf("false\n");
+				printf("false\n");
 				if (delta[1] < 0)
 					p.color = SOUTH;
 				else
@@ -93,10 +93,10 @@ void loop_render_wall(t_mlx mlx, double step, double angle, double base_angle)
 		distance = sqrt((wall.x-mlx.player.x) * (wall.x-mlx.player.x) + (wall.y-mlx.player.y) * (wall.y-mlx.player.y));
 
 		z = distance * cos(angle - base_angle);
-		if (distance < mlx.player.view_distance)
-		{
+		//if (distance < mlx.player.view_distance)
+		//{
 			draw_image_collumn(mlx, wall, HEIGHT / z, collumn);
-		}
+		//}
 		angle += step;
 	}
 }
