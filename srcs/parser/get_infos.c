@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:57:23 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/08 17:30:24 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/09 23:11:38 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	print_infos(char **infos) // delete plus tard
 		str = *infos;
 		while (*str != '\0')
 		{
-			write(1, str, 1);
+			//write(1, str, 1);
 			str++;
 		}
-		write(1, "\n", 1);
+		//write(1, "\n", 1);
 		infos++;
 	}
 }

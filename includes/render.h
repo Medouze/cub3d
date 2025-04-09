@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/09 13:04:52 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/09 23:19:57 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	show_minimap(t_mlx mlx);
 
 /******************* UTILS *******************/
 
+double	to_degree(double radian);
 double	to_radians(double degree);
 void	put_pixel(t_mlx mlx, int x, int y, int color);
 

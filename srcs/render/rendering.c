@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/09 17:56:58 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/10 00:02:55 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,28 @@ t_point	raycast(t_mlx mlx, float rad_angle)
 	return (p);
 }
 
+void draw_image_collumn(t_mlx mlx, t_point wall, int wall_height, int line)
+{
+	int		i;
+	int		half_wall;
+
+	i = -1;
+	half_wall = HEIGHT / 2;
+	while (++i <= HEIGHT / 2)
+	{
+		if (i < wall_height / 2)
+		{
+			put_pixel(mlx, line, half_wall - i, wall.color);
+			put_pixel(mlx, line, half_wall + i, wall.color);
+		}
+		else
+		{
+			put_pixel(mlx, line, half_wall - i, mlx.config->ceiling_color);
+			put_pixel(mlx, line, half_wall + i, mlx.config->floor_color);
+		}
+	}
+}
+
 void render_wall(t_mlx mlx)
 {
 	// test
@@ -70,46 +92,13 @@ void render_wall(t_mlx mlx)
 	while (++line < WIDTH)
 	{
 		t_point wall = raycast(mlx, angle);
-		//test
-		char *dst;
 		double dis = sqrt((wall.x-mlx.player.x) * (wall.x-mlx.player.x) + (wall.y-mlx.player.y) * (wall.y-mlx.player.y));
-		//printf("dis = %f\n", dis);
-		double z;
-		/* if (wall.color == NORTH || wall.color == SOUTH)
-			z = fabs(dis * sin(angle)) + 1;
-		else */
-			z = dis * cos(angle);
 
-		//int wall_height = HEIGHT / fabs(z);
-		int wall_height = /* fabs((dis / mlx.player.view_distance) * HEIGHT - HEIGHT) */ 300.0/HEIGHT * HEIGHT / fabs(z);
-		//printf("z = %f, dis = %f, wall height = %d\n", z, dis, wall_height);
-		(void) wall_height;
+		double z = dis * cos(angle - base_angle);
+		int wall_height = (int) HEIGHT / z;
 		if (dis < mlx.player.view_distance)
 		{
-			float tmp = (float) mlx.player.view_distance / (float) HEIGHT; // store 1/600e of 100%;
-			float count = mlx.player.view_distance;
-			for (int j = 0; j <= HEIGHT / 2; j++)
-			{
-				//if (j == 0)
-					//printf("count = %f\n", count);
-				//if (j < wall_height / 2)
-				if (count > dis)
-				{
-					dst = mlx.address + ((HEIGHT / 2 - j) * mlx.size_line) + (line * (mlx.bits_per_pixel / 8));
-					*(unsigned int *)dst = wall.color;
-					dst = mlx.address + ((HEIGHT / 2 + j) * mlx.size_line) + (line * (mlx.bits_per_pixel / 8));
-					*(unsigned int *)dst = wall.color;
-					count -= tmp * 2;
-				}
-				else
-				{
-					dst = mlx.address + ((HEIGHT / 2 - j) * mlx.size_line) + (line * (mlx.bits_per_pixel / 8));
-					*(unsigned int *)dst = 0x00FFFF;
-					dst = mlx.address + ((HEIGHT / 2 + j) * mlx.size_line) + (line * (mlx.bits_per_pixel / 8));
-					*(unsigned int *)dst = 0xFF00FF;
-					count -= tmp * 2;
-				}
-			}
+			draw_image_collumn(mlx, wall, wall_height, line);
 		}
 		angle += step;
 	}
