@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 21:23:07 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/07 00:25:20 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/09 15:43:33 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ int	rgb_to_int(int r, int g, int b)
 	return ((r << 16) | (g << 8) | b);
 }
 
-int	is_valid_rgb_number(const char *str)
+int	is_valid_rgb_number(t_config *data, const char *str)
 {
 	while (*str)
 	{
-		if (!ft_is_digit(*str) && *str != ' ' && *str != ',')
-			return (0);
+		if (!ft_is_digit(*str) && *str != ' ' && *str != ',' && *str != '-')
+			print_error(ERR_RGBCHAR, data);
 		str++;
 	}
 	return (1);
@@ -38,10 +38,9 @@ void	check_valid_rgb(t_config *data, int *value, char *rgb)
 
 	count = 0;
 	ft_trim_in_place(rgb, " \n\t");
-	while (*rgb && !ft_is_digit(*rgb))
+	while (*rgb && !ft_is_digit(*rgb) && *rgb != '-')
 		rgb++;
-	if (!is_valid_rgb_number(rgb))
-		print_error("Invalid char in rgb", data);
+	is_valid_rgb_number(data, rgb);
 	split = ft_split(rgb, ',');
 	while (split[count])
 		count++;

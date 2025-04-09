@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 21:16:42 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/08 14:14:19 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/09 15:15:45 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define ERR_CUBEXT "Extension needs to be .cub"
 # define ERR_OPEN   "Error while opening file"
 # define ERR_ARGDIR "Argument can't be a directory"
-# define ERR_NOARG "Argument needed !"
+# define ERR_NOARG "Fix arguments"
 # define ERR_MULTI "Multiple declaration xpm"
 # define ERR_UNKNOWNID "Invalid line in .cub file"
 # define ERR_MISSINGTEXT "Something is missing in .cub file"
@@ -38,4 +38,6 @@
 # define ERR_PLAYERSTUCK "Player is stuck in spawn"
 # define ERR_MAPUNCLOSED "Map is not closed"
 # define ERR_TABMAP "Tab not allowed in map"
+# define ERR_RGBNEG "RGB values can't be negative"
+# define ERR_RGBCHAR "RGB must be numbers only"
 #endif
