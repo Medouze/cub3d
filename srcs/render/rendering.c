@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/10 00:02:55 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/10 00:16:16 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,19 @@ t_point	raycast(t_mlx mlx, float rad_angle)
 	int		hit;
 	t_point	p;
 	double	delta[2];
+	double x;
+	double y;
 
 
 	
 	hit = 0;
 	delta[0] = cos(rad_angle);
 	delta[1] = sin(rad_angle);
-	double x;
-	double y;
 
 	x = mlx.player.x * mlx.scaling;
 	y = mlx.player.y * mlx.scaling;
 	while (!hit)
 	{
-		put_pixel(mlx, roundf(x), roundf(y), 0xFFFFFF); //tmp
 		x += delta[0];
 		y += delta[1];
 		if (mlx.map[(int) (y / mlx.scaling)][(int) (x / mlx.scaling)] == '1')
@@ -58,7 +57,7 @@ t_point	raycast(t_mlx mlx, float rad_angle)
 	return (p);
 }
 
-void draw_image_collumn(t_mlx mlx, t_point wall, int wall_height, int line)
+void draw_image_collumn(t_mlx mlx, t_point wall, int wall_height, int collumn)
 {
 	int		i;
 	int		half_wall;
@@ -69,39 +68,51 @@ void draw_image_collumn(t_mlx mlx, t_point wall, int wall_height, int line)
 	{
 		if (i < wall_height / 2)
 		{
-			put_pixel(mlx, line, half_wall - i, wall.color);
-			put_pixel(mlx, line, half_wall + i, wall.color);
+			put_pixel(mlx, collumn, half_wall - i, wall.color);
+			put_pixel(mlx, collumn, half_wall + i, wall.color);
 		}
 		else
 		{
-			put_pixel(mlx, line, half_wall - i, mlx.config->ceiling_color);
-			put_pixel(mlx, line, half_wall + i, mlx.config->floor_color);
+			put_pixel(mlx, collumn, half_wall - i, mlx.config->ceiling_color);
+			put_pixel(mlx, collumn, half_wall + i, mlx.config->floor_color);
 		}
+	}
+}
+
+void loop_render_wall(t_mlx mlx, double step, double angle, double base_angle)
+{
+	int		collumn;
+	double	z;
+	double	distance;
+	t_point	wall;
+
+	collumn = -1;
+	while (++collumn < WIDTH)
+	{
+		wall = raycast(mlx, angle);
+		distance = sqrt((wall.x-mlx.player.x) * (wall.x-mlx.player.x) + (wall.y-mlx.player.y) * (wall.y-mlx.player.y));
+
+		z = distance * cos(angle - base_angle);
+		if (distance < mlx.player.view_distance)
+		{
+			draw_image_collumn(mlx, wall, HEIGHT / z, collumn);
+		}
+		angle += step;
 	}
 }
 
 void render_wall(t_mlx mlx)
 {
-	// test
-	int line = -1;
+	t_point	delta;
+	double	step;
+	double	base_angle;
+	double	angle;
 
-	t_point v = calculate_point(&mlx, mlx.player.rotation);
-	double step = to_radians((float) mlx.player.fov / (float) WIDTH);
-	double base_angle = atan2(v.y - mlx.player.y, v.x - mlx.player.x);
-	double angle = base_angle - to_radians(mlx.player.fov / 2);
-	while (++line < WIDTH)
-	{
-		t_point wall = raycast(mlx, angle);
-		double dis = sqrt((wall.x-mlx.player.x) * (wall.x-mlx.player.x) + (wall.y-mlx.player.y) * (wall.y-mlx.player.y));
-
-		double z = dis * cos(angle - base_angle);
-		int wall_height = (int) HEIGHT / z;
-		if (dis < mlx.player.view_distance)
-		{
-			draw_image_collumn(mlx, wall, wall_height, line);
-		}
-		angle += step;
-	}
+	delta = calculate_point(&mlx, mlx.player.rotation);
+	step = to_radians((float) mlx.player.fov / (float) WIDTH);
+	base_angle = atan2(delta.y - mlx.player.y, delta.x - mlx.player.x);
+	angle = base_angle - to_radians(mlx.player.fov / 2);
+	loop_render_wall(mlx, step, angle, base_angle);
 }
 
 void render_frame(t_mlx *mlx)
@@ -128,27 +139,10 @@ void render_frame(t_mlx *mlx)
 
 void rendering(t_config data)
 {
-	// to remove
-	/* char *map[] = {
-			"11111",
-			"10101",
-			"10001",
-			"10001",
-			"11011",
-			"11011",
-			"10001",
-			"11101",
-			"10001",
-			"11111"}; */
+	t_mlx mlx;
 
-	t_mlx mlx = init_window(&data);
-	/* mlx.map = map;
-	mlx.player.x = 2.5;
-	mlx.player.y = 2.5; */
+	mlx = init_window(&data);
 	mlx.scaling = 30;
-	mlx.img = NULL;
-	mlx.address = NULL;
-
 	//mlx_key_hook(mlx.win_ptr, handle_keypress, &mlx);
 	render_frame(&mlx);
 	mlx_hook(mlx.win_ptr, 2, 1L << 0, handle_keypress, &mlx);

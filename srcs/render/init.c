@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:47:59 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/09 18:04:39 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/10 00:16:24 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ t_mlx	init_window(t_config *data)
 	mlx.config = data;
 	mlx.map = data->map;
 	mlx.mlx_ptr = mlx_init();
+	mlx.img = NULL;
+	mlx.address = NULL;
 	//protect
 	if (!mlx.mlx_ptr)
 	{
