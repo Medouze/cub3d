@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_infos.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:57:23 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/08 17:30:24 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:43:04 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../includes/cub3d.h"
 
 void	print_infos(char **infos) // delete plus tard
 {
@@ -59,7 +59,7 @@ void	allocate_map(t_config *data, int fd)
 	int		size;
 
 	size = count_check_map_lines(data, fd);
-	data->map = malloc(sizeof(char *) * (size + 1));
+	data->map = malloc(sizeof(char *) * (size + 2));
 	if (!data->map)
 		print_error(ERR_MALLOC, data);
 	close(fd);

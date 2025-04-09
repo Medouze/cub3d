@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:48:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/09 18:07:55 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/09 18:47:03 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,7 @@ int handle_keypress(int key, t_mlx *mlx)
 	//printf("key = %d\n", key);
 	if (key == 65307) //esc
 	{
-		mlx_loop_end(mlx->mlx_ptr);
-		mlx_destroy_image(mlx->mlx_ptr, mlx->img);
-		mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
-		mlx_destroy_display(mlx->mlx_ptr);
-		free(mlx->mlx_ptr);
-		exit(0);
+		destroy_window(mlx, 0);
 	}
 	else if (key == 65362) //up
 	{
