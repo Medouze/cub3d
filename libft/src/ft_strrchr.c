@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 17:36:40 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/08 17:30:28 by qmorinea         ###   ########.fr       */
+/*   Created: 2024/10/09 10:38:55 by qmorinea          #+#    #+#             */
+/*   Updated: 2024/10/14 18:00:10 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	init_config(t_config *config)
+char	*ft_strrchr(const char *s, int c)
 {
-	config->no_texture = NULL;
-	config->so_texture = NULL;
-	config->we_texture = NULL;
-	config->ea_texture = NULL;
-	config->floor_color = -1;
-	config->ceiling_color = -1;
-	config->player_pos_x = 0;
-	config->player_pos_y = 0;
-	config->player_direction = ' ';
-	config->map = NULL;
+	size_t	i;
+	char	*p;
+
+	i = 0;
+	p = NULL;
+	while (s[i])
+	{
+		if (s[i] == (unsigned char) c)
+		{
+			p = (char *) &s[i];
+		}
+		i++;
+	}
+	if ((unsigned char) c == s[i])
+		p = (char *) &s[i];
+	return (p);
 }

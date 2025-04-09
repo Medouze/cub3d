@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 17:36:40 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/08 17:30:28 by qmorinea         ###   ########.fr       */
+/*   Created: 2024/10/09 10:38:30 by qmorinea          #+#    #+#             */
+/*   Updated: 2024/10/14 11:44:27 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	init_config(t_config *config)
+char	*ft_strdup(const char *s1)
 {
-	config->no_texture = NULL;
-	config->so_texture = NULL;
-	config->we_texture = NULL;
-	config->ea_texture = NULL;
-	config->floor_color = -1;
-	config->ceiling_color = -1;
-	config->player_pos_x = 0;
-	config->player_pos_y = 0;
-	config->player_direction = ' ';
-	config->map = NULL;
+	char	*ptr;
+	size_t	length;
+
+	length = ft_strlen((char *) s1);
+	ptr = malloc(sizeof(char) * length + 1);
+	if (!ptr)
+		return (NULL);
+	ft_memcpy(ptr, s1, length + 1);
+	return (ptr);
 }

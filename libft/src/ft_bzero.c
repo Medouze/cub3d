@@ -1,27 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 17:36:40 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/08 17:30:28 by qmorinea         ###   ########.fr       */
+/*   Created: 2024/10/09 10:35:32 by qmorinea          #+#    #+#             */
+/*   Updated: 2024/10/14 17:55:19 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	init_config(t_config *config)
+void	ft_bzero(void *s, size_t n)
 {
-	config->no_texture = NULL;
-	config->so_texture = NULL;
-	config->we_texture = NULL;
-	config->ea_texture = NULL;
-	config->floor_color = -1;
-	config->ceiling_color = -1;
-	config->player_pos_x = 0;
-	config->player_pos_y = 0;
-	config->player_direction = ' ';
-	config->map = NULL;
+	unsigned char	*ptr;
+
+	ptr = (unsigned char *) s;
+	while (n > 0)
+	{
+		*ptr = '\0';
+		ptr++;
+		n--;
+	}
 }
+
+/* 
+#include <stdio.h>
+
+int main(void)
+{
+    int i = 0;
+    char c[13] = "abcdefghijkl";
+    printf("%s\n", c);
+    ft_bzero(c, 3);
+    while (i < 13)
+    {
+        printf("%c", c[i]);
+        i++;
+    }
+} */

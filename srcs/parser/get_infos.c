@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_infos.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:57:23 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/08 14:25:57 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/08 17:30:24 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 void	print_infos(char **infos) // delete plus tard
 {

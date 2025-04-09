@@ -1,27 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 17:36:40 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/08 17:30:28 by qmorinea         ###   ########.fr       */
+/*   Created: 2024/10/09 10:38:34 by qmorinea          #+#    #+#             */
+/*   Updated: 2024/10/14 17:53:46 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	init_config(t_config *config)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	config->no_texture = NULL;
-	config->so_texture = NULL;
-	config->we_texture = NULL;
-	config->ea_texture = NULL;
-	config->floor_color = -1;
-	config->ceiling_color = -1;
-	config->player_pos_x = 0;
-	config->player_pos_y = 0;
-	config->player_direction = ' ';
-	config->map = NULL;
+	size_t	i;
+
+	if (!s || !(*f))
+		return ;
+	i = 0;
+	while (s[i])
+	{
+		(*f)(i, &s[i]);
+		i++;
+	}
 }
+
+/* #include <stdio.h>
+
+int main (void)
+{
+	char s[] = "ABCDEF";
+	ft_striteri(s, (void *) &ft_test);
+	//ft_striteri(s, NULL);
+	printf("%s\n", s);
+} */

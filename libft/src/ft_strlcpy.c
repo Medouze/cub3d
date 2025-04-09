@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/05 17:36:40 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/08 17:30:28 by qmorinea         ###   ########.fr       */
+/*   Created: 2024/10/09 10:38:41 by qmorinea          #+#    #+#             */
+/*   Updated: 2024/10/14 11:36:26 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-void	init_config(t_config *config)
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	config->no_texture = NULL;
-	config->so_texture = NULL;
-	config->we_texture = NULL;
-	config->ea_texture = NULL;
-	config->floor_color = -1;
-	config->ceiling_color = -1;
-	config->player_pos_x = 0;
-	config->player_pos_y = 0;
-	config->player_direction = ' ';
-	config->map = NULL;
+	size_t	i;
+
+	i = 0;
+	if (dstsize == 0)
+		return (ft_strlen((char *) src));
+	while (i < dstsize - 1 && src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (ft_strlen((char *) src));
 }
