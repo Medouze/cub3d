@@ -30,6 +30,7 @@ SRC_LIST = main.c\
 			parser/get_infos.c\
 			parser/init.c\
 			parser/rgb.c\
+			parser/walls.c\
 			parser/check_file.c\
 			parser/map.c\
 			parser/map_utils.c\

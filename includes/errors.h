@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 21:16:42 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/09 18:14:12 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/10 14:06:18 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define ERR_NOARG "Fix arguments"
 # define ERR_MULTI "Multiple declaration xpm"
 # define ERR_UNKNOWNID "Invalid line in .cub file"
-# define ERR_MISSINGTEXT "Something is missing in .cub file"
+# define ERR_MISSINGTEXT "Invalid .cub file"
 # define ERR_EMPTYMAP "Empty line in map"
 # define ERR_INVALIDMAPCHAR "Invalid char in map"
 # define ERR_MAPEOF "Map line should be at the end of file"

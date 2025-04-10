@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:41:03 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/08 17:30:19 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/10 14:05:27 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,4 @@ void	check_valid_infos(t_config *data, char *line)
 		check_valid_rgb(data, &data->floor_color, line);
 	else if (ft_strncmp(line, "C", 1) == 0)
 		check_valid_rgb(data, &data->ceiling_color, line);
-	else if (ft_strchr(VALID_STARTMAP, line[0]) && info_empty(data))
-		print_error(ERR_MAPEOF, data);
 }

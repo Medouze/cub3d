@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 17:34:46 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/09 18:15:05 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/10 14:13:38 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
+/*
 void	print_config(const t_config *config)
 {
 	int	i;
@@ -23,10 +24,14 @@ void	print_config(const t_config *config)
 		return;
 	}
 	printf("=== Configuration ===\n");
-	printf("NO Texture: %s\n", config->no_texture ? config->no_texture : "(null)");
-	printf("SO Texture: %s\n", config->so_texture ? config->so_texture : "(null)");
-	printf("WE Texture: %s\n", config->we_texture ? config->we_texture : "(null)");
-	printf("EA Texture: %s\n", config->ea_texture ? config->ea_texture : "(null)");
+	printf("NO Texture: %s\n", config->no_texture
+	? config->no_texture : "(null)");
+	printf("SO Texture: %s\n", config->so_texture
+	? config->so_texture : "(null)");
+	printf("WE Texture: %s\n", config->we_texture 
+	 config->we_texture : "(null)");
+	printf("EA Texture: %s\n", config->ea_texture 
+	? config->ea_texture : "(null)");
 	printf("Floor Color: 0x%06X\n", config->floor_color);
 	printf("Ceiling Color: 0x%06X\n", config->ceiling_color);
 	printf("Map:\n");
@@ -34,13 +39,15 @@ void	print_config(const t_config *config)
 	{
 		while (config->map[i])
 		{
-			printf("  [%d] %s\n", i, config->map[i] ? config->map[i] : "(null row)");
+			printf("  [%d] %s\n", i, config->map[i]
+			? config->map[i] : "(null row)");
 			i++;
 		}
 	}
 	else
 		printf("  (null)\n");
 }
+*/
 
 void	parser(t_config *data, char *path)
 {

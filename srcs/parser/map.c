@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:31:36 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/08 17:29:36 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/10 13:49:25 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,16 +68,6 @@ void	check_map_info(t_config *data, char **map)
 	}
 	if (player_count == 0)
 		print_error(ERR_NOPLAYER, data);
-}
-
-void	print_map(char **map)
-{
-	int i = 0;
-	while (map[i])
-	{
-		printf("%s\n", map[i]);
-		i++;
-	}
 }
 
 void	valid_map(t_config *data)
