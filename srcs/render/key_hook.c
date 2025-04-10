@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:48:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/09 18:47:03 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/10 10:24:41 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int handle_keypress(int key, t_mlx *mlx)
 		t_point v = calculate_point(mlx, mlx->player.rotation);
 		float dif_x = (mlx->player.x - v.x) * 0.1;
 		float dif_y = (mlx->player.y - v.y) * 0.1;
-		printf("difx = %f, dify = %f\n", dif_x, dif_y);
+		//printf("difx = %f, dify = %f\n", dif_x, dif_y);
 		mlx->player.x -= dif_x;
 		mlx->player.y -= dif_y;
 	}
@@ -48,7 +48,7 @@ int handle_keypress(int key, t_mlx *mlx)
 		t_point v = calculate_point(mlx, mlx->player.rotation);
 		float dif_x = (mlx->player.x - v.x) * 0.1;
 		float dif_y = (mlx->player.y - v.y) * 0.1;
-		printf("difx = %f, dify = %f\n", dif_x, dif_y);
+		//printf("difx = %f, dify = %f\n", dif_x, dif_y);
 		mlx->player.x += dif_x;
 		mlx->player.y += dif_y;
 	}

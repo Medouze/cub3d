@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 22:27:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/09 10:57:59 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/09 23:19:42 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,9 @@ void	put_pixel(t_mlx mlx, int x, int y, int color)
 double	to_radians(double degree)
 {
 	return (degree * M_PI / 180);
+}
+
+double	to_degree(double radian)
+{
+	return (radian * 180 / M_PI);
 }
