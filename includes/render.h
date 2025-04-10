@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/09 23:19:57 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/10 14:38:54 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,10 @@ typedef struct s_mlx
 	char		**map;
 	int			scaling;
 	int			show_map;
+	void		*north_img;
+	void		*south_img;
+	void		*west_img;
+	void		*east_img;
 	t_player	player;
 	t_config	*config;
 }	t_mlx;

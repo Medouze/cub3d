@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:47:59 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/10 00:16:24 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/10 14:39:52 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,8 @@ t_mlx	init_window(t_config *data)
 		exit(0);
 	}
 	mlx.player = init_player(mlx);
+	int a = 64;
+	int b = 64;
+	mlx.north_img = mlx_xpm_file_to_image(mlx.mlx_ptr, mlx.config->no_texture, &a, &b);
 	return (mlx);
 }

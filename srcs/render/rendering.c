@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/10 11:25:34 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/10 14:46:48 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,17 @@ t_point	raycast(t_mlx mlx, float rad_angle)
 	return (p);
 }
 
+int	test(t_mlx mlx, int x, int y)
+{
+	//printf("x = %d, y = %d\n", x, y);
+	
+	char *s = mlx_get_data_addr(mlx.north_img, &mlx.bits_per_pixel, &mlx.size_line, &mlx.endians);
+	int offset = (y * mlx.size_line +  x * (mlx.bits_per_pixel / 8));
+	int dst = *(int *)(s + offset);
+	//printf("color = %X\n", dst);
+	return (dst);
+}
+
 void draw_image_collumn(t_mlx mlx, t_point wall, int wall_height, int collumn)
 {
 	int		i;
@@ -109,12 +120,25 @@ void draw_image_collumn(t_mlx mlx, t_point wall, int wall_height, int collumn)
 
 	i = -1;
 	half_wall = HEIGHT / 2;
-	while (++i <= HEIGHT / 2)
+
+		while (++i <= HEIGHT / 2)
 	{
 		if (i < wall_height / 2)
 		{
-			put_pixel(mlx, collumn, half_wall - i, wall.color);
-			put_pixel(mlx, collumn, half_wall + i, wall.color);
+			if (wall.color == -1)
+			{
+
+				float a = (float) (half_wall - i) / (float) HEIGHT * 64.0;
+				float b = (float) (half_wall + i) / (float) HEIGHT * 64.0;
+				//printf("%f|%f\n", a, b);
+				put_pixel(mlx, collumn, half_wall - i, test(mlx, (wall.x - floor(wall.x)) * 64, (int) a));
+				put_pixel(mlx, collumn, half_wall + i, test(mlx, (wall.x - floor(wall.x)) * 64, (int) b));
+			}
+			else if (wall.color != -1)
+			{
+				put_pixel(mlx, collumn, half_wall - i, wall.color);
+				put_pixel(mlx, collumn, half_wall + i, wall.color);
+			}
 		}
 		else
 		{
@@ -177,8 +201,8 @@ void render_frame(t_mlx *mlx)
 		exit(0);
 	}
 	render_wall(*mlx);
-	if (mlx->show_map)
-		show_minimap(*mlx);
+	//if (mlx->show_map)
+		//show_minimap(*mlx);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img, 0, 0);
 }
 
