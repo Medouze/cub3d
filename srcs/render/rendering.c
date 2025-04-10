@@ -6,11 +6,56 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/10 00:24:11 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/10 11:25:34 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+// t_point	raycast(t_mlx mlx, float rad_angle)
+// {
+// 	int		hit;
+// 	t_point	p;
+// 	double	delta[2];
+// 	double x;
+// 	double y;
+
+
+	
+// 	hit = 0;
+// 	delta[0] = cos(rad_angle);
+// 	delta[1] = sin(rad_angle);
+
+// 	x = mlx.player.x * mlx.scaling;
+// 	y = mlx.player.y * mlx.scaling;
+// 	while (!hit)
+// 	{
+// 		x += delta[0];
+// 		y += delta[1];
+// 		if (mlx.map[(int) (y / mlx.scaling)][(int) (x / mlx.scaling)] == '1')
+// 		{
+// 			hit = 1;
+// 			//printf("x = %f, y = %f\n", x / mlx.scaling , y / mlx.scaling);
+// 			//printf("%f > %f\n", fabs(roundf(x / mlx.scaling) - x / mlx.scaling), fabs(roundf(y / mlx.scaling) - y / mlx.scaling));
+// 			if (fabs(round(x / mlx.scaling) - x / mlx.scaling) < fabs(round(y / mlx.scaling) - y / mlx.scaling)) {
+// 				//printf("true\n");
+// 				if (delta[0] < 0)
+// 					p.color = EAST;
+// 				else
+// 					p.color = WEST;
+//             } else {
+// 				//printf("false\n");
+// 				if (delta[1] < 0)
+// 					p.color = SOUTH;
+// 				else
+// 					p.color = NORTH;
+//             }
+// 		}
+// 	}
+// 	p.x = x / mlx.scaling;
+// 	p.y = y / mlx.scaling;
+// 	return (p);
+// }
 
 t_point	raycast(t_mlx mlx, float rad_angle)
 {
@@ -38,13 +83,13 @@ t_point	raycast(t_mlx mlx, float rad_angle)
 			//printf("x = %f, y = %f\n", x / mlx.scaling , y / mlx.scaling);
 			//printf("%f > %f\n", fabs(roundf(x / mlx.scaling) - x / mlx.scaling), fabs(roundf(y / mlx.scaling) - y / mlx.scaling));
 			if (fabs(round(x / mlx.scaling) - x / mlx.scaling) < fabs(round(y / mlx.scaling) - y / mlx.scaling)) {
-				printf("true\n");
+				//printf("true\n");
 				if (delta[0] < 0)
 					p.color = EAST;
 				else
 					p.color = WEST;
             } else {
-				printf("false\n");
+				//printf("false\n");
 				if (delta[1] < 0)
 					p.color = SOUTH;
 				else
@@ -142,7 +187,7 @@ void rendering(t_config data)
 	t_mlx mlx;
 
 	mlx = init_window(&data);
-	mlx.scaling = 30;
+	mlx.scaling = 20;
 	//mlx_key_hook(mlx.win_ptr, handle_keypress, &mlx);
 	render_frame(&mlx);
 	mlx_hook(mlx.win_ptr, 2, 1L << 0, handle_keypress, &mlx);

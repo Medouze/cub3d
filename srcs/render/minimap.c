@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 23:31:04 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/09 18:03:44 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/10 11:22:44 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ t_point	near_wall(t_mlx mlx, float delta[2], float tmp[2], int color)
 	hit = 0;
 	while (!hit)
 	{
-		put_pixel(mlx, roundf(tmp[0]), roundf(tmp[1]), color); //tmp
+		(void) color;
+		put_pixel(mlx, roundf(tmp[0] * mlx.scaling), roundf(tmp[1] * mlx.scaling), color); //tmp
 		tmp[0] += delta[0];
 		tmp[1] += delta[1];
-		if (mlx.map[((int) tmp[1]) / mlx.scaling][((int) tmp[0]) / mlx.scaling] == '1')
+		//printf("x = %f, y = %f\n", tmp[0], tmp[1]);
+		if (mlx.map[(int) tmp[1]][(int) tmp[0]] == '1')
 		{
 			hit = 1;
 			if (fabs(delta[0]) > fabs(delta[1])) {
@@ -57,8 +59,8 @@ t_point cast_ray(t_mlx mlx, float x, float y, int color)
 	length = sqrt(delta[0] * delta[0] + delta[1] * delta[1]);
 	delta[0] /= length;
 	delta[1] /= length;
-	tmp[0] = mlx.player.x * mlx.scaling;
-	tmp[1] = mlx.player.y * mlx.scaling;
+	tmp[0] = mlx.player.x;
+	tmp[1] = mlx.player.y;
 	wall = near_wall(mlx, delta, tmp, color);
 	return (wall);
 } 
@@ -70,10 +72,10 @@ void draw_map(t_mlx mlx)
 	int x;
 
 	y = -1;
-	while (++y < mlx.scaling && mlx.map[y])
+	while (mlx.map[++y])
 	{
 		x = -1;
-		while (++x < mlx.scaling && mlx.map[y][x])
+		while (mlx.map[y][++x])
 		{
 			for (int i = 0; i < mlx.scaling; i++)
 			{
