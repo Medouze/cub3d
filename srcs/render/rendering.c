@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/11 23:30:53 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/12 00:37:10 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,31 +26,48 @@ int	test(t_mlx mlx, int x, int y, void *path)
 
 void draw_wall_line(t_mlx mlx, int wall_height, int side, int x, int stepX, int stepY, t_point wall)
 {
-	  int drawstart = -wall_height / 2 + HEIGHT / 2;
-        if (drawstart < 0) drawstart = 0;
-        int drawend = wall_height / 2 + HEIGHT / 2;
-        if (drawend >= HEIGHT) drawend = HEIGHT - 1;
-	for (int y = 0 ;y < HEIGHT; y++) 
+	int drawstart = -wall_height / 2 + HEIGHT / 2;
+    int drawend = wall_height / 2 + HEIGHT / 2;
+	(void) drawend;
+	for (int y = 0 ;y < drawend; y++) 
 	{
 		if (y < wall_height)
 		{
 			if (side == 0)
 			{
 				float a = (float) y / (float) wall_height * 64.0;
+				//float c = (float) y / (float) wall_height * 64.0 + 32;
+				//float c = (float)(HEIGHT / 2 + y) / (float) wall_height * 64.0;
 				float b = (wall.y - floor(wall.y)) * 64.0;
+				//printf("a = %f, c = %f\n", a, c);
 				if (stepX < 0)
-					put_pixel(mlx, x, drawstart + y, test(mlx, b, a, mlx.west_img));
+				{	
+					if (drawstart + y >= 0 && drawstart + y < HEIGHT)
+						put_pixel(mlx, x, drawstart + y, test(mlx, b, a, mlx.west_img));
+					//put_pixel(mlx, x, HEIGHT / 2 + y, test(mlx, b, c, mlx.west_img));
+				}
 				else
-					put_pixel(mlx, x, drawstart + y, test(mlx, b, a, mlx.east_img));
+				{
+					if (drawstart + y >= 0 && drawstart + y < HEIGHT)
+						put_pixel(mlx, x, drawstart + y, test(mlx, b, a, mlx.east_img));
+				}
 			}
 			else
 			{
 				float a = (float) y / (float) wall_height * 64.0;
 				float b = (wall.x - floor(wall.x)) * 64.0;
 				if (stepY < 0)
-					put_pixel(mlx, x, drawstart + y, test(mlx, b, a, mlx.north_img));
+				{
+					if (drawstart + y >= 0 && drawstart + y < HEIGHT)
+						put_pixel(mlx, x, drawstart + y, test(mlx, b, a, mlx.north_img));
+					//else
+						//printf("y = %d, dra + y = %d\n", y, drawstart + y);
+				}
 				else
-					put_pixel(mlx, x, drawstart + y, test(mlx, b, a, mlx.south_img));
+				{
+					if (drawstart + y >= 0 && drawstart + y < HEIGHT)
+						put_pixel(mlx, x, drawstart + y, test(mlx, b, a, mlx.south_img));
+				}
 			}
 		}
 	}
