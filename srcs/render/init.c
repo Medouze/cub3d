@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:47:59 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/11 20:16:30 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:47:37 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ t_player init_player(t_mlx mlx)
 	player.vx = 0;
 	player.vy = 0;
 	if (mlx.config->player_direction == 'N')
-		player.vy = 1;
-	else if (mlx.config->player_direction == 'S')
 		player.vy = -1;
+	else if (mlx.config->player_direction == 'S')
+		player.vy = 1;
 	else if (mlx.config->player_direction == 'W')
 		player.vx = -1;
 	else
@@ -61,5 +61,8 @@ t_mlx	init_window(t_config *data)
 	int a = 64;
 	int b = 64;
 	mlx.north_img = mlx_xpm_file_to_image(mlx.mlx_ptr, mlx.config->no_texture, &a, &b);
+	mlx.south_img = mlx_xpm_file_to_image(mlx.mlx_ptr, mlx.config->so_texture, &a, &b);
+	mlx.west_img = mlx_xpm_file_to_image(mlx.mlx_ptr, mlx.config->we_texture, &a, &b);
+	mlx.east_img = mlx_xpm_file_to_image(mlx.mlx_ptr, mlx.config->ea_texture, &a, &b);
 	return (mlx);
 }
