@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/10 14:46:48 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/11 11:51:08 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,12 +125,10 @@ void draw_image_collumn(t_mlx mlx, t_point wall, int wall_height, int collumn)
 	{
 		if (i < wall_height / 2)
 		{
-			if (wall.color == -1)
+			if (wall.color == NORTH)
 			{
-
-				float a = (float) (half_wall - i) / (float) HEIGHT * 64.0;
-				float b = (float) (half_wall + i) / (float) HEIGHT * 64.0;
-				//printf("%f|%f\n", a, b);
+				float a = (float) i / wall_height * 64.0 + 32;
+				float b = (float) i / wall_height* 64.0 + 32;
 				put_pixel(mlx, collumn, half_wall - i, test(mlx, (wall.x - floor(wall.x)) * 64, (int) a));
 				put_pixel(mlx, collumn, half_wall + i, test(mlx, (wall.x - floor(wall.x)) * 64, (int) b));
 			}
