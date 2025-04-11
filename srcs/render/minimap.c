@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 23:31:04 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/10 11:22:44 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:15:44 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void draw_map(t_mlx mlx)
 	}
 }
 
-void	draw_fov(t_mlx mlx)
+/* void	draw_fov(t_mlx mlx)
 {
 	t_point v1;
 	t_point v2;
@@ -112,10 +112,10 @@ void	draw_fov(t_mlx mlx)
 		v1.y -= dif_y;
 		count++;
 	}
-}
+} */
 
 void show_minimap(t_mlx mlx)
 {
 	draw_map(mlx);
-	draw_fov(mlx);
+	//draw_fov(mlx);
 }

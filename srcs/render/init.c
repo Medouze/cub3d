@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:47:59 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/10 14:39:52 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:16:30 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ t_player init_player(t_mlx mlx)
 
 	player.x = mlx.config->player_pos_x + 0.5;
 	player.y = mlx.config->player_pos_y + 0.5;
-	player.x_dir = 0;
-	player.y_dir = 0;
+	player.vx = 0;
+	player.vy = 0;
 	if (mlx.config->player_direction == 'N')
-		player.y_dir = 1;
+		player.vy = 1;
 	else if (mlx.config->player_direction == 'S')
-		player.y_dir = -1;
+		player.vy = -1;
 	else if (mlx.config->player_direction == 'W')
-		player.x_dir = -1;
+		player.vx = -1;
 	else
-		player.x_dir = 1;
-	player.fov = 80;
+		player.vx = 1;
+	player.fov = 90;
 	player.rotation = 0;
 	player.view_distance = 10;
 	return (player);

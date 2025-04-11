@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/10 14:38:54 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/11 20:18:23 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ typedef struct s_player
 	int		rotation;
 	float	x;
 	float	y;
-	int		x_dir;
-	int		y_dir;
+	float	vx;
+	float	vy;
 }	t_player;
 
 typedef struct s_mlx
@@ -67,7 +67,7 @@ typedef struct s_mlx
 t_mlx	init_window(t_config *data);
 int		handle_keypress(int key, t_mlx *mlx);
 void	render_frame(t_mlx *mlx);
-t_point	calculate_point(t_mlx *mlx, int rotation);
+void	rotate_player_vector(t_mlx *mlx, int rotation);
 
 /******************** MLX ********************/
 
