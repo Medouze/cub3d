@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/12 00:37:10 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/12 00:46:23 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,36 +36,33 @@ void draw_wall_line(t_mlx mlx, int wall_height, int side, int x, int stepX, int 
 			if (side == 0)
 			{
 				float a = (float) y / (float) wall_height * 64.0;
-				//float c = (float) y / (float) wall_height * 64.0 + 32;
-				//float c = (float)(HEIGHT / 2 + y) / (float) wall_height * 64.0;
-				float b = (wall.y - floor(wall.y)) * 64.0;
-				//printf("a = %f, c = %f\n", a, c);
 				if (stepX < 0)
 				{	
+					float b = fabs(1 - (wall.y - floor(wall.y))) * 64.0;
 					if (drawstart + y >= 0 && drawstart + y < HEIGHT)
 						put_pixel(mlx, x, drawstart + y, test(mlx, b, a, mlx.west_img));
 					//put_pixel(mlx, x, HEIGHT / 2 + y, test(mlx, b, c, mlx.west_img));
 				}
 				else
 				{
-					if (drawstart + y >= 0 && drawstart + y < HEIGHT)
+					float b = (wall.y - floor(wall.y)) * 64.0;
+					if (drawstart + y >= 0 && drawstart + y < HEIGHT) // invert text
 						put_pixel(mlx, x, drawstart + y, test(mlx, b, a, mlx.east_img));
 				}
 			}
 			else
 			{
 				float a = (float) y / (float) wall_height * 64.0;
-				float b = (wall.x - floor(wall.x)) * 64.0;
 				if (stepY < 0)
 				{
+					float b = (wall.x - floor(wall.x)) * 64.0;
 					if (drawstart + y >= 0 && drawstart + y < HEIGHT)
 						put_pixel(mlx, x, drawstart + y, test(mlx, b, a, mlx.north_img));
-					//else
-						//printf("y = %d, dra + y = %d\n", y, drawstart + y);
 				}
 				else
 				{
-					if (drawstart + y >= 0 && drawstart + y < HEIGHT)
+					float b = fabs(1 - (wall.x - floor(wall.x))) * 64.0;
+					if (drawstart + y >= 0 && drawstart + y < HEIGHT) // invert text
 						put_pixel(mlx, x, drawstart + y, test(mlx, b, a, mlx.south_img));
 				}
 			}

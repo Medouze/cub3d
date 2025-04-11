@@ -1,7 +1,7 @@
-NO ./texture/wood.xpm
-SO ./texture/mossy.xpm
+NO ./texture/eagle.xpm
+SO ./texture/eagle.xpm
 WE ./texture/eagle.xpm
-EA ./texture/blue_stone.xpm
+EA ./texture/eagle.xpm
 F 255,0,255
 C 0,255,255
 
