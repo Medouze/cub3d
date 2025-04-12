@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:48:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/12 10:55:48 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/12 13:23:11 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ int handle_keypress(int key, t_mlx *mlx)
 	else if (key == 65364) //down
 		move_backward(mlx);
 	if (key == 65361) //left
-		rotate_player_vector(mlx, -3);
+		rotate_player_vector(mlx, -5);
 	else if (key == 65363) //right
-		rotate_player_vector(mlx, 3);
+		rotate_player_vector(mlx, 5);
 	if (key == 109) // M
 		mlx->show_map = !mlx->show_map;
 	render_frame(mlx);

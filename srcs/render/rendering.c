@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/12 12:42:04 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/12 13:21:11 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,51 +26,54 @@ int	fetch_texture_color(t_mlx mlx, int x, int y, void *texture)
 
 void draw_wall_line(t_mlx mlx, int x, t_ray ray)
 {
-	int start_wall;
-    int drawend;
-	int y;
+	int		start_wall;
+    int		drawend;
+	int		y;
+	float	y_texture;
+	float	x_texture;
+	float	y_text_step;
 
+	y_text_step = 64.0 / (float) ray.wall.height;
 
 	start_wall = -ray.wall.height / 2 + HEIGHT / 2;
 	drawend = ray.wall.height / 2 + HEIGHT / 2;
+	
+	if (ray.side_hit == HORIZONTAL)
+	{
+		if (ray.x_step < 0)
+			x_texture = fabs(1 - (ray.wall.y - floor(ray.wall.y))) * 64.0;
+		else
+			x_texture = (ray.wall.y - floor(ray.wall.y)) * 64.0;
+	}
+	else
+	{
+		if (ray.y_step < 0)
+			x_texture = (ray.wall.x - floor(ray.wall.x)) * 64.0;
+		else
+			x_texture = fabs(1 - (ray.wall.x - floor(ray.wall.x))) * 64.0;
+	}
 	y = -1;
+	y_texture = 0;
 	while (++y < drawend) 
 	{
-		if (y < ray.wall.height)
-		{
+		if (y < ray.wall.height && start_wall + y >= 0 && start_wall + y < HEIGHT)
+		{	
 			if (ray.side_hit == HORIZONTAL)
 			{
-				float a = (float) y / (float) ray.wall.height * 64.0;
 				if (ray.x_step < 0)
-				{	
-					float b = fabs(1 - (ray.wall.y - floor(ray.wall.y))) * 64.0;
-					if (start_wall + y >= 0 && start_wall + y < HEIGHT)
-						put_pixel(mlx, x, start_wall + y, fetch_texture_color(mlx, b, a, mlx.west_img));
-				}
-				else
-				{
-					float b = (ray.wall.y - floor(ray.wall.y)) * 64.0;
-					if (start_wall + y >= 0 && start_wall + y < HEIGHT)
-						put_pixel(mlx, x, start_wall + y, fetch_texture_color(mlx, b, a, mlx.east_img));
-				}
+					put_pixel(mlx, x, start_wall + y, fetch_texture_color(mlx, x_texture, y_texture, mlx.west_img));
+				else	
+					put_pixel(mlx, x, start_wall + y, fetch_texture_color(mlx, x_texture, y_texture, mlx.east_img));
 			}
 			else
 			{
-				float a = (float) y / (float) ray.wall.height * 64.0;
 				if (ray.y_step < 0)
-				{
-					float b = (ray.wall.x - floor(ray.wall.x)) * 64.0;
-					if (start_wall + y >= 0 && start_wall + y < HEIGHT)
-						put_pixel(mlx, x, start_wall + y, fetch_texture_color(mlx, b, a, mlx.north_img));
-				}
+					put_pixel(mlx, x, start_wall + y, fetch_texture_color(mlx, x_texture, y_texture, mlx.north_img));
 				else
-				{
-					float b = fabs(1 - (ray.wall.x - floor(ray.wall.x))) * 64.0;
-					if (start_wall + y >= 0 && start_wall + y < HEIGHT)
-						put_pixel(mlx, x, start_wall + y, fetch_texture_color(mlx, b, a, mlx.south_img));
-				}
+					put_pixel(mlx, x, start_wall + y, fetch_texture_color(mlx, x_texture, y_texture, mlx.south_img));
 			}
 		}
+		y_texture += y_text_step;
 	}
 }
 
@@ -108,11 +111,11 @@ void test2(t_mlx mlx) {
 	t_ray ray;
 
 	p = mlx.player;
-    double planeX = -p.vy * 0.66;
-    double planeY = p.vx * 0.66;
+    float planeX = -p.vy * 0.66;
+    float planeY = p.vx * 0.66;
 
     for (int x = 0; x < WIDTH; x++) {
-        double cameraX = 2 * x / (double)WIDTH - 1;  // Camera X (field of view)
+        float cameraX = 2 * x / (double)WIDTH - 1;  // Camera X (field of view)
         ray.vector_x = p.vx + planeX * cameraX;  // Direction of the ray in X
         ray.vector_y = p.vy + planeY * cameraX;  // Direction of the ray in Y
         int mapX = (int) p.x;
