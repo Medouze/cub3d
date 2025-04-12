@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/12 02:56:43 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/12 12:42:04 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,15 @@ int	fetch_texture_color(t_mlx mlx, int x, int y, void *texture)
 
 void draw_wall_line(t_mlx mlx, int x, t_ray ray)
 {
-	int drawstart = -ray.wall.height / 2 + HEIGHT / 2;
-    int drawend = ray.wall.height / 2 + HEIGHT / 2;
-	for (int y = 0 ;y < drawend; y++) 
+	int start_wall;
+    int drawend;
+	int y;
+
+
+	start_wall = -ray.wall.height / 2 + HEIGHT / 2;
+	drawend = ray.wall.height / 2 + HEIGHT / 2;
+	y = -1;
+	while (++y < drawend) 
 	{
 		if (y < ray.wall.height)
 		{
@@ -38,14 +44,14 @@ void draw_wall_line(t_mlx mlx, int x, t_ray ray)
 				if (ray.x_step < 0)
 				{	
 					float b = fabs(1 - (ray.wall.y - floor(ray.wall.y))) * 64.0;
-					if (drawstart + y >= 0 && drawstart + y < HEIGHT)
-						put_pixel(mlx, x, drawstart + y, fetch_texture_color(mlx, b, a, mlx.west_img));
+					if (start_wall + y >= 0 && start_wall + y < HEIGHT)
+						put_pixel(mlx, x, start_wall + y, fetch_texture_color(mlx, b, a, mlx.west_img));
 				}
 				else
 				{
 					float b = (ray.wall.y - floor(ray.wall.y)) * 64.0;
-					if (drawstart + y >= 0 && drawstart + y < HEIGHT)
-						put_pixel(mlx, x, drawstart + y, fetch_texture_color(mlx, b, a, mlx.east_img));
+					if (start_wall + y >= 0 && start_wall + y < HEIGHT)
+						put_pixel(mlx, x, start_wall + y, fetch_texture_color(mlx, b, a, mlx.east_img));
 				}
 			}
 			else
@@ -54,14 +60,14 @@ void draw_wall_line(t_mlx mlx, int x, t_ray ray)
 				if (ray.y_step < 0)
 				{
 					float b = (ray.wall.x - floor(ray.wall.x)) * 64.0;
-					if (drawstart + y >= 0 && drawstart + y < HEIGHT)
-						put_pixel(mlx, x, drawstart + y, fetch_texture_color(mlx, b, a, mlx.north_img));
+					if (start_wall + y >= 0 && start_wall + y < HEIGHT)
+						put_pixel(mlx, x, start_wall + y, fetch_texture_color(mlx, b, a, mlx.north_img));
 				}
 				else
 				{
 					float b = fabs(1 - (ray.wall.x - floor(ray.wall.x))) * 64.0;
-					if (drawstart + y >= 0 && drawstart + y < HEIGHT)
-						put_pixel(mlx, x, drawstart + y, fetch_texture_color(mlx, b, a, mlx.south_img));
+					if (start_wall + y >= 0 && start_wall + y < HEIGHT)
+						put_pixel(mlx, x, start_wall + y, fetch_texture_color(mlx, b, a, mlx.south_img));
 				}
 			}
 		}
@@ -91,7 +97,6 @@ void digital_differential_analyzer(t_mlx *mlx, t_ray *ray)
 			map_y += ray->y_step;
 			ray->side_hit = VERTICAL;
 		}
-
 		if (mlx->map[map_y][map_x] == '1')
 			hit = 1;
 	}
@@ -215,7 +220,7 @@ void test2(t_mlx mlx) {
 void render_frame(t_mlx *mlx)
 {
 	if (mlx->img)
-		mlx_destroy_image(mlx->mlx_ptr, mlx->img);
+		mlx_destroy_image(mlx->mlx_ptr, mlx->img);	
 	mlx->img = mlx_new_image(mlx->mlx_ptr, WIDTH, HEIGHT);
 	if (!mlx->img)
 	{
@@ -223,16 +228,43 @@ void render_frame(t_mlx *mlx)
 		exit(0);
 	}
 	mlx->address = mlx_get_data_addr(mlx->img, &mlx->bits_per_pixel, &mlx->size_line, &mlx->endians);
+	char *tmp = mlx_get_data_addr(mlx->floor_ceil_img, &mlx->bits_per_pixel, &mlx->size_line, &mlx->endians);
 	if (!mlx->address)
 	{
 		printf("ERROR");
 		exit(0);
 	}
+	mlx->address = ft_memcpy(mlx->address, tmp, mlx->size_line * HEIGHT);
 	test2(*mlx);
 	//render_wall(*mlx);
-	if (mlx->show_map)
-		show_minimap(*mlx);
+	//if (mlx->show_map)
+		//show_minimap(*mlx);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img, 0, 0);
+}
+
+void create_floor_ceil(t_mlx *mlx)
+{
+	int 	x;
+	int 	y;
+	int		half_height;
+	char	*ceil;
+	char	*floor;
+
+	mlx->floor_ceil_img = mlx_new_image(mlx->mlx_ptr, WIDTH, HEIGHT);
+	half_height = HEIGHT / 2;
+	y = -1;
+	mlx->floor_ceil_address = mlx_get_data_addr(mlx->floor_ceil_img, &mlx->bits_per_pixel, &mlx->size_line, &mlx->endians);
+	while (++y < half_height)
+	{
+		x = -1;
+		while (++x <= WIDTH)
+		{
+			ceil = mlx->floor_ceil_address + y * mlx->size_line +  x * (mlx->bits_per_pixel / 8);
+			*(unsigned int *)ceil = mlx->config->ceiling_color;
+			floor = mlx->floor_ceil_address + (y + half_height) * mlx->size_line +  x * (mlx->bits_per_pixel / 8);
+			*(unsigned int *)floor = mlx->config->floor_color;
+		}
+	}
 }
 
 void rendering(t_config data)
@@ -242,6 +274,7 @@ void rendering(t_config data)
 	mlx = init_window(&data);
 	mlx.scaling = 20;
 	//mlx_key_hook(mlx.win_ptr, handle_keypress, &mlx);
+	create_floor_ceil(&mlx);
 	render_frame(&mlx);
 	mlx_hook(mlx.win_ptr, 2, 1L << 0, handle_keypress, &mlx);
 	mlx_loop(mlx.mlx_ptr);

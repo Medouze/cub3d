@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 23:31:04 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/12 01:19:58 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/12 11:52:19 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@
 	return (wall);
 }  */
 
-void draw_map(t_mlx mlx)
+/* void draw_map(t_mlx mlx)
 {
 
 	int y;
@@ -81,7 +81,7 @@ void draw_map(t_mlx mlx)
 			{
 				for (int j = 0; j < mlx.scaling; j++)
 				{
-					char *dst = mlx.address + ((y * mlx.scaling + i) * mlx.size_line + (x * mlx.scaling + j) * (mlx.bits_per_pixel / 8));
+					char *dst = rotate_player_vector + ((y * mlx.scaling + i) * mlx.size_line + (x * mlx.scaling + j) * (mlx.bits_per_pixel / 8));
 					if (mlx.map[y][x] == '1')
 						*(unsigned int *)dst = 0xFFFFFF;
 					else
@@ -90,7 +90,7 @@ void draw_map(t_mlx mlx)
 			}
 		}
 	}
-}
+} */
 
 /* void	draw_fov(t_mlx mlx)
 {
@@ -114,8 +114,8 @@ void draw_map(t_mlx mlx)
 	}
 } */
 
-void show_minimap(t_mlx mlx)
+/* void show_minimap(t_mlx mlx)
 {
 	draw_map(mlx);
 	//draw_fov(mlx);
-}
+} */
