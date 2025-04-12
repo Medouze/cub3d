@@ -6,13 +6,13 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 17:34:46 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/10 14:13:38 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/12 15:53:11 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/*
+
 void	print_config(const t_config *config)
 {
 	int	i;
@@ -29,11 +29,13 @@ void	print_config(const t_config *config)
 	printf("SO Texture: %s\n", config->so_texture
 	? config->so_texture : "(null)");
 	printf("WE Texture: %s\n", config->we_texture 
-	 config->we_texture : "(null)");
+	? config->we_texture : "(null)");
 	printf("EA Texture: %s\n", config->ea_texture 
 	? config->ea_texture : "(null)");
 	printf("Floor Color: 0x%06X\n", config->floor_color);
 	printf("Ceiling Color: 0x%06X\n", config->ceiling_color);
+	printf("Width map: %d\n", config->width);
+	printf("Height map: %d\n", config->height);
 	printf("Map:\n");
 	if (config->map) 
 	{
@@ -47,7 +49,7 @@ void	print_config(const t_config *config)
 	else
 		printf("  (null)\n");
 }
-*/
+
 
 void	parser(t_config *data, char *path)
 {

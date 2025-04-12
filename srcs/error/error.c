@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:02:49 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/08 17:30:15 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/12 15:50:25 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	free_double(char **infos)
 void	print_error(char *str, t_config *data)
 {
 	free_config(data);
-	printf("Error : %s\n", str);
+	printf("Error\n");
+	printf("%s\n", str);
 	if (ft_strncmp("FREED ALL ", str, ft_strlen(str)) == 0)
 		exit(EXIT_SUCCESS);
 	exit(EXIT_FAILURE);

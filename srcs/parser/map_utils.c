@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 21:40:36 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/10 13:49:08 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/12 15:48:01 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,27 +53,24 @@ static char	*pad_line(char *line, int width)
 	return (new_line);
 }
 
-char	**pad_map_lines(char **map)
+char	**pad_map_lines(t_config *data, char **map)
 {
-	int		height;
-	int		width;
 	char	**padded_map;
 	int		i;
 
-	height = 0;
-	width = get_longest_line(map);
-	while (map[height])
-		height++;
-	padded_map = malloc(sizeof(char *) * (height + 1));
+	data->width = get_longest_line(map);
+	while (map[data->height])
+		data->height++;
+	padded_map = malloc(sizeof(char *) * (data->height + 1));
 	if (!padded_map)
 		return (NULL);
 	i = 0;
-	while (i < height)
+	while (i < data->height)
 	{
-		padded_map[i] = pad_line(map[i], width);
+		padded_map[i] = pad_line(map[i], data->width);
 		i++;
 	}
-	padded_map[height] = NULL;
+	padded_map[data->height] = NULL;
 	return (padded_map);
 }
 

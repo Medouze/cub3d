@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:31:36 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/10 13:49:25 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/12 15:48:18 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	valid_map(t_config *data)
 	char	**map_copy;
 
 	check_map_info(data, data->map);
-	map_copy = pad_map_lines(data->map);
+	map_copy = pad_map_lines(data, data->map);
 	check_player_stuck(data);
 	check_walls(map_copy, data);
 	free_double(map_copy);
