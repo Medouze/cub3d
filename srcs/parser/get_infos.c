@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_infos.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:57:23 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/10 14:05:49 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/12 22:25:29 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	print_infos(char **infos) // delete plus tard
 		str = *infos;
 		while (*str != '\0')
 		{
-			write(1, str, 1);
+			//write(1, str, 1);
 			str++;
 		}
-		write(1, "\n", 1);
+		//write(1, "\n", 1);
 		infos++;
 	}
 }
@@ -76,6 +76,7 @@ void	copy_map(t_config *data, int fd, char *path)
 	while (1)
 	{
 		line = get_next_line(fd);
+		printf("line = %s\n", line);
 		if (!line)
 			break ;
 		if (ft_strchr(VALID_STARTMAP, line[0]))
