@@ -6,13 +6,13 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 23:31:04 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/11 20:15:44 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/12 01:19:58 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_point	near_wall(t_mlx mlx, float delta[2], float tmp[2], int color)
+/* t_point	near_wall(t_mlx mlx, float delta[2], float tmp[2], int color)
 {
 	t_point p;
 	int hit;
@@ -45,9 +45,9 @@ t_point	near_wall(t_mlx mlx, float delta[2], float tmp[2], int color)
 	p.x = tmp[0] / mlx.scaling;
 	p.y = tmp[1] / mlx.scaling;
 	return (p);
-}
+} */
 
-t_point cast_ray(t_mlx mlx, float x, float y, int color)
+/* t_point cast_ray(t_mlx mlx, float x, float y, int color)
 {
 	float	delta[2];
 	float	tmp[2];
@@ -63,7 +63,7 @@ t_point cast_ray(t_mlx mlx, float x, float y, int color)
 	tmp[1] = mlx.player.y;
 	wall = near_wall(mlx, delta, tmp, color);
 	return (wall);
-} 
+}  */
 
 void draw_map(t_mlx mlx)
 {

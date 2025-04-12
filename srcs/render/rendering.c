@@ -6,72 +6,101 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/12 00:46:23 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/12 02:56:43 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	test(t_mlx mlx, int x, int y, void *path)
+int	fetch_texture_color(t_mlx mlx, int x, int y, void *texture)
 {
-	//printf("x = %d, y = %d\n", x, y);
-	
-	//printf("x = %d, y = %d\n", x, y);
-	char *s = mlx_get_data_addr(path, &mlx.bits_per_pixel, &mlx.size_line, &mlx.endians);
-	int offset = (y * mlx.size_line +  x * (mlx.bits_per_pixel / 8));
-	int dst = *(int *)(s + offset);
-	//printf("color = %X\n", dst);
-	return (dst);
+	char	*buff;
+	int		offset;
+	int		color;
+
+	buff = mlx_get_data_addr(texture, &mlx.bits_per_pixel, &mlx.size_line, &mlx.endians);
+	offset = (y * mlx.size_line +  x * (mlx.bits_per_pixel / 8));
+	color = *(int *)(buff + offset);
+	return (color);
 }
 
-void draw_wall_line(t_mlx mlx, int wall_height, int side, int x, int stepX, int stepY, t_point wall)
+void draw_wall_line(t_mlx mlx, int x, t_ray ray)
 {
-	int drawstart = -wall_height / 2 + HEIGHT / 2;
-    int drawend = wall_height / 2 + HEIGHT / 2;
-	(void) drawend;
+	int drawstart = -ray.wall.height / 2 + HEIGHT / 2;
+    int drawend = ray.wall.height / 2 + HEIGHT / 2;
 	for (int y = 0 ;y < drawend; y++) 
 	{
-		if (y < wall_height)
+		if (y < ray.wall.height)
 		{
-			if (side == 0)
+			if (ray.side_hit == HORIZONTAL)
 			{
-				float a = (float) y / (float) wall_height * 64.0;
-				if (stepX < 0)
+				float a = (float) y / (float) ray.wall.height * 64.0;
+				if (ray.x_step < 0)
 				{	
-					float b = fabs(1 - (wall.y - floor(wall.y))) * 64.0;
+					float b = fabs(1 - (ray.wall.y - floor(ray.wall.y))) * 64.0;
 					if (drawstart + y >= 0 && drawstart + y < HEIGHT)
-						put_pixel(mlx, x, drawstart + y, test(mlx, b, a, mlx.west_img));
-					//put_pixel(mlx, x, HEIGHT / 2 + y, test(mlx, b, c, mlx.west_img));
+						put_pixel(mlx, x, drawstart + y, fetch_texture_color(mlx, b, a, mlx.west_img));
 				}
 				else
 				{
-					float b = (wall.y - floor(wall.y)) * 64.0;
-					if (drawstart + y >= 0 && drawstart + y < HEIGHT) // invert text
-						put_pixel(mlx, x, drawstart + y, test(mlx, b, a, mlx.east_img));
+					float b = (ray.wall.y - floor(ray.wall.y)) * 64.0;
+					if (drawstart + y >= 0 && drawstart + y < HEIGHT)
+						put_pixel(mlx, x, drawstart + y, fetch_texture_color(mlx, b, a, mlx.east_img));
 				}
 			}
 			else
 			{
-				float a = (float) y / (float) wall_height * 64.0;
-				if (stepY < 0)
+				float a = (float) y / (float) ray.wall.height * 64.0;
+				if (ray.y_step < 0)
 				{
-					float b = (wall.x - floor(wall.x)) * 64.0;
+					float b = (ray.wall.x - floor(ray.wall.x)) * 64.0;
 					if (drawstart + y >= 0 && drawstart + y < HEIGHT)
-						put_pixel(mlx, x, drawstart + y, test(mlx, b, a, mlx.north_img));
+						put_pixel(mlx, x, drawstart + y, fetch_texture_color(mlx, b, a, mlx.north_img));
 				}
 				else
 				{
-					float b = fabs(1 - (wall.x - floor(wall.x))) * 64.0;
-					if (drawstart + y >= 0 && drawstart + y < HEIGHT) // invert text
-						put_pixel(mlx, x, drawstart + y, test(mlx, b, a, mlx.south_img));
+					float b = fabs(1 - (ray.wall.x - floor(ray.wall.x))) * 64.0;
+					if (drawstart + y >= 0 && drawstart + y < HEIGHT)
+						put_pixel(mlx, x, drawstart + y, fetch_texture_color(mlx, b, a, mlx.south_img));
 				}
 			}
 		}
 	}
 }
 
+void digital_differential_analyzer(t_mlx *mlx, t_ray *ray)
+{
+	int 	hit;
+	int 	map_x;
+	int 	map_y;
+	
+	hit = 0;
+	map_x = mlx->player.x;
+	map_y = mlx->player.y;
+	while (!hit)
+	{
+		if (ray->side_dist_x < ray->side_dist_y)
+		{
+			ray->side_dist_x += ray->delta_x;
+			map_x += ray->x_step;
+			ray->side_hit = HORIZONTAL;
+		}
+		else
+		{
+			ray->side_dist_y += ray->delta_y;
+			map_y += ray->y_step;
+			ray->side_hit = VERTICAL;
+		}
+
+		if (mlx->map[map_y][map_x] == '1')
+			hit = 1;
+	}
+	ray->wall_dis = (ray->side_hit == 0) ? (ray->side_dist_x - ray->delta_x) : (ray->side_dist_y - ray->delta_y);
+}
+
 void test2(t_mlx mlx) {
 	t_player p;
+	t_ray ray;
 
 	p = mlx.player;
     double planeX = -p.vy * 0.66;
@@ -79,75 +108,38 @@ void test2(t_mlx mlx) {
 
     for (int x = 0; x < WIDTH; x++) {
         double cameraX = 2 * x / (double)WIDTH - 1;  // Camera X (field of view)
-        double rayDirX = p.vx + planeX * cameraX;  // Direction of the ray in X
-        double rayDirY = p.vy + planeY * cameraX;  // Direction of the ray in Y
+        ray.vector_x = p.vx + planeX * cameraX;  // Direction of the ray in X
+        ray.vector_y = p.vy + planeY * cameraX;  // Direction of the ray in Y
         int mapX = (int) p.x;
         int mapY = (int) p.y;
-        double sideDistX;
-        double sideDistY;
-        double deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
-        double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
-        double perpWallDist;
-        int stepX;
-        int stepY;
-        int hit = 0;
-        int side;
+        ray.delta_x = (ray.vector_x == 0) ? 1e30 : fabs(1 / ray.vector_x);
+        ray.delta_y = (ray.vector_y == 0) ? 1e30 : fabs(1 / ray.vector_y);
 
         // Initialize step and sideDist for ray in X direction
-        if (rayDirX < 0) {
-            stepX = -1;
-            sideDistX = (p.x - mapX) * deltaDistX;
+        if (ray.vector_x < 0) {
+           	ray.x_step = -1;
+            ray.side_dist_x = (p.x - mapX) * ray.delta_x;
         } else {
-            stepX = 1;
-            sideDistX = (mapX + 1.0 - p.x) * deltaDistX;
+            ray.x_step = 1;
+            ray.side_dist_x = (mapX + 1.0 - p.x) * ray.delta_x;
         }
 
         // Initialize step and sideDist for ray in Y direction
-        if (rayDirY < 0) {
-            stepY = -1;
-            sideDistY = (p.y - mapY) * deltaDistY;
+        if (ray.vector_y < 0) {
+            ray.y_step = -1;
+            ray.side_dist_y = (p.y - mapY) * ray.delta_y;
         } else {
-            stepY = 1;
-            sideDistY = (mapY + 1.0 - p.y) * deltaDistY;
+            ray.y_step = 1;
+            ray.side_dist_y = (mapY + 1.0 - p.y) * ray.delta_y;
         }
+		digital_differential_analyzer(&mlx, &ray);
 
-        // DDA loop: check every step of the ray
-        while (!hit) {
-            if (sideDistX < sideDistY) {
-                sideDistX += deltaDistX;
-                mapX += stepX;
-                side = 0;
-            } else {
-                sideDistY += deltaDistY;
-                mapY += stepY;
-                side = 1;
-            }
-
-            // If the ray hits a wall ('1')
-            if (mlx.map[mapY][mapX] == '1') {
-                hit = 1;
-            }
-        }
-
-        // Calculate the perpendicular distance to the wall
-        perpWallDist = (side == 0) ? (sideDistX - deltaDistX) : (sideDistY - deltaDistY);
-
-        // Calculate the line height based on the distance to the wall
-        int wall_height = (int)(HEIGHT / perpWallDist);
-
-        // Calculate where the wall should start and end on the screen
-        int drawstart = -wall_height / 2 + HEIGHT / 2;
-        if (drawstart < 0) drawstart = 0;
-        int drawend = wall_height / 2 + HEIGHT / 2;
-        if (drawend >= HEIGHT) drawend = HEIGHT - 1;
-		t_point tmp;
-		tmp.x = p.x + perpWallDist * rayDirX;
-		tmp.y = p.y + perpWallDist * rayDirY;
-		draw_wall_line(mlx, wall_height, side, x, stepX, stepY, tmp);
+        ray.wall.height = (int)(HEIGHT / ray.wall_dis);
+		ray.wall.x = p.x + ray.wall_dis * ray.vector_x;
+		ray.wall.y = p.y + ray.wall_dis * ray.vector_y;
+		draw_wall_line(mlx, x, ray);
     }
 }
-
-
 
 
 /* void draw_image_collumn(t_mlx mlx, t_point wall, int wall_height, int collumn)

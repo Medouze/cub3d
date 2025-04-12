@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/11 20:18:23 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/12 02:02:18 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,32 @@
 # define SOUTH 0x0000FF
 # define EAST  0x00FF00
 # define WEST 0xFFFF00
+# define HORIZONTAL 0
+# define VERTICAL 1
 
 typedef struct s_config	t_config;
 
 typedef struct s_point
 {
+	int		height;
 	double	x;
 	double	y;
-	int		color;
 }	t_point;
+
+typedef struct s_ray
+{
+	int 	side_hit;
+	int 	x_step;
+	int 	y_step;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_x;
+	double	delta_y;
+	double	vector_x;
+	double	vector_y;
+	double	wall_dis;
+	t_point	wall;
+}	t_ray;
 
 typedef struct s_player
 {
@@ -72,6 +89,10 @@ void	rotate_player_vector(t_mlx *mlx, int rotation);
 /******************** MLX ********************/
 
 void	destroy_window(t_mlx *mlx, int is_error);
+
+/****************** RAYCAST ******************/
+
+void digital_differential_analyzer(t_mlx *mlx, t_ray *ray);
 
 /****************** MINIMAP ******************/
 
