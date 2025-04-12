@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:19:26 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/12 22:25:51 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/12 22:26:29 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <X11/Xlib.h>
 # include <X11/keysym.h>
 # include <stdio.h>
-# include "../minilibx-linux/mlx.h"
+# include "mlx.h"
 # include "libft.h"
 # include "errors.h"
 # include "render.h"
