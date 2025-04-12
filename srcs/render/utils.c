@@ -6,18 +6,19 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 22:27:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/12 00:31:00 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/12 21:35:51 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	put_pixel(t_mlx mlx, int x, int y, int color)
+void	put_pixel(t_mlx *mlx, int x, int y, int color)
 {
-	char *dst;
+	char	*dst;
 
-	///printf("x = %d, y = %d\n", x, y);
-	dst = mlx.address + y * mlx.size_line +  x * (mlx.bits_per_pixel / 8);
+	mlx->address = mlx_get_data_addr(mlx->img,
+			&mlx->bits_per_pixel, &mlx->size_line, &mlx->endians);
+	dst = mlx->address + y * mlx->size_line + x * (mlx->bits_per_pixel / 8);
 	*(unsigned int *)dst = color;
 }
 

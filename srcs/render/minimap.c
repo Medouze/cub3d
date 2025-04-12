@@ -6,79 +6,81 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 23:31:04 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/12 15:00:45 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/12 21:34:46 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	near_wall(t_mlx mlx, float delta[2], int color)
+void	near_wall(t_game *game, float delta[2], int color)
 {
+	int		i;
 	float	p_x;
 	float	p_y;
 
-	p_x = mlx.player.x * mlx.scaling;
-	p_y = mlx.player.y * mlx.scaling;
-	int i = -1;
-	while (++i < mlx.scaling * 2)
+	p_x = game->player.x * game->scaling;
+	p_y = game->player.y * game->scaling;
+	i = -1;
+	while (++i < game->scaling * 2)
 	{
-		put_pixel(mlx, roundf(p_x), roundf(p_y), color);
+		put_pixel(&game->mlx, roundf(p_x), roundf(p_y), color);
 		p_x += delta[0];
 		p_y += delta[1];
-		if (mlx.map[(int) p_y / mlx.scaling][(int) p_x / mlx.scaling] == '1')
-			break;
+		if (game->map[(int) p_y / game->scaling][(int) p_x / game->scaling] == '1')
+			break ;
 	}
 }
 
-void cast_ray(t_mlx mlx, float x, float y, int color)
+void	cast_ray(t_game *game, float x, float y, int color)
 {
 	float	delta[2];
-	float length;
+	float	length;
 
 	delta[0] = x;
 	delta[1] = y;
 	length = sqrt(delta[0] * delta[0] + delta[1] * delta[1]);
 	delta[0] /= length;
 	delta[1] /= length;
-	near_wall(mlx, delta, color);
+	near_wall(game, delta, color);
 }
 
-void draw_map(t_mlx mlx)
+void	draw_map(t_game *game, t_mlx *mlx)
 {
-
-	int y;
-	int x;
+	int		y;
+	int		x;
+	int		i;
+	int		j;
 
 	y = -1;
-	while (mlx.map[++y])
+	while (game->map[++y])
 	{
 		x = -1;
-		while (mlx.map[y][++x])
+		while (game->map[y][++x])
 		{
-			for (int i = 0; i < mlx.scaling; i++)
+			i = -1;
+			while (++i < game->scaling)
 			{
-				for (int j = 0; j < mlx.scaling; j++)
+				j = -1;
+				while (++j < game->scaling)
 				{
-					char *dst = mlx.address + ((y * mlx.scaling + i) * mlx.size_line + (x * mlx.scaling + j) * (mlx.bits_per_pixel / 8));
-					if (mlx.map[y][x] == '1')
-						*(unsigned int *)dst = 0xFFFFFF;
+					if (game->map[y][x] == '1')
+						put_pixel(mlx, x * game->scaling + j, y * game->scaling + i, 0xFFFFFF);
 					else
-						*(unsigned int *)dst = 0x000000;
+						put_pixel(mlx, x * game->scaling + j, y * game->scaling + i, 0x000000);
 				}
 			}
 		}
 	}
 }
 
-t_point	calculate_point(t_mlx *mlx, int rotation)
+t_point	calculate_point(t_game *game, int rotation)
 {
 	float	x;
 	float	y;
-	t_point p;
+	t_point	p;
 
-	p.x = mlx->player.vx;
-	p.y = mlx->player.vy;
-	
+	p.x = game->player.vx;
+	p.y = game->player.vy;
 	x = cos(to_radians(rotation)) * (p.x) - sin(to_radians(rotation)) * (p.y);
 	y = sin(to_radians(rotation)) * (p.x) - cos(to_radians(rotation)) * (p.y);
 	p.x = x;
@@ -86,72 +88,77 @@ t_point	calculate_point(t_mlx *mlx, int rotation)
 	return (p);
 }
 
-void	draw_fov(t_mlx mlx)
+void	draw_fov(t_game *game, t_player *player)
 {
-	int i = -1;
-	float vx;
-	float vy;
-	mlx.player.fov = 66;
-	float angle = to_radians(-(mlx.player.fov / 2));
-	float step = (float) to_radians(mlx.player.fov / (float) WIDTH);
+	int		i;
+	float	vx;
+	float	vy;
+	float	step;
+	float	angle;	
+
+	i = -1;
+	player->fov = 66;
+	angle = to_radians(-(player->fov / 2));
+	step = (float) to_radians(player->fov / (float) WIDTH);
 	while (++i < WIDTH)
 	{
-		vx = mlx.player.vx * cos(angle) - mlx.player.vy * sin(angle);
-		vy = mlx.player.vx * sin(angle) + mlx.player.vy * cos(angle);
-		cast_ray(mlx, vx, vy, 0xFFFF00);
+		vx = player->vx * cos(angle) - player->vy * sin(angle);
+		vy = player->vx * sin(angle) + player->vy * cos(angle);
+		cast_ray(game, vx, vy, 0xFFFF00);
 		angle += step;
 	}
 }
 
-void cast_ray_player(t_mlx mlx, float x, float y, int color)
+void	cast_ray_player(t_game *game, t_mlx *mlx, float x, float y, int color)
 {
+	int		i;
 	float	delta[2];
-	float length;
+	float	length;
+	float	p_x;
+	float	p_y;
 
 	delta[0] = x;
 	delta[1] = y;
 	length = sqrt(delta[0] * delta[0] + delta[1] * delta[1]);
 	delta[0] /= length;
 	delta[1] /= length;
-	float	p_x;
-	float	p_y;
-
-	p_x = mlx.player.x * mlx.scaling;
-	p_y = mlx.player.y * mlx.scaling;
-	int i = -1;
-	while (++i < mlx.scaling / 4)
+	p_x = game->player.x * game->scaling;
+	p_y = game->player.y * game->scaling;
+	i = -1;
+	while (++i < game->scaling / 4)
 	{
 		put_pixel(mlx, roundf(p_x), roundf(p_y), color);
 		p_x += delta[0];
 		p_y += delta[1];
-		if (mlx.map[(int) p_y / mlx.scaling][(int) p_x / mlx.scaling] == '1')
-			break;
+		if (game->map[(int) p_y / game->scaling][(int) p_x / game->scaling] == '1')
+			break ;
 	}
 }
 
-void	draw_player(t_mlx mlx)
+void	draw_player(t_game *game)
 {
-	int i = -1;
-	float vx;
-	float vy;
+	int		i;
+	float	vx;
+	float	vy;
 
+	i = -1;
 	while (++i < 360)
 	{
-		vx = mlx.player.vx * cos(to_radians(i)) - mlx.player.vy * sin(to_radians(i));
-		vy = mlx.player.vx * sin(to_radians(i)) + mlx.player.vy * cos(to_radians(i));
-		cast_ray_player(mlx, vx, vy, 0xFF0000);
+		vx = game->player.vx * cos(to_radians(i)) - game->player.vy * sin(to_radians(i));
+		vy = game->player.vx * sin(to_radians(i)) + game->player.vy * cos(to_radians(i));
+		cast_ray_player(game, &game->mlx, vx, vy, 0x00FF00);
 	}
 }
 
-void show_minimap(t_mlx mlx)
+void	show_minimap(t_game *game)
 {
-	int x_max = 33;
-	int y_max = 14;
-	int width_map = 200;
+	/* int	x_max = 33; // ICI
+	int	y_max = 14;
+	int	width_map = 200;
 
-	mlx.scaling = width_map / fmax(y_max, x_max);
-	mlx.scaling = 20;
-	draw_map(mlx);
-	draw_fov(mlx);
-	draw_player(mlx);
+	game->scaling = width_map / fmax(y_max, x_max); */
+	game->scaling = 20;
+	draw_map(game, &game->mlx);
+	draw_fov(game, &game->player);
+	draw_player(game);
 }

@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:19:26 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/08 22:37:45 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/12 21:41:44 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <math.h>
+# include <X11/Xlib.h>
+# include <X11/keysym.h>
 # include <stdio.h>
 # include "mlx.h"
 # include "libft.h"
