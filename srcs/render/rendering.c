@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/12 13:21:11 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/12 13:30:18 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,8 +240,8 @@ void render_frame(t_mlx *mlx)
 	mlx->address = ft_memcpy(mlx->address, tmp, mlx->size_line * HEIGHT);
 	test2(*mlx);
 	//render_wall(*mlx);
-	//if (mlx->show_map)
-		//show_minimap(*mlx);
+	if (mlx->show_map)
+		show_minimap(*mlx);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->img, 0, 0);
 }
 
@@ -275,7 +275,6 @@ void rendering(t_config data)
 	t_mlx mlx;
 
 	mlx = init_window(&data);
-	mlx.scaling = 20;
 	//mlx_key_hook(mlx.win_ptr, handle_keypress, &mlx);
 	create_floor_ceil(&mlx);
 	render_frame(&mlx);

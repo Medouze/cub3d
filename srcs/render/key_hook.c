@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:48:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/12 13:23:11 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/12 15:42:40 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,20 @@ void move_backward(t_mlx *mlx)
 	float mov_x;
 	float mov_y;
 
-	margin = 0.2;
-	mov_x = mlx->player.x + -mlx->player.vx * 0.1 + -mlx->player.vx * margin;
-	mov_y = mlx->player.y + -mlx->player.vy * 0.1 + -mlx->player.vy * margin;
-	if (mlx->map[(int) mlx->player.y][(int) (mov_x)] != '1')
-  		mlx->player.x += -mlx->player.vx * 0.1;
-	if (mlx->map[(int) (mov_y)][(int) mlx->player.x] != '1')
-  		mlx->player.y += -mlx->player.vy * 0.1;
+	if (mlx->player.vx < 0)
+		margin = 0.2;
+	else
+		margin = -0.2;
+	mov_x = mlx->player.x + -mlx->player.vx * 0.1;
+	if (mlx->map[(int) mlx->player.y][(int) (mov_x + margin)] != '1')
+  		mlx->player.x -= mlx->player.vx * 0.1;
+	if (mlx->player.vy < 0)
+		margin = 0.2;
+	else
+		margin = -0.2;
+	mov_y = mlx->player.y + -mlx->player.vy * 0.1;
+	if (mlx->map[(int) (mov_y + margin)][(int) mlx->player.x] != '1')
+  		mlx->player.y -= mlx->player.vy * 0.1;
 }
 
 

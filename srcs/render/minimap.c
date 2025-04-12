@@ -6,66 +6,44 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 23:31:04 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/12 11:52:19 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/12 15:00:45 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-/* t_point	near_wall(t_mlx mlx, float delta[2], float tmp[2], int color)
+void	near_wall(t_mlx mlx, float delta[2], int color)
 {
-	t_point p;
-	int hit;
+	float	p_x;
+	float	p_y;
 
-	hit = 0;
-	while (!hit)
+	p_x = mlx.player.x * mlx.scaling;
+	p_y = mlx.player.y * mlx.scaling;
+	int i = -1;
+	while (++i < mlx.scaling * 2)
 	{
-		(void) color;
-		put_pixel(mlx, roundf(tmp[0] * mlx.scaling), roundf(tmp[1] * mlx.scaling), color); //tmp
-		tmp[0] += delta[0];
-		tmp[1] += delta[1];
-		//printf("x = %f, y = %f\n", tmp[0], tmp[1]);
-		if (mlx.map[(int) tmp[1]][(int) tmp[0]] == '1')
-		{
-			hit = 1;
-			if (fabs(delta[0]) > fabs(delta[1])) {
-				if (delta[0] < 0)
-					p.color = EAST;
-				else
-					p.color = WEST;
-            } else {
-				if (delta[0] < 0)
-					p.color = SOUTH;
-				else
-					p.color = NORTH;
-            }
-		}
-
+		put_pixel(mlx, roundf(p_x), roundf(p_y), color);
+		p_x += delta[0];
+		p_y += delta[1];
+		if (mlx.map[(int) p_y / mlx.scaling][(int) p_x / mlx.scaling] == '1')
+			break;
 	}
-	p.x = tmp[0] / mlx.scaling;
-	p.y = tmp[1] / mlx.scaling;
-	return (p);
-} */
+}
 
-/* t_point cast_ray(t_mlx mlx, float x, float y, int color)
+void cast_ray(t_mlx mlx, float x, float y, int color)
 {
 	float	delta[2];
-	float	tmp[2];
-	t_point	wall;
 	float length;
 
-	delta[0] = (x * mlx.scaling - mlx.player.x * mlx.scaling);
-	delta[1] = (y * mlx.scaling - mlx.player.y * mlx.scaling);
+	delta[0] = x;
+	delta[1] = y;
 	length = sqrt(delta[0] * delta[0] + delta[1] * delta[1]);
 	delta[0] /= length;
 	delta[1] /= length;
-	tmp[0] = mlx.player.x;
-	tmp[1] = mlx.player.y;
-	wall = near_wall(mlx, delta, tmp, color);
-	return (wall);
-}  */
+	near_wall(mlx, delta, color);
+}
 
-/* void draw_map(t_mlx mlx)
+void draw_map(t_mlx mlx)
 {
 
 	int y;
@@ -81,7 +59,7 @@
 			{
 				for (int j = 0; j < mlx.scaling; j++)
 				{
-					char *dst = rotate_player_vector + ((y * mlx.scaling + i) * mlx.size_line + (x * mlx.scaling + j) * (mlx.bits_per_pixel / 8));
+					char *dst = mlx.address + ((y * mlx.scaling + i) * mlx.size_line + (x * mlx.scaling + j) * (mlx.bits_per_pixel / 8));
 					if (mlx.map[y][x] == '1')
 						*(unsigned int *)dst = 0xFFFFFF;
 					else
@@ -90,32 +68,90 @@
 			}
 		}
 	}
-} */
+}
 
-/* void	draw_fov(t_mlx mlx)
+t_point	calculate_point(t_mlx *mlx, int rotation)
 {
-	t_point v1;
-	t_point v2;
+	float	x;
+	float	y;
+	t_point p;
 
-	v1 = calculate_point(&mlx, mlx.player.rotation + mlx.player.fov / 2);
-	v2 = calculate_point(&mlx, mlx.player.rotation - mlx.player.fov / 2);
-	cast_ray(mlx, v1.x, v1.y, 0xFFFF00);
-	cast_ray(mlx, v2.x, v2.y, 0xFFFF00);
+	p.x = mlx->player.vx;
+	p.y = mlx->player.vy;
+	
+	x = cos(to_radians(rotation)) * (p.x) - sin(to_radians(rotation)) * (p.y);
+	y = sin(to_radians(rotation)) * (p.x) - cos(to_radians(rotation)) * (p.y);
+	p.x = x;
+	p.y = y;
+	return (p);
+}
 
-	float dif_x = (v1.x - v2.x) / WIDTH;
-	float dif_y = (v1.y - v2.y) / WIDTH;
-	int count = 0;
-	while (count <= WIDTH)
+void	draw_fov(t_mlx mlx)
+{
+	int i = -1;
+	float vx;
+	float vy;
+	mlx.player.fov = 66;
+	float angle = to_radians(-(mlx.player.fov / 2));
+	float step = (float) to_radians(mlx.player.fov / (float) WIDTH);
+	while (++i < WIDTH)
 	{
-		cast_ray(mlx, v1.x, v1.y, 0xFFFF00);
-		v1.x -= dif_x;
-		v1.y -= dif_y;
-		count++;
+		vx = mlx.player.vx * cos(angle) - mlx.player.vy * sin(angle);
+		vy = mlx.player.vx * sin(angle) + mlx.player.vy * cos(angle);
+		cast_ray(mlx, vx, vy, 0xFFFF00);
+		angle += step;
 	}
-} */
+}
 
-/* void show_minimap(t_mlx mlx)
+void cast_ray_player(t_mlx mlx, float x, float y, int color)
 {
+	float	delta[2];
+	float length;
+
+	delta[0] = x;
+	delta[1] = y;
+	length = sqrt(delta[0] * delta[0] + delta[1] * delta[1]);
+	delta[0] /= length;
+	delta[1] /= length;
+	float	p_x;
+	float	p_y;
+
+	p_x = mlx.player.x * mlx.scaling;
+	p_y = mlx.player.y * mlx.scaling;
+	int i = -1;
+	while (++i < mlx.scaling / 4)
+	{
+		put_pixel(mlx, roundf(p_x), roundf(p_y), color);
+		p_x += delta[0];
+		p_y += delta[1];
+		if (mlx.map[(int) p_y / mlx.scaling][(int) p_x / mlx.scaling] == '1')
+			break;
+	}
+}
+
+void	draw_player(t_mlx mlx)
+{
+	int i = -1;
+	float vx;
+	float vy;
+
+	while (++i < 360)
+	{
+		vx = mlx.player.vx * cos(to_radians(i)) - mlx.player.vy * sin(to_radians(i));
+		vy = mlx.player.vx * sin(to_radians(i)) + mlx.player.vy * cos(to_radians(i));
+		cast_ray_player(mlx, vx, vy, 0xFF0000);
+	}
+}
+
+void show_minimap(t_mlx mlx)
+{
+	int x_max = 33;
+	int y_max = 14;
+	int width_map = 200;
+
+	mlx.scaling = width_map / fmax(y_max, x_max);
+	mlx.scaling = 20;
 	draw_map(mlx);
-	//draw_fov(mlx);
-} */
+	draw_fov(mlx);
+	draw_player(mlx);
+}
