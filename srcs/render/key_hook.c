@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:48:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/13 18:52:29 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/13 19:02:57 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	is_wall(t_game *game, float margin, float new_x, float new_y)
 				continue ;
 			if (game->map[py_cell + j][px_cell + i] == '1')
 			{
+				printf("cell = %c\n", game->map[py_cell][px_cell]);
 				if (fabs(px_cell + i + 0.5 - new_x) < margin
 					&& fabs(py_cell + j + 0.5 - new_y) < margin)
 					return (1);
@@ -61,23 +62,18 @@ void	move_forward(t_game *game, t_player *player)
 void	move_backward(t_game *game, t_player *player)
 {
 	float	margin;
-	float	mov_x;
-	float	mov_y;
+	float	new_x;
+	float	new_y;
+	float	velocity;
 
-	mov_x = player->x + -player->vx * 0.1;
-	mov_y = player->y + -player->vy * 0.1;
-	if (player->vx < 0)
-		margin = 0.2;
-	else
-		margin = -0.2;
-	if (game->map[(int) player->y][(int)(mov_x + margin)] != '1')
-		player->x -= player->vx * 0.1;
-	if (player->vy < 0)
-		margin = 0.2;
-	else
-		margin = -0.2;
-	if (game->map[(int)(mov_y + margin)][(int) player->x] != '1')
-		player->y -= player->vy * 0.1;
+	margin = 0.7;
+	velocity = 0.1;
+	new_x = player->x + -player->vx * velocity;
+	new_y = player->y + -player->vy * velocity;
+	if (!is_wall(game, margin, new_x, player->y))
+		player->x = new_x;
+	if (!is_wall(game, margin, player->x, new_y))
+		player->y = new_y;
 }
 
 void	rotate_player_vector(t_game *game, int rotation)

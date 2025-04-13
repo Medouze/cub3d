@@ -99,7 +99,7 @@ norm:
 	@norminette src
 
 test: all
-	./$(NAME) maps/maptest.cub
+	./$(NAME) maps/corridor.cub
 
 leak: all
 	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) maps/maptest.cub
