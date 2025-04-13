@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 21:45:11 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/12 22:18:45 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/13 12:43:39 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	raycasting(t_game *game)
 	int			map_y;
 
 	p = game->player;
-	plane_x = -p.vy * 0.66;
-	plane_y = p.vx * 0.66;
+	plane_x = -p.vy * tan(to_radians(p.fov) / 2);
+	plane_y = p.vx * tan(to_radians(p.fov) / 2);
 	x = -1;
 	while (++x < WIDTH)
 	{

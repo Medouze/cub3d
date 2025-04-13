@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:48:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/12 21:44:03 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/13 12:35:34 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@ void	move_forward(t_game *game, t_player *player)
 	float	margin;
 	float	mov_x;
 	float	mov_y;
-
+	float	velocity;
+	
+	velocity = 0.1;
+	margin = 0.15;
 	if (player->vx < 0)
-		margin = -0.2;
-	else
-		margin = 0.2;
-	mov_x = player->x + player->vx * 0.1;
+		margin = -margin;
+	mov_x = player->x + player->vx * velocity;
 	if (game->map[(int) player->y][(int)(mov_x + margin)] != '1')
-		player->x += player->vx * 0.1;
+		player->x += player->vx * velocity;
+	margin = fabs(margin);
 	if (player->vy < 0)
-		margin = -0.2;
-	else
-		margin = 0.2;
-	mov_y = player->y + player->vy * 0.1;
+		margin = -margin;
+	mov_y = player->y + player->vy * velocity;
 	if (game->map[(int)(mov_y + margin)][(int) player->x] != '1')
-		player->y += player->vy * 0.1;
+		player->y += player->vy * velocity;
 }
 
 void	move_backward(t_game *game, t_player *player)

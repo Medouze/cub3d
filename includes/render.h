@@ -6,15 +6,15 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/13 12:25:34 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/13 12:33:27 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RENDER_H
 # define RENDER_H
 
-# define WIDTH 800
-# define HEIGHT 600
+# define WIDTH 1400
+# define HEIGHT 800
 # ifndef M_PI
 #  define M_PI 3.14159265
 # endif

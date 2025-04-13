@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 23:31:04 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/13 11:58:20 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/13 12:42:54 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void	draw_fov(t_game *game, t_player *player)
 	float	angle;	
 
 	i = -1;
-	player->fov = 66;
 	angle = to_radians(-(player->fov / 2));
 	step = (float) to_radians(player->fov / (float) WIDTH);
 	while (++i < WIDTH)
