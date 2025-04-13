@@ -6,18 +6,18 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 21:45:23 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/13 11:19:38 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/13 11:49:34 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	fetch_texture_color(int x, int y, t_img *img)
+static int	fetch_texture_color(int x, int y, t_img *img)
 {
 	int		offset;
 	int		color;
 
-	color = 0;
+	color = 0x000000;
 	if (x < img->width && y < img->height)
 	{
 		offset = (y * img->size_line + x * (img->bpp / 8));
@@ -26,42 +26,31 @@ int	fetch_texture_color(int x, int y, t_img *img)
 	return (color);
 }
 
-void draw_collumn_loop(t_game *game, t_ray ray, float sprite[2], int x)
+static void	draw_collumn_loop(t_game *game, t_ray ray, float sprite[2], int x)
 {
 	int		y;
-	int		color;
 	int		start_wall;
 	int		drawend;
 	float	y_sprite_step;
-	t_mlx	*mlx;
+	t_img	*texture;
 
-	mlx = &game->mlx;
 	start_wall = -ray.wall.height / 2 + HEIGHT / 2;
 	drawend = ray.wall.height / 2 + HEIGHT / 2;
-	y_sprite_step = 64.0 / (float) ray.wall.height;
+	if (ray.side_hit == HORIZONTAL && ray.x_step < 0)
+		texture = &game->west;
+	else if (ray.side_hit == HORIZONTAL)
+		texture = &game->east;
+	else if (ray.y_step < 0)
+		texture = &game->north;
+	else
+		texture = &game->south;
+	y_sprite_step = texture->height / (float) ray.wall.height;
 	y = -1;
-	while (++y < drawend)
+	while (++y < drawend && start_wall + y < HEIGHT)
 	{
-		color = 0xFF0000;
-		if (ray.side_hit == HORIZONTAL && ray.x_step < 0)
-		{
-			//printf("west = x = %f, y = %f\n", sprite[0], sprite[1]);
-			color = fetch_texture_color(sprite[0], sprite[1], &game->west);
-		}
-		else if (ray.side_hit == HORIZONTAL)
-		{
-			//printf("east = x = %f, y = %f\n", sprite[0], sprite[1]);
-			color = fetch_texture_color(sprite[0], sprite[1], &game->east);
-		}
-		else if (ray.y_step < 0)
-		{
-			//printf("north = x = %f, y = %f\n", sprite[0], sprite[1]);
-			color = fetch_texture_color(sprite[0], sprite[1], &game->north);
-		}
-		else
-			color = fetch_texture_color(sprite[0], sprite[1], &game->south);
-		if (y < ray.wall.height && start_wall + y >= 0 && start_wall + y < HEIGHT)
-			put_pixel(mlx, x, start_wall + y, color);
+		if (y < ray.wall.height && start_wall + y >= 0)
+			put_pixel(&game->mlx, x, start_wall + y,
+				fetch_texture_color(sprite[0], sprite[1], texture));
 		sprite[1] += y_sprite_step;
 	}
 }

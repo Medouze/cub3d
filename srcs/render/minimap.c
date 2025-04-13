@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 23:31:04 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/12 21:34:46 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/13 11:58:20 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	draw_map(t_game *game, t_mlx *mlx)
 					if (game->map[y][x] == '1')
 						put_pixel(mlx, x * game->scaling + j, y * game->scaling + i, 0xFFFFFF);
 					else
-						put_pixel(mlx, x * game->scaling + j, y * game->scaling + i, 0x000000);
+						put_pixel(mlx, x * game->scaling + j, y * game->scaling + i, 0x000000); 
 				}
 			}
 		}
@@ -104,7 +104,7 @@ void	draw_fov(t_game *game, t_player *player)
 	{
 		vx = player->vx * cos(angle) - player->vy * sin(angle);
 		vy = player->vx * sin(angle) + player->vy * cos(angle);
-		cast_ray(game, vx, vy, 0xFFFF00);
+		cast_ray(game, vx, vy, 0xFA00FA);
 		angle += step;
 	}
 }
@@ -152,12 +152,17 @@ void	draw_player(t_game *game)
 
 void	show_minimap(t_game *game)
 {
-	/* int	x_max = 33; // ICI
-	int	y_max = 14;
-	int	width_map = 200;
+	int	x_max;
+	int	y_max;
+	int	max;
 
-	game->scaling = width_map / fmax(y_max, x_max); */
-	game->scaling = 20;
+	x_max = game->config->width;
+	y_max = game->config->height;
+	max = fmax(y_max, x_max);
+	if (max == y_max)
+		game->scaling = (HEIGHT / 3) / max;
+	else
+		game->scaling = (WIDTH / 3) / max;
 	draw_map(game, &game->mlx);
 	draw_fov(game, &game->player);
 	draw_player(game);

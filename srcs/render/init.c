@@ -6,13 +6,13 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:47:59 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/13 11:19:38 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/13 12:26:30 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_player	init_player(t_game mlx)
+static t_player	init_player(t_game mlx)
 {
 	t_player	player;
 
@@ -34,7 +34,7 @@ t_player	init_player(t_game mlx)
 	return (player);
 }
 
-t_mlx	init_mlx(void)
+static t_mlx	init_mlx(void)
 {
 	t_mlx	mlx;
 	t_img	img;
@@ -65,7 +65,7 @@ t_mlx	init_mlx(void)
 	return (mlx);
 }
 
-t_img	init_sprite(t_mlx *mlx, char *path)
+static t_img	init_sprite(t_mlx *mlx, char *path)
 {
 	int		height;
 	int		width;
@@ -99,10 +99,12 @@ t_img	create_floor_ceil(t_game *game, t_mlx *mlx)
 	t_img		ceil_floor;		
 
 	ceil_floor.img = mlx_new_image(mlx->mlx_ptr, WIDTH, HEIGHT);
+	//protect
 	half_height = HEIGHT / 2;
 	y = -1;
 	ceil_floor.add = mlx_get_data_addr(ceil_floor.img, &mlx->main.bpp,
 			&mlx->main.size_line, &mlx->main.endians);
+	//protect
 	while (++y < half_height)
 	{
 		x = -1;
