@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:47:59 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/12 21:24:20 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/13 11:11:06 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,15 @@ t_mlx	init_mlx(void)
 {
 	t_mlx	mlx;
 
-	mlx.mlx_ptr = mlx_init();
+	ft_bzero(&mlx, sizeof(t_mlx));
+	mlx.win_ptr = NULL;
+	mlx.mlx_ptr = NULL;
 	mlx.img = NULL;
 	mlx.address = NULL;
+    mlx.bits_per_pixel = 0;
+    mlx.size_line = 0;
+    mlx.endians = 0;
+	mlx.mlx_ptr = mlx_init();
 	//protect
 	if (!mlx.mlx_ptr)
 	{
@@ -63,7 +69,18 @@ t_img	init_sprite(t_mlx *mlx, char *path)
 	int		width;
 	t_img	data;
 
+	printf("path = %s\n", path);
+	ft_bzero(&data, sizeof(t_img));
+	height = 0;
+	width = 0;
+	data.img = NULL;
+	data.add = NULL;
 	data.img = mlx_xpm_file_to_image(mlx->mlx_ptr, path, &width, &height);
+	if (!data.img)
+		printf("ERROR\n");
+	data.add =  mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.size_line, &data.endians);
+	if (!data.add)
+		printf("ERROR2\n");
 	data.height = height;
 	data.width = width;
 	printf("w = %d, h = %d\n", width, height);

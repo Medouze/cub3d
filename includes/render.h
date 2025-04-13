@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/12 22:25:49 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/13 11:10:06 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ typedef struct s_img
 	void	*add;
 	int		height;
 	int		width;
+	int		bits_per_pixel;
+	int		size_line;
+	int		endians;
 }	t_img;
 
 typedef struct s_mlx
