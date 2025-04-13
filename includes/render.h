@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/13 11:10:06 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/13 11:19:38 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_img
 	void	*add;
 	int		height;
 	int		width;
-	int		bits_per_pixel;
+	int		bpp;
 	int		size_line;
 	int		endians;
 }	t_img;
@@ -77,11 +77,7 @@ typedef struct s_mlx
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-	void		*img;
-	void		*address;
-	int			bits_per_pixel;
-	int			size_line;
-	int			endians;
+	t_img		main;
 }	t_mlx;
 
 typedef struct s_game

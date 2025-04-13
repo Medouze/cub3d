@@ -102,6 +102,6 @@ test: all
 	./$(NAME) maps/maptest.cub
 
 leak: all
-	valgrind --track-origins=yes ./$(NAME) maps/maptest.cub
+	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) maps/maptest.cub
 
 .PHONY: all clean fclean re norm

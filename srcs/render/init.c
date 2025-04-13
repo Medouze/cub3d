@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:47:59 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/13 11:11:06 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/13 11:19:38 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,17 @@ t_player	init_player(t_game mlx)
 t_mlx	init_mlx(void)
 {
 	t_mlx	mlx;
+	t_img	img;
 
 	ft_bzero(&mlx, sizeof(t_mlx));
 	mlx.win_ptr = NULL;
 	mlx.mlx_ptr = NULL;
-	mlx.img = NULL;
-	mlx.address = NULL;
-    mlx.bits_per_pixel = 0;
-    mlx.size_line = 0;
-    mlx.endians = 0;
+	img.img = NULL;
+	img.add = NULL;
+    img.bpp = 0;
+    img.size_line = 0;
+    img.endians = 0;
+	mlx.main = img;
 	mlx.mlx_ptr = mlx_init();
 	//protect
 	if (!mlx.mlx_ptr)
@@ -78,7 +80,7 @@ t_img	init_sprite(t_mlx *mlx, char *path)
 	data.img = mlx_xpm_file_to_image(mlx->mlx_ptr, path, &width, &height);
 	if (!data.img)
 		printf("ERROR\n");
-	data.add =  mlx_get_data_addr(data.img, &data.bits_per_pixel, &data.size_line, &data.endians);
+	data.add =  mlx_get_data_addr(data.img, &data.bpp, &data.size_line, &data.endians);
 	if (!data.add)
 		printf("ERROR2\n");
 	data.height = height;
@@ -99,18 +101,18 @@ t_img	create_floor_ceil(t_game *game, t_mlx *mlx)
 	ceil_floor.img = mlx_new_image(mlx->mlx_ptr, WIDTH, HEIGHT);
 	half_height = HEIGHT / 2;
 	y = -1;
-	ceil_floor.add = mlx_get_data_addr(ceil_floor.img, &mlx->bits_per_pixel,
-			&mlx->size_line, &mlx->endians);
+	ceil_floor.add = mlx_get_data_addr(ceil_floor.img, &mlx->main.bpp,
+			&mlx->main.size_line, &mlx->main.endians);
 	while (++y < half_height)
 	{
 		x = -1;
 		while (++x < WIDTH)
 		{
-			ceil = ceil_floor.add + y * mlx->size_line + x
-				* (mlx->bits_per_pixel / 8);
+			ceil = ceil_floor.add + y * mlx->main.size_line + x
+				* (mlx->main.bpp / 8);
 			*(unsigned int *)ceil = game->config->ceiling_color;
-			floor = ceil_floor.add + (y + half_height) * mlx->size_line
-				+ x * (mlx->bits_per_pixel / 8);
+			floor = ceil_floor.add + (y + half_height) * mlx->main.size_line
+				+ x * (mlx->main.bpp / 8);
 			*(unsigned int *)floor = game->config->floor_color;
 		}
 	}

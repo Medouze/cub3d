@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 21:45:23 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/13 11:12:59 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/13 11:19:38 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	fetch_texture_color(int x, int y, t_img *img)
 	color = 0;
 	if (x < img->width && y < img->height)
 	{
-		offset = (y * img->size_line + x * (img->bits_per_pixel / 8));
+		offset = (y * img->size_line + x * (img->bpp / 8));
 		color = *(int *)(img->add + offset);
 	}
 	return (color);
