@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:47:59 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/13 21:29:46 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:57:34 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,5 +148,6 @@ t_game	init_window(t_config *data)
 		game.scaling = (HEIGHT / 3) / max;
 	else
 		game.scaling = (WIDTH / 3) / max;
+	game.map[(int) game.player.y][(int) game.player.x] = '0';
 	return (game);
 }

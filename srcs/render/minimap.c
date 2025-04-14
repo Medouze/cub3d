@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 23:31:04 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 14:30:41 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:13:25 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ void	castray_fov(t_game *game, float delta[2], int color)
 		put_pixel(&game->mlx, roundf(p_x), roundf(p_y), color);
 		p_x += delta[0];
 		p_y += delta[1];
-		if (game->map[(int) p_y / game->scaling][(int) p_x / game->scaling] == '1')
-			break ;
-		if (game->map[(int) p_y / game->scaling][(int) p_x / game->scaling] == 'D')
-			break ;
 	}
 }
 
@@ -86,7 +82,7 @@ void	draw_map(t_game *game, t_mlx *mlx)
 						put_pixel(mlx, x * game->scaling + j, y * game->scaling + i, 0xFF0000); 
 					else if (game->map[y][x] == 'd')
 						put_pixel(mlx, x * game->scaling + j, y * game->scaling + i, 0x00FF00); 
-					else
+					else if (game->map[y][x] == '0')
 						put_pixel(mlx, x * game->scaling + j, y * game->scaling + i, 0x000000); 
 				}
 			}

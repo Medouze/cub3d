@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:45:14 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 13:41:52 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:10:45 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,19 @@ static t_ray	detect_door(t_game *game)
 
 void	open_door(t_game *game)
 {
+	float	dis_x;
+	float	dis_y;
 	t_ray	ray;
-	
+		
+
 	ray = detect_door(game);
-	if (fabs((ray.map_y + 0.5) - game->player.y) < 2)
+	dis_x = fabs((ray.map_x + 0.5) - game->player.x);
+	dis_y = fabs((ray.map_y + 0.5) - game->player.y);
+	if (dis_x < 2 && dis_y < 2 && dis_x + dis_y >= 0.79)
 	{
-		if (fabs((ray.map_x + 0.5) - game->player.x) < 2)
-		{
 		if (game->map[ray.map_y][ray.map_x] == 'D')
 			game->map[ray.map_y][ray.map_x] = 'd';
-		else if (game->map[ray.map_y][ray.map_x] == 'd')
+		else if (game->map[ray.map_y][ray.map_x] == 'd')	
 			game->map[ray.map_y][ray.map_x] = 'D';
-		}
 	}
 }

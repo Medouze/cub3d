@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:31:36 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/12 15:48:18 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:54:07 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void	check_map_info(t_config *data, char **map)
 				get_player_pos(data, &player_count, i, j);
 			if (!ft_strchr(VALID_MAPCHAR, map[i][j]))
 				print_error(ERR_INVALIDMAPCHAR, data);
-			if (map[i][j] == ' ')
-				map[i][j] = '1';
+			/* if (map[i][j] == ' ')
+				map[i][j] = '1'; */
 			j++;
 		}
 		i++;
