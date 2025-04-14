@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 16:11:03 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:43:21 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ t_game		init_window(t_config *data);
 
 /******************** MLX ********************/
 
+void	destroy_sprite_img(t_game *game, int exit);
 int		destroy_window(void *ptr);
 int		handle_mouse_move(int x,int y, void *param);
 int		handle_keypress(int key, t_game *mlx);
