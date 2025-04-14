@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:41:03 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/10 14:05:27 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:27:11 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ void	check_valid_infos(t_config *data, char *line)
 		add_xmp(data, &data->we_texture, line);
 	else if (ft_strncmp(line, "EA", 2) == 0)
 		add_xmp(data, &data->ea_texture, line);
+	else if (ft_strncmp(line, "DT", 2) == 0)
+		add_xmp(data, &data->door_texture, line);
 	else if (ft_strncmp(line, "F", 1) == 0)
 		check_valid_rgb(data, &data->floor_color, line);
 	else if (ft_strncmp(line, "C", 1) == 0)

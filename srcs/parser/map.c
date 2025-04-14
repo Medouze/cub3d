@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:31:36 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/12 15:48:18 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:15:42 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,15 @@ void	check_tab_start(t_config *data, char *line)
 	}
 }
 
+void	check_valid_door(t_config *data, char **map, int i, int j)
+{
+	if (map[i][j - 1] == '1' && map[i][j + 1] == '1')
+		return ;
+	else if (map[i + 1][j] == '1' && map[i - 1][j] == '1')
+		return ;
+	print_error(ERR_DOOR, data);
+}
+
 void	check_map_info(t_config *data, char **map)
 {
 	int	i;
@@ -60,9 +69,9 @@ void	check_map_info(t_config *data, char **map)
 				get_player_pos(data, &player_count, i, j);
 			if (!ft_strchr(VALID_MAPCHAR, map[i][j]))
 				print_error(ERR_INVALIDMAPCHAR, data);
-			if (map[i][j] == ' ')
-				map[i][j] = '1';
 			j++;
+			if (map[i][j] == 'D')
+				check_valid_door(data, map, i, j);
 		}
 		i++;
 	}
