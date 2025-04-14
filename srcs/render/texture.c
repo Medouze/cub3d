@@ -6,51 +6,57 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 21:45:23 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/12 22:20:07 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:36:38 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	fetch_texture_color(t_mlx *mlx, int x, int y, t_img img)
+static int	fetch_texture_color(int x, int y, t_img *img)
 {
-	char	*buff;
 	int		offset;
 	int		color;
 
-	buff = mlx_get_data_addr(img.img,
-			&mlx->bits_per_pixel, &mlx->size_line, &mlx->endians);
-	offset = (y * mlx->size_line + x * (mlx->bits_per_pixel / 8));
-	color = *(int *)(buff + offset);
+	color = 0x000000;
+	if (x < img->width && y < img->height)
+	{
+		offset = (y * img->size_line + x * (img->bpp / 8));
+		color = *(int *)(img->add + offset);
+	}
 	return (color);
 }
 
-void draw_collumn_loop(t_game *game, t_ray ray, float sprite[2], int x)
+static void	draw_collumn_loop(t_game *game, t_ray ray, float sprite[2], int x)
 {
 	int		y;
-	int		color;
 	int		start_wall;
 	int		drawend;
 	float	y_sprite_step;
-	t_mlx	*mlx;
+	t_img	*texture;
 
-	mlx = &game->mlx;
 	start_wall = -ray.wall.height / 2 + HEIGHT / 2;
 	drawend = ray.wall.height / 2 + HEIGHT / 2;
-	y_sprite_step = 64.0 / (float) ray.wall.height;
-	y = -1;
-	while (++y < drawend)
+	//printf("x = %d, y = %d\n", ray.map_x)
+	if (game->map[ray.map_y][ray.map_x] == 'D')
+		texture = &game->door;
+	else
 	{
 		if (ray.side_hit == HORIZONTAL && ray.x_step < 0)
-			color = fetch_texture_color(mlx, sprite[0], sprite[1], game->west);
+			texture = &game->west;
 		else if (ray.side_hit == HORIZONTAL)
-			color = fetch_texture_color(mlx, sprite[0], sprite[1], game->east);
+			texture = &game->east;
 		else if (ray.y_step < 0)
-			color = fetch_texture_color(mlx, sprite[0], sprite[1], game->north);
+			texture = &game->north;
 		else
-			color = fetch_texture_color(mlx, sprite[0], sprite[1], game->south);
-		if (y < ray.wall.height && start_wall + y >= 0 && start_wall + y < HEIGHT)
-			put_pixel(mlx, x, start_wall + y, color);
+			texture = &game->south;
+	}
+	y_sprite_step = texture->height / (float) ray.wall.height;
+	y = -1;
+	while (++y < drawend && start_wall + y < HEIGHT)
+	{
+		if (y < ray.wall.height && start_wall + y >= 0)
+			put_pixel(&game->mlx, x, start_wall + y,
+				fetch_texture_color(sprite[0], sprite[1], texture));
 		sprite[1] += y_sprite_step;
 	}
 }

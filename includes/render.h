@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/12 22:25:49 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:26:41 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,9 @@
 #  define M_PI 3.14159265
 # endif
 
-# define NORTH 0xFF0000
-# define SOUTH 0x0000FF
-# define EAST  0x00FF00
-# define WEST 0xFFFF00
 # define HORIZONTAL 0
 # define VERTICAL 1
-# define K_ESC
-#
+
 typedef struct s_config	t_config;
 
 typedef struct s_point
@@ -38,9 +33,14 @@ typedef struct s_point
 
 typedef struct s_ray
 {
+	int		map_x;
+	int		map_y;
 	int 	side_hit;
 	int 	x_step;
 	int 	y_step;
+	float	plane_x;
+	float	plane_y;
+	float	camera_x;
 	double	side_dist_x;
 	double	side_dist_y;
 	double	delta_x;
@@ -68,17 +68,16 @@ typedef struct s_img
 	void	*add;
 	int		height;
 	int		width;
+	int		bpp;
+	int		size_line;
+	int		endians;
 }	t_img;
 
 typedef struct s_mlx
 {
 	void		*mlx_ptr;
 	void		*win_ptr;
-	void		*img;
-	void		*address;
-	int			bits_per_pixel;
-	int			size_line;
-	int			endians;
+	t_img		main;
 }	t_mlx;
 
 typedef struct s_game
@@ -92,10 +91,12 @@ typedef struct s_game
 	t_img		west;
 	t_img		east;
 	t_img		floor_ceil;
+	t_img		door;
 	t_player	player;
 	t_config	*config;
 }	t_game;
 
+void	open_door(t_game *game);
 
 /******************** INIT *******************/
 
@@ -113,13 +114,18 @@ void	rotate_player_vector(t_game *game, int rotation);
 
 /****************** RAYCAST ******************/
 
+void	init_raycasting(t_player *p, t_ray *ray, int x);
 void	raycasting(t_game *game);
-void	digital_differential_analyzer(t_game *mlx, t_ray *ray);
-void	draw_wall_line(t_game *game, int x, t_ray ray);
+void	digital_differential_analyzer(t_game *game, t_ray *ray, char *set);
+
+/******************* RENDER ******************/
+
 void	render_frame(t_game *game, t_mlx *mlx);
+void	draw_wall_line(t_game *game, int x, t_ray ray);
 
 /****************** MINIMAP ******************/
 
+void	draw_line_minimap(t_game *game, int x, t_ray ray);
 void	show_minimap(t_game *game);
 
 /******************* UTILS *******************/

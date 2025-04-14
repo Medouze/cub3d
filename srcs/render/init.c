@@ -6,13 +6,13 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:47:59 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/12 21:24:20 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:24:40 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_player	init_player(t_game mlx)
+static t_player	init_player(t_game mlx)
 {
 	t_player	player;
 
@@ -34,13 +34,21 @@ t_player	init_player(t_game mlx)
 	return (player);
 }
 
-t_mlx	init_mlx(void)
+static t_mlx	init_mlx(void)
 {
 	t_mlx	mlx;
+	t_img	img;
 
+	ft_bzero(&mlx, sizeof(t_mlx));
+	mlx.win_ptr = NULL;
+	mlx.mlx_ptr = NULL;
+	img.img = NULL;
+	img.add = NULL;
+    img.bpp = 0;
+    img.size_line = 0;
+    img.endians = 0;
+	mlx.main = img;
 	mlx.mlx_ptr = mlx_init();
-	mlx.img = NULL;
-	mlx.address = NULL;
 	//protect
 	if (!mlx.mlx_ptr)
 	{
@@ -57,13 +65,24 @@ t_mlx	init_mlx(void)
 	return (mlx);
 }
 
-t_img	init_sprite(t_mlx *mlx, char *path)
+static t_img	init_sprite(t_mlx *mlx, char *path)
 {
 	int		height;
 	int		width;
 	t_img	data;
 
+	printf("path = %s\n", path);
+	ft_bzero(&data, sizeof(t_img));
+	height = 0;
+	width = 0;
+	data.img = NULL;
+	data.add = NULL;
 	data.img = mlx_xpm_file_to_image(mlx->mlx_ptr, path, &width, &height);
+	if (!data.img)
+		printf("ERROR\n");
+	data.add =  mlx_get_data_addr(data.img, &data.bpp, &data.size_line, &data.endians);
+	if (!data.add)
+		printf("ERROR2\n");
 	data.height = height;
 	data.width = width;
 	printf("w = %d, h = %d\n", width, height);
@@ -80,20 +99,22 @@ t_img	create_floor_ceil(t_game *game, t_mlx *mlx)
 	t_img		ceil_floor;		
 
 	ceil_floor.img = mlx_new_image(mlx->mlx_ptr, WIDTH, HEIGHT);
+	//protect
 	half_height = HEIGHT / 2;
 	y = -1;
-	ceil_floor.add = mlx_get_data_addr(ceil_floor.img, &mlx->bits_per_pixel,
-			&mlx->size_line, &mlx->endians);
+	ceil_floor.add = mlx_get_data_addr(ceil_floor.img, &mlx->main.bpp,
+			&mlx->main.size_line, &mlx->main.endians);
+	//protect
 	while (++y < half_height)
 	{
 		x = -1;
 		while (++x < WIDTH)
 		{
-			ceil = ceil_floor.add + y * mlx->size_line + x
-				* (mlx->bits_per_pixel / 8);
+			ceil = ceil_floor.add + y * mlx->main.size_line + x
+				* (mlx->main.bpp / 8);
 			*(unsigned int *)ceil = game->config->ceiling_color;
-			floor = ceil_floor.add + (y + half_height) * mlx->size_line
-				+ x * (mlx->bits_per_pixel / 8);
+			floor = ceil_floor.add + (y + half_height) * mlx->main.size_line
+				+ x * (mlx->main.bpp / 8);
 			*(unsigned int *)floor = game->config->floor_color;
 		}
 	}
@@ -105,14 +126,28 @@ t_game	init_window(t_config *data)
 	t_game		game;
 
 	game.mlx = init_mlx();
-	game.show_map = 0;
+	game.show_map = 1;
 	game.config = data;
 	game.map = data->map;
+	game.map[1][3] = 'D'; // TO REMOVE
 	game.player = init_player(game);
 	game.north = init_sprite(&game.mlx, game.config->no_texture);
 	game.south = init_sprite(&game.mlx, game.config->so_texture);
 	game.west = init_sprite(&game.mlx, game.config->we_texture);
 	game.east = init_sprite(&game.mlx, game.config->ea_texture);
+	game.door = init_sprite(&game.mlx, "./texture/door.xpm");
 	game.floor_ceil = create_floor_ceil(&game, &game.mlx);
+	int	x_max;
+	int	y_max;
+	int	max;
+
+	x_max = game.config->width;
+	y_max = game.config->height;
+	max = fmax(y_max, x_max);
+	if (max == y_max)
+		game.scaling = (HEIGHT / 3) / max;
+	else
+		game.scaling = (WIDTH / 3) / max;
+	game.map[(int) game.player.y][(int) game.player.x] = '0';
 	return (game);
 }
