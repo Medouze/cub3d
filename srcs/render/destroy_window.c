@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 22:26:03 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 16:44:50 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/15 00:59:38 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,22 @@ static void	free_img(t_mlx *mlx, t_img *img)
 		mlx_destroy_image(mlx->mlx_ptr, img->img);
 }
 
+static void	free_door_img(t_mlx *mlx, t_img **array)
+{
+	int		i;
+	t_img	*tmp;
+
+	i = -1;
+	while (++i < 4) //nbr of sprite
+	{
+		tmp = &array[0][i];
+		if (tmp->img)
+			mlx_destroy_image(mlx->mlx_ptr, tmp->img);
+	}
+	free(*array);
+	*array = NULL;
+}
+
 void	destroy_sprite_img(t_game *game, int exit)
 {
 	free_img(&game->mlx, &game->north);
@@ -26,7 +42,7 @@ void	destroy_sprite_img(t_game *game, int exit)
 	free_img(&game->mlx, &game->east);
 	free_img(&game->mlx, &game->floor_ceil);
 	if (game->config->door_texture)
-		free_img(&game->mlx, &game->door);
+		free_door_img(&game->mlx, &game->door_array);
 	if (exit)
 	{
 		mlx_destroy_window(game->mlx.mlx_ptr, game->mlx.win_ptr);

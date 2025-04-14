@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 18:12:43 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/15 01:00:16 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,13 @@ int	loop(void *ptr)
 	gettimeofday(&tv, NULL);
 	int res = tv.tv_usec / 250000;
 	if (res == 0)
-		game->door = game->north;
+		game->door = game->door_array[0];
 	if (res == 1)
-		game->door = game->south;
+		game->door = game->door_array[1];
 	if (res == 2)
-		game->door = game->east;
+		game->door = game->door_array[2];
 	if (res == 3)
-		game->door = game->west;
+		game->door = game->door_array[3];
 	render_frame(game, &game->mlx);
 	return (0);
 }

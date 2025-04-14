@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:04:25 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 16:44:23 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/15 00:57:05 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,51 @@ static void	load_sprite(t_game *game, t_img *img, char *path)
 	img->width = width;
 }
 
+static t_img	*init_img_door(t_config	*data)
+{
+	t_img	*array;
+
+	array = ft_calloc(5, sizeof(t_img)); //to change to the nbr of sprite
+	if (!array)
+		print_error("Not enough memory.", data);
+	return (array);
+}
+
+static void	load_sprite_door(t_game *game)
+{
+	int i;
+
+	i = -1;
+	while (++i < 4) //to change to the nbr of sprite
+		game->door_array[i] = init_img();
+	i = 0; //in a while loop
+	printf("load 0\n");
+	load_sprite(game, &game->door_array[i], "./texture/door_0.xpm"); //change to sprite array
+	i++;
+	printf("load 1\n");
+	load_sprite(game, &game->door_array[i], "./texture/door_1.xpm");
+	i++;
+	printf("load 2\n");
+	load_sprite(game, &game->door_array[i], "./texture/door_2.xpm");
+	i++;
+	printf("load 3\n");
+	load_sprite(game, &game->door_array[i], "./texture/door_3.xpm");
+}
+
 t_game init_assets(t_game *game)
 {
+	game->door_array = init_img_door(game->config);
 	game->north = init_img();
 	game->south = init_img();
 	game->west = init_img();
 	game->east = init_img();
-	game->door = init_img();
 	game->floor_ceil = init_img();
+	if (game->config->door_texture)
+		load_sprite_door(game);
 	load_sprite(game, &game->north, game->config->no_texture);
 	load_sprite(game, &game->south, game->config->so_texture);
 	load_sprite(game, &game->west, game->config->we_texture);
 	load_sprite(game, &game->east, game->config->ea_texture);
-	if (game->config->door_texture)
-		load_sprite(game, &game->door, game->config->door_texture);
+	game->door = game->door_array[0];
 	return (*game);
 }
