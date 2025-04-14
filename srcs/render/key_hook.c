@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:48:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 15:23:47 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:26:07 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,40 @@ void	move_backward(t_game *game, t_player *player)
 		player->y = new_y;
 }
 
+void	move_left(t_game *game, t_player *player)
+{
+	float	margin;
+	float	new_x;
+	float	new_y;
+	float	velocity;
+
+	margin = 0.7;
+	velocity = 0.20;
+	new_x = player->x + player->vy  * velocity;
+	new_y = player->y + -player->vx * velocity;
+	if (!is_wall(game, margin, new_x, player->y))
+		player->x = new_x;
+	if (!is_wall(game, margin, player->x, new_y))
+		player->y = new_y;
+}
+
+void	move_right(t_game *game, t_player *player)
+{
+	float	margin;
+	float	new_x;
+	float	new_y;
+	float	velocity;
+
+	margin = 0.7;
+	velocity = 0.20;
+	new_x = player->x + -player->vy * velocity;
+	new_y = player->y + player->vx * velocity;
+	if (!is_wall(game, margin, new_x, player->y))
+		player->x = new_x;
+	if (!is_wall(game, margin, player->x, new_y))
+		player->y = new_y;
+}
+
 void	rotate_player_vector(t_game *game, int rotation)
 {
 	t_player	*p;
@@ -94,13 +128,17 @@ int	handle_keypress(int key, t_game *game)
 {
 	if (key == XK_Escape)
 		destroy_window(game);
-	else if (key == XK_Up || key == XK_w)
+	else if (key == XK_w)
 		move_forward(game, &game->player);
-	else if (key == XK_Down || key == XK_s)
+	else if (key == XK_s)
 		move_backward(game, &game->player);
-	else if (key == XK_Left || key == XK_a)
+	else if (key == XK_a)
+		move_left(game, &game->player);
+	else if (key == XK_d)
+		move_right(game, &game->player);
+	else if (key == XK_Left)
 		rotate_player_vector(game, -7);
-	else if (key == XK_Right || key == XK_d)
+	else if (key == XK_Right)
 		rotate_player_vector(game, 7);
 	else if (key == XK_m)
 		game->show_map = !game->show_map;
