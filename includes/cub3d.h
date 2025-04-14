@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:19:26 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/12 15:48:41 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:04:30 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_config
 	char	*so_texture;
 	char	*we_texture;
 	char	*ea_texture;
+	char	*door_texture;
 	int		player_pos_x;
 	int		player_pos_y;
 	char	player_direction;

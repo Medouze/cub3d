@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 17:34:46 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/12 15:53:11 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:28:01 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	print_config(const t_config *config)
 	? config->we_texture : "(null)");
 	printf("EA Texture: %s\n", config->ea_texture 
 	? config->ea_texture : "(null)");
+	printf("Door Texture: %s\n", config->door_texture);
 	printf("Floor Color: 0x%06X\n", config->floor_color);
 	printf("Ceiling Color: 0x%06X\n", config->ceiling_color);
 	printf("Width map: %d\n", config->width);

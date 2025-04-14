@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 21:16:42 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/10 14:06:18 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:26:47 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # define MAX_MAP_LINES 1024
 
-# define VALID_ID "NSWAEO  \t"
-# define VALID_MAPCHAR "10NESW  \n"
+# define VALID_ID "NSWAEODT  \t"
+# define VALID_MAPCHAR "10NESWD  \n"
 # define PLAYERCHAR "NESW"
 # define VALID_STARTMAP "1 "
 # define ERR_MALLOC "Malloc failed"
@@ -40,4 +40,5 @@
 # define ERR_TABMAP "Tab not allowed in map"
 # define ERR_RGBNEG "RGB values can't be negative"
 # define ERR_RGBCHAR "RGB must be numbers only"
+# define ERR_DOOR "Door should be between walls"
 #endif
