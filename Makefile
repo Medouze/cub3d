@@ -31,6 +31,7 @@ SRC_LIST = main.c\
 			render/raycast.c\
 			render/texture.c\
 			render/utils.c\
+			render/assets.c\
 			parser/get_infos.c\
 			parser/init.c\
 			parser/rgb.c\
