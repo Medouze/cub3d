@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I $(LIBFT_INC) -g -O3 #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -I $(LIBFT_INC) -g -O3 -fsanitize=address
 MLX_FLAGS = -lX11 -lXext -lXrandr -lXrender -lXfixes -lm -lbsd
 
 # Directories
@@ -31,6 +31,7 @@ SRC_LIST = main.c\
 			render/raycast.c\
 			render/texture.c\
 			render/utils.c\
+			render/assets.c\
 			parser/get_infos.c\
 			parser/init.c\
 			parser/rgb.c\

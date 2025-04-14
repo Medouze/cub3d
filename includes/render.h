@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 15:26:41 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:11:03 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	open_door(t_game *game);
 
 /******************** INIT *******************/
 
+t_game 		init_assets(t_game *game);
 t_game		init_window(t_config *data);
 
 /******************** MLX ********************/

@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:47:59 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 15:24:40 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:10:50 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_player	init_player(t_game mlx)
 	return (player);
 }
 
-static t_mlx	init_mlx(void)
+static t_mlx	init_mlx(t_config *data)
 {
 	t_mlx	mlx;
 	t_img	img;
@@ -49,44 +49,12 @@ static t_mlx	init_mlx(void)
     img.endians = 0;
 	mlx.main = img;
 	mlx.mlx_ptr = mlx_init();
-	//protect
 	if (!mlx.mlx_ptr)
-	{
-		printf("ERROR");
-		exit(0);
-	}
+		print_error("Function 'mlx_init()' failed.", data);
 	mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, WIDTH, HEIGHT, "cub3D");
-	//protect
 	if (!mlx.win_ptr)
-	{
-		printf("ERROR");
-		exit(0);
-	}
+		print_error("Function 'mlx_new_window()' failed.", data);
 	return (mlx);
-}
-
-static t_img	init_sprite(t_mlx *mlx, char *path)
-{
-	int		height;
-	int		width;
-	t_img	data;
-
-	printf("path = %s\n", path);
-	ft_bzero(&data, sizeof(t_img));
-	height = 0;
-	width = 0;
-	data.img = NULL;
-	data.add = NULL;
-	data.img = mlx_xpm_file_to_image(mlx->mlx_ptr, path, &width, &height);
-	if (!data.img)
-		printf("ERROR\n");
-	data.add =  mlx_get_data_addr(data.img, &data.bpp, &data.size_line, &data.endians);
-	if (!data.add)
-		printf("ERROR2\n");
-	data.height = height;
-	data.width = width;
-	printf("w = %d, h = %d\n", width, height);
-	return (data);
 }
 
 t_img	create_floor_ceil(t_game *game, t_mlx *mlx)
@@ -125,17 +93,12 @@ t_game	init_window(t_config *data)
 {
 	t_game		game;
 
-	game.mlx = init_mlx();
+	game.mlx = init_mlx(data);
 	game.show_map = 1;
 	game.config = data;
 	game.map = data->map;
-	game.map[1][3] = 'D'; // TO REMOVE
 	game.player = init_player(game);
-	game.north = init_sprite(&game.mlx, game.config->no_texture);
-	game.south = init_sprite(&game.mlx, game.config->so_texture);
-	game.west = init_sprite(&game.mlx, game.config->we_texture);
-	game.east = init_sprite(&game.mlx, game.config->ea_texture);
-	game.door = init_sprite(&game.mlx, "./texture/door.xpm");
+	game = init_assets(&game);
 	game.floor_ceil = create_floor_ceil(&game, &game.mlx);
 	int	x_max;
 	int	y_max;

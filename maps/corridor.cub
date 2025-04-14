@@ -2,9 +2,10 @@ NO ./texture/eagle.xpm
 SO ./texture/blue_stone.xpm
 WE ./texture/mossy.xpm
 EA ./texture/wood.xpm
+
 F 255,0,0
 C 0,0,0
 
 11111111111111
-1E000000000001
+1E0DDDD0D0D0D1
 11111111111111
