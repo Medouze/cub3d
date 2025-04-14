@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:45:14 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 17:13:58 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/15 01:04:59 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,27 @@ static t_ray	detect_door(t_game *game)
 	return (ray);
 }
 
+static	void	door_animation(t_game *game)
+{
+	struct timespec ts;
+	int				i;
+	int				j;
+
+	ts.tv_nsec = 100000000;
+	i = -1;
+	while (++i < 2)
+	{
+		j = -1;
+		while (++j < 4) //change to nbr of sprite
+		{
+			game->door = game->door_array[j];
+			render_frame(game, &game->mlx);
+			nanosleep(&ts, NULL);
+		}
+	}
+	game->door = game->door_array[0];
+}
+
 void	open_door(t_game *game)
 {
 	float	dis_x;
@@ -43,7 +64,10 @@ void	open_door(t_game *game)
 	if (dis_x < 2 && dis_y < 2 && dis_x + dis_y >= 0.79)
 	{
 		if (game->map[ray.map_y][ray.map_x] == 'D')
+		{
+			door_animation(game);
 			game->map[ray.map_y][ray.map_x] = 'd';
+		}
 		else if (game->map[ray.map_y][ray.map_x] == 'd')	
 			game->map[ray.map_y][ray.map_x] = 'D';
 	}
