@@ -1,6 +1,6 @@
 NO ./texture/eagle.xpm
 SO ./texture/blue_stone.xpm
-WE ./texture/a.xpm
+WE ./texture/mossy.xpm
 EA ./texture/wood.xpm
 DT ./texture/door.xpm
 F 255,0,255

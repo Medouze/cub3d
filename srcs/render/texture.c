@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 21:45:23 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 14:36:38 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:46:03 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,19 @@ static void	draw_collumn_loop(t_game *game, t_ray ray, float sprite[2], int x)
 
 	start_wall = -ray.wall.height / 2 + HEIGHT / 2;
 	drawend = ray.wall.height / 2 + HEIGHT / 2;
-	//printf("x = %d, y = %d\n", ray.map_x)
+	
 	if (game->map[ray.map_y][ray.map_x] == 'D')
 		texture = &game->door;
 	else
 	{
 		if (ray.side_hit == HORIZONTAL && ray.x_step < 0)
-			texture = &game->west;
-		else if (ray.side_hit == HORIZONTAL)
 			texture = &game->east;
+		else if (ray.side_hit == HORIZONTAL)
+			texture = &game->west;
 		else if (ray.y_step < 0)
-			texture = &game->north;
-		else
 			texture = &game->south;
+		else
+			texture = &game->north;
 	}
 	y_sprite_step = texture->height / (float) ray.wall.height;
 	y = -1;
@@ -69,17 +69,17 @@ void	draw_wall_line(t_game *game, int x, t_ray ray)
 	{
 		if (ray.x_step < 0)
 			sprite_xy[0] = fabs(1 - (ray.wall.y - floor(ray.wall.y)))
-				* game->west.width;
+				* game->east.width;
 		else
-			sprite_xy[0] = (ray.wall.y - floor(ray.wall.y)) * game->east.width;
+			sprite_xy[0] = (ray.wall.y - floor(ray.wall.y)) * game->west.width;
 	}
 	else
 	{
 		if (ray.y_step < 0)
-			sprite_xy[0] = (ray.wall.x - floor(ray.wall.x)) * game->north.width;
+			sprite_xy[0] = (ray.wall.x - floor(ray.wall.x)) * game->south.width;
 		else
 			sprite_xy[0] = fabs(1 - (ray.wall.x - floor(ray.wall.x)))
-				* game->south.width;
+				* game->north.width;
 	}
 	sprite_xy[1] = 0;
 	draw_collumn_loop(game, ray, sprite_xy, x);

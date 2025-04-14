@@ -27,6 +27,7 @@ SRC_LIST = main.c\
 			render/rendering.c\
 			render/destroy_window.c\
 			render/minimap.c\
+			render/movement.c\
 			render/door.c\
 			render/raycast.c\
 			render/texture.c\

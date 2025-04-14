@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:45:14 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 15:10:45 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:13:58 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	open_door(t_game *game)
 	ray = detect_door(game);
 	dis_x = fabs((ray.map_x + 0.5) - game->player.x);
 	dis_y = fabs((ray.map_y + 0.5) - game->player.y);
+	printf("%f < 0.79\n", dis_x + dis_y);
 	if (dis_x < 2 && dis_y < 2 && dis_x + dis_y >= 0.79)
 	{
 		if (game->map[ray.map_y][ray.map_x] == 'D')
