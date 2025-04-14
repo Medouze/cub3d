@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 15:22:24 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:17:54 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ void	rendering(t_config data)
 	t_game	game;
 
 	game = init_window(&data);
-	mlx_mouse_hide(game.mlx.mlx_ptr, game.mlx.win_ptr);
+	//mlx_mouse_hide(game.mlx.mlx_ptr, game.mlx.win_ptr);
 	render_frame(&game, &game.mlx);
 	mlx_hook(game.mlx.win_ptr, 17, 0, destroy_window, &game.mlx);
-	//mlx_hook(game.mlx.win_ptr, 6, 1L << 6, handle_mouse_move, &game.mlx);
+	mlx_hook(game.mlx.win_ptr, 6, 1L << 6, handle_mouse_move, &game.mlx);
 	mlx_hook(game.mlx.win_ptr, 2, 1L << 0, handle_keypress, &game.mlx);
 	mlx_loop(game.mlx.mlx_ptr);
 }
