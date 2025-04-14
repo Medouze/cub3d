@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   walls.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 13:48:29 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/10 13:48:53 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:46:08 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ int	check_tile(char **map, int i, int j)
 		|| get_tile(map, i + 1, j) == 0 || get_tile(map, i + 1, j) == '2'
 		|| get_tile(map, i, j - 1) == 0 || get_tile(map, i, j - 1) == '2'
 		|| get_tile(map, i, j + 1) == 0 || get_tile(map, i, j + 1) == '2'
-		|| get_tile(map, i - 1, j - 1) == 0
+		/* || get_tile(map, i - 1, j - 1) == 0
 		|| get_tile(map, i - 1, j - 1) == '2'
 		|| get_tile(map, i - 1, j + 1) == 0
 		|| get_tile(map, i - 1, j + 1) == '2'
 		|| get_tile(map, i + 1, j - 1) == 0
 		|| get_tile(map, i + 1, j - 1) == '2'
 		|| get_tile(map, i + 1, j + 1) == 0
-		|| get_tile(map, i + 1, j + 1) == '2')
+		|| get_tile(map, i + 1, j + 1) == '2' */)
 		return (0);
 	return (1);
 }

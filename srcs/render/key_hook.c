@@ -3,71 +3,147 @@
 /*                                                        :::      ::::::::   */
 /*   key_hook.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:48:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/09 18:47:03 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:26:07 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_point	calculate_point(t_mlx *mlx, int rotation)
+int	is_wall(t_game *game, float margin, float new_x, float new_y)
 {
-	float	x;
-	float	y;
-	t_point p;
+	int		i;
+	int		j;
+	int		px_cell;
+	int		py_cell;
 
-	p.x = mlx->player.x + mlx->player.x_dir;
-	p.y = mlx->player.y + mlx->player.y_dir;
-	x = cos(to_radians(rotation)) * (p.x - mlx->player.x) - sin(to_radians(rotation)) * (p.y - mlx->player.y) + mlx->player.x;
-	y = sin(to_radians(rotation)) * (p.x - mlx->player.x) - cos(to_radians(rotation)) * (p.y - mlx->player.y) + mlx->player.y;
-	p.x = x;
-	p.y = y;
-	return (p);
+	px_cell = (int) game->player.x;
+	py_cell = (int) game->player.y;
+	i = -2;
+	while (++i < 2)
+	{
+		j = -2;
+		while (++j < 2)
+		{
+			if (i == 0 && j == 0)
+				continue ;
+			if (game->map[py_cell + j][px_cell + i] == '1' || game->map[py_cell + j][px_cell + i] == 'D')
+			{
+				if (fabs(px_cell + i + 0.5 - new_x) < margin
+					&& fabs(py_cell + j + 0.5 - new_y) < margin)
+					return (1);
+			}
+		}
+	}
+	return (0);
 }
 
-int handle_keypress(int key, t_mlx *mlx)
+
+void	move_forward(t_game *game, t_player *player)
 {
-	//printf("key = %d\n", key);
-	if (key == 65307) //esc
-	{
-		destroy_window(mlx, 0);
-	}
-	else if (key == 65362) //up
-	{
-		t_point v = calculate_point(mlx, mlx->player.rotation);
-		float dif_x = (mlx->player.x - v.x) * 0.1;
-		float dif_y = (mlx->player.y - v.y) * 0.1;
-		printf("difx = %f, dify = %f\n", dif_x, dif_y);
-		mlx->player.x -= dif_x;
-		mlx->player.y -= dif_y;
-	}
-	else if (key == 65364) //down
-	{
-		t_point v = calculate_point(mlx, mlx->player.rotation);
-		float dif_x = (mlx->player.x - v.x) * 0.1;
-		float dif_y = (mlx->player.y - v.y) * 0.1;
-		printf("difx = %f, dify = %f\n", dif_x, dif_y);
-		mlx->player.x += dif_x;
-		mlx->player.y += dif_y;
-	}
-	if (key == 65361) //left
-	{
-		mlx->player.rotation += 3;
-		if (mlx->player.rotation >= 360)
-			mlx->player.rotation = 0;
-	}
-	else if (key == 65363) //right
-	{
-		mlx->player.rotation -= 3;
-		if (mlx->player.rotation < 0)
-			mlx->player.rotation = 357;
-	}
-	if (key == 109) // M
-	{
-		mlx->show_map = !mlx->show_map;
-	}
-	render_frame(mlx);
+	float	margin;
+	float	new_x;
+	float	new_y;
+	float	velocity;
+	
+	margin = 0.7;
+	velocity = 0.20;
+	new_x = player->x + player->vx * velocity;
+	new_y = player->y + player->vy * velocity;
+	if (!is_wall(game, margin, new_x, player->y))
+		player->x = new_x;
+	if (!is_wall(game, margin, player->x, new_y))
+		player->y = new_y;
+}
+
+void	move_backward(t_game *game, t_player *player)
+{
+	float	margin;
+	float	new_x;
+	float	new_y;
+	float	velocity;
+
+	margin = 0.7;
+	velocity = 0.20;
+	new_x = player->x + -player->vx * velocity;
+	new_y = player->y + -player->vy * velocity;
+	if (!is_wall(game, margin, new_x, player->y))
+		player->x = new_x;
+	if (!is_wall(game, margin, player->x, new_y))
+		player->y = new_y;
+}
+
+void	move_left(t_game *game, t_player *player)
+{
+	float	margin;
+	float	new_x;
+	float	new_y;
+	float	velocity;
+
+	margin = 0.7;
+	velocity = 0.20;
+	new_x = player->x + player->vy  * velocity;
+	new_y = player->y + -player->vx * velocity;
+	if (!is_wall(game, margin, new_x, player->y))
+		player->x = new_x;
+	if (!is_wall(game, margin, player->x, new_y))
+		player->y = new_y;
+}
+
+void	move_right(t_game *game, t_player *player)
+{
+	float	margin;
+	float	new_x;
+	float	new_y;
+	float	velocity;
+
+	margin = 0.7;
+	velocity = 0.20;
+	new_x = player->x + -player->vy * velocity;
+	new_y = player->y + player->vx * velocity;
+	if (!is_wall(game, margin, new_x, player->y))
+		player->x = new_x;
+	if (!is_wall(game, margin, player->x, new_y))
+		player->y = new_y;
+}
+
+void	rotate_player_vector(t_game *game, int rotation)
+{
+	t_player	*p;
+	double		angle;
+	float		vx;
+	float		vy;
+
+	angle = to_radians(rotation);
+	p = &game->player;
+	vx = p->vx * cos(angle) - p->vy * sin(angle);
+	vy = p->vx * sin(angle) + p->vy * cos(angle);
+	p->vx = vx;
+	p->vy = vy;
+}
+
+int	handle_keypress(int key, t_game *game)
+{
+	if (key == XK_Escape)
+		destroy_window(game);
+	else if (key == XK_w)
+		move_forward(game, &game->player);
+	else if (key == XK_s)
+		move_backward(game, &game->player);
+	else if (key == XK_a)
+		move_left(game, &game->player);
+	else if (key == XK_d)
+		move_right(game, &game->player);
+	else if (key == XK_Left)
+		rotate_player_vector(game, -7);
+	else if (key == XK_Right)
+		rotate_player_vector(game, 7);
+	else if (key == XK_m)
+		game->show_map = !game->show_map;
+	else if (key == XK_space)
+		open_door(game);
+	render_frame(game, &game->mlx);
 	return (0);
 }
