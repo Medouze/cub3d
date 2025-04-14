@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:19:26 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/14 18:00:38 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 22:12:58 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <X11/keysym.h>
 # include <stdio.h>
 # include <sys/time.h>
+# include <time.h>
 # include "mlx.h"
 # include "libft.h"
 # include "errors.h"

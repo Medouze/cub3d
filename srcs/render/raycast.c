@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 21:45:11 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 14:29:50 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 22:32:25 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static int	is_wall_set(t_game *game, t_ray *ray, char *set)
 	i = -1;
 	while (set[++i])
 	{
+		printf("y = %d, x = %d_n", ray->map_y, ray->map_x);
 		if (game->map[ray->map_y][ray->map_x] == set[i])
 			return (1);
 	}

@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 18:12:43 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 22:33:39 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,8 @@ void	render_frame(t_game *game, t_mlx *mlx)
 int	loop(void *ptr)
 {
 	t_game *game;
-	struct timeval tv;
 
 	game = (t_game *) ptr;
-
-	gettimeofday(&tv, NULL);
-	int res = tv.tv_usec / 250000;
-	if (res == 0)
-		game->door = game->north;
-	if (res == 1)
-		game->door = game->south;
-	if (res == 2)
-		game->door = game->east;
-	if (res == 3)
-		game->door = game->west;
 	render_frame(game, &game->mlx);
 	return (0);
 }
@@ -64,6 +52,6 @@ void	rendering(t_config data)
 	mlx_hook(game.mlx.win_ptr, 17, 0, destroy_window, &game.mlx);
 	mlx_hook(game.mlx.win_ptr, 6, 1L << 6, handle_mouse_move, &game.mlx);
 	mlx_hook(game.mlx.win_ptr, 2, 1L << 0, handle_keypress, &game.mlx);
-	mlx_loop_hook(game.mlx.mlx_ptr, loop, &game);
+	//mlx_loop_hook(game.mlx.mlx_ptr, loop, &game);
 	mlx_loop(game.mlx.mlx_ptr);
 }
