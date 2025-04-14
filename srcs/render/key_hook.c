@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:48:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/13 19:48:49 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:22:20 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	move_forward(t_game *game, t_player *player)
 	float	velocity;
 	
 	margin = 0.7;
-	velocity = 0.1;
+	velocity = 0.20;
 	new_x = player->x + player->vx * velocity;
 	new_y = player->y + player->vy * velocity;
 	if (!is_wall(game, margin, new_x, player->y))
@@ -66,7 +66,7 @@ void	move_backward(t_game *game, t_player *player)
 	float	velocity;
 
 	margin = 0.7;
-	velocity = 0.1;
+	velocity = 0.20;
 	new_x = player->x + -player->vx * velocity;
 	new_y = player->y + -player->vy * velocity;
 	if (!is_wall(game, margin, new_x, player->y))
@@ -99,9 +99,9 @@ int	handle_keypress(int key, t_game *game)
 	else if (key == XK_Down)
 		move_backward(game, &game->player);
 	else if (key == XK_Left)
-		rotate_player_vector(game, -5);
+		rotate_player_vector(game, -7);
 	else if (key == XK_Right)
-		rotate_player_vector(game, 5);
+		rotate_player_vector(game, 7);
 	else if (key == XK_m)
 		game->show_map = !game->show_map;
 	else if (key == XK_space)

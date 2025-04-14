@@ -6,23 +6,24 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/13 20:02:16 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:28:35 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RENDER_H
 # define RENDER_H
 
-# define WIDTH 800
-# define HEIGHT 600
+# define WIDTH 1200
+# define HEIGHT 800
 # ifndef M_PI
 #  define M_PI 3.14159265
 # endif
 
 # define HORIZONTAL 0
 # define VERTICAL 1
-# define K_ESC
-#
+# define WALL 0
+# define MAP 1
+
 typedef struct s_config	t_config;
 
 typedef struct s_point
@@ -34,9 +35,14 @@ typedef struct s_point
 
 typedef struct s_ray
 {
+	int		map_x;
+	int		map_y;
 	int 	side_hit;
 	int 	x_step;
 	int 	y_step;
+	float	plane_x;
+	float	plane_y;
+	float	camera_x;
 	double	side_dist_x;
 	double	side_dist_y;
 	double	delta_x;
@@ -111,13 +117,18 @@ void	rotate_player_vector(t_game *game, int rotation);
 
 /****************** RAYCAST ******************/
 
-void	raycasting(t_game *game);
-void	digital_differential_analyzer(t_game *mlx, t_ray *ray);
-void	draw_wall_line(t_game *game, int x, t_ray ray);
+void	init_raycasting(t_player *p, t_ray *ray, int x);
+void	raycasting(t_game *game, int draw);
+void	digital_differential_analyzer(t_game *game, t_ray *ray, char *set);
+
+/******************* RENDER ******************/
+
 void	render_frame(t_game *game, t_mlx *mlx);
+void	draw_wall_line(t_game *game, int x, t_ray ray);
 
 /****************** MINIMAP ******************/
 
+void	draw_line_minimap(t_game *game, int x, t_ray ray);
 void	show_minimap(t_game *game);
 
 /******************* UTILS *******************/

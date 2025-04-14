@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 21:45:23 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/13 21:31:52 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 11:41:36 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,22 @@ static void	draw_collumn_loop(t_game *game, t_ray ray, float sprite[2], int x)
 
 	start_wall = -ray.wall.height / 2 + HEIGHT / 2;
 	drawend = ray.wall.height / 2 + HEIGHT / 2;
-	if (ray.side_hit == HORIZONTAL && ray.x_step < 0)
-		texture = &game->west;
-	else if (ray.side_hit == HORIZONTAL)
-		texture = &game->east;
-	else if (ray.y_step < 0)
-		texture = &game->north;
-	else
-		texture = &game->south;
 	if (game->map[(int) ray.wall.y][(int) ray.wall.x] == 'D')
 	{
-		printf("ENTERING HERE TOO\n");
+		//printf("ENTERING HERE TOO\n");
 		texture = &game->door;
-		printf("width = %d\n", texture->width);
+		//printf("width = %d\n", texture->width);
+	}
+	else
+	{
+		if (ray.side_hit == HORIZONTAL && ray.x_step < 0)
+			texture = &game->west;
+		else if (ray.side_hit == HORIZONTAL)
+			texture = &game->east;
+		else if (ray.y_step < 0)
+			texture = &game->north;
+		else
+			texture = &game->south;
 	}
 	y_sprite_step = texture->height / (float) ray.wall.height;
 	y = -1;

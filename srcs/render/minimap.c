@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 23:31:04 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/13 21:29:28 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 11:32:30 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,4 +175,11 @@ void	show_minimap(t_game *game)
 	draw_map(game, &game->mlx);
 	draw_fov(game, &game->player);
 	draw_player(game);
+}
+
+void	draw_line_minimap(t_game *game, int x, t_ray ray)
+{
+	(void) game;
+	(void) x;
+	(void) ray;
 }

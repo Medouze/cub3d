@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I $(LIBFT_INC) -g -fsanitize=address -O3
+CFLAGS = -Wall -Wextra -Werror -I $(LIBFT_INC) -g -O3 #-fsanitize=address
 MLX_FLAGS = -lX11 -lXext -lXrandr -lXrender -lXfixes -lm -lbsd
 
 # Directories
@@ -100,7 +100,7 @@ norm:
 	@norminette src
 
 test: all
-	./$(NAME) maps/corridor.cub
+	./$(NAME) maps/maptest.cub
 
 leak: all
 	valgrind --leak-check=full --show-leak-kinds=all ./$(NAME) maps/maptest.cub
