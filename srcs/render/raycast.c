@@ -6,13 +6,13 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 21:45:11 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 12:29:09 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:29:50 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	is_wall_set(t_game *game, t_ray *ray, char *set)
+static int	is_wall_set(t_game *game, t_ray *ray, char *set)
 {
 	int	i;
 
@@ -82,7 +82,7 @@ void	init_raycasting(t_player *p, t_ray *ray, int x)
 		ray->side_dist_y = (ray->map_y + 1.0 - p->y) * ray->delta_y;
 }
 
-void	raycasting(t_game *game, int draw)
+void	raycasting(t_game *game)
 {
 	t_player	p;
 	t_ray		ray;
@@ -101,9 +101,6 @@ void	raycasting(t_game *game, int draw)
 		ray.wall.height = (int)(HEIGHT / ray.wall_dis);
 		ray.wall.x = p.x + ray.wall_dis * ray.vector_x;
 		ray.wall.y = p.y + ray.wall_dis * ray.vector_y;
-		if (draw == WALL)
-			draw_wall_line(game, x, ray);
-		else if (draw == MAP)
-			draw_line_minimap(game, x, ray);
+		draw_wall_line(game, x, ray);
 	}
 }

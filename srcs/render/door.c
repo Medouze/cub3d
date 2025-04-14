@@ -6,13 +6,13 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:45:14 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 12:35:17 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 13:41:52 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_ray	detect_door(t_game *game)
+static t_ray	detect_door(t_game *game)
 {
 	t_player	p;
 	t_ray		ray;
@@ -34,8 +34,14 @@ void	open_door(t_game *game)
 	t_ray	ray;
 	
 	ray = detect_door(game);
-	if (game->map[ray.map_y][ray.map_x] == 'D')
-		game->map[ray.map_y][ray.map_x] = 'd';
-	else if (game->map[ray.map_y][ray.map_x] == 'd')
-		game->map[ray.map_y][ray.map_x] = 'D';
+	if (fabs((ray.map_y + 0.5) - game->player.y) < 2)
+	{
+		if (fabs((ray.map_x + 0.5) - game->player.x) < 2)
+		{
+		if (game->map[ray.map_y][ray.map_x] == 'D')
+			game->map[ray.map_y][ray.map_x] = 'd';
+		else if (game->map[ray.map_y][ray.map_x] == 'd')
+			game->map[ray.map_y][ray.map_x] = 'D';
+		}
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 11:28:26 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 13:07:46 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	render_frame(t_game *game, t_mlx *mlx)
 		exit(0);
 	}
 	mlx->main.add = ft_memcpy(mlx->main.add, tmp, mlx->main.size_line * HEIGHT);
-	raycasting(game, WALL);
+	raycasting(game);
 	if (game->show_map)
 		show_minimap(game);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->main.img, 0, 0);

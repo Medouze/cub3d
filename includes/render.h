@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 12:28:35 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 14:24:21 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 
 # define HORIZONTAL 0
 # define VERTICAL 1
-# define WALL 0
-# define MAP 1
 
 typedef struct s_config	t_config;
 
@@ -99,7 +97,6 @@ typedef struct s_game
 }	t_game;
 
 void	open_door(t_game *game);
-t_point	near_wall(t_game *game, float delta[2], int color, char *set);
 
 /******************** INIT *******************/
 
@@ -118,7 +115,7 @@ void	rotate_player_vector(t_game *game, int rotation);
 /****************** RAYCAST ******************/
 
 void	init_raycasting(t_player *p, t_ray *ray, int x);
-void	raycasting(t_game *game, int draw);
+void	raycasting(t_game *game);
 void	digital_differential_analyzer(t_game *game, t_ray *ray, char *set);
 
 /******************* RENDER ******************/
