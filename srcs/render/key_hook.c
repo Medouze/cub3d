@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:48:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/13 19:02:57 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/13 19:48:49 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ int	is_wall(t_game *game, float margin, float new_x, float new_y)
 		{
 			if (i == 0 && j == 0)
 				continue ;
-			if (game->map[py_cell + j][px_cell + i] == '1')
+			if (game->map[py_cell + j][px_cell + i] == '1' || game->map[py_cell + j][px_cell + i] == 'D')
 			{
-				printf("cell = %c\n", game->map[py_cell][px_cell]);
 				if (fabs(px_cell + i + 0.5 - new_x) < margin
 					&& fabs(py_cell + j + 0.5 - new_y) < margin)
 					return (1);
@@ -99,12 +98,14 @@ int	handle_keypress(int key, t_game *game)
 		move_forward(game, &game->player);
 	else if (key == XK_Down)
 		move_backward(game, &game->player);
-	if (key == XK_Left)
+	else if (key == XK_Left)
 		rotate_player_vector(game, -5);
 	else if (key == XK_Right)
 		rotate_player_vector(game, 5);
-	if (key == XK_m)
+	else if (key == XK_m)
 		game->show_map = !game->show_map;
+	else if (key == XK_space)
+		open_door(game);
 	render_frame(game, &game->mlx);
 	return (0);
 }

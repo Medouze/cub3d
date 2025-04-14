@@ -6,29 +6,44 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 23:31:04 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/13 12:42:54 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/13 21:29:28 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	near_wall(t_game *game, float delta[2], int color)
+t_point	near_wall(t_game *game, float delta[2], int color, char *set)
 {
 	int		i;
+	//int		j;
 	float	p_x;
 	float	p_y;
+	t_point	wall;
 
 	p_x = game->player.x * game->scaling;
 	p_y = game->player.y * game->scaling;
 	i = -1;
+	//printf("scale = %d\n", game->scaling);
 	while (++i < game->scaling * 2)
 	{
 		put_pixel(&game->mlx, roundf(p_x), roundf(p_y), color);
 		p_x += delta[0];
 		p_y += delta[1];
 		if (game->map[(int) p_y / game->scaling][(int) p_x / game->scaling] == '1')
-			break ;
+				break ;
+		(void) set;
+		/* j = -1;
+		while (set[++j])
+		{
+			printf("x = %d, y = %d\n", (int) p_x / game->scaling, (int) p_y / game->scaling);
+			if (game->map[(int) p_y / game->scaling][(int) p_x / game->scaling] == set[j])
+				break ;
+		} */
 	}
+	//printf("scale = %d\n", game->scaling);
+	wall.x = (int) p_x / game->scaling;
+	wall.y = (int) p_y / game->scaling;
+	return (wall);
 }
 
 void	cast_ray(t_game *game, float x, float y, int color)
@@ -41,7 +56,7 @@ void	cast_ray(t_game *game, float x, float y, int color)
 	length = sqrt(delta[0] * delta[0] + delta[1] * delta[1]);
 	delta[0] /= length;
 	delta[1] /= length;
-	near_wall(game, delta, color);
+	near_wall(game, delta, color, "1D");
 }
 
 void	draw_map(t_game *game, t_mlx *mlx)
@@ -65,6 +80,10 @@ void	draw_map(t_game *game, t_mlx *mlx)
 				{
 					if (game->map[y][x] == '1')
 						put_pixel(mlx, x * game->scaling + j, y * game->scaling + i, 0xFFFFFF);
+					else if (game->map[y][x] == 'D')
+						put_pixel(mlx, x * game->scaling + j, y * game->scaling + i, 0xFF0000); 
+					else if (game->map[y][x] == 'd')
+						put_pixel(mlx, x * game->scaling + j, y * game->scaling + i, 0x00FF00); 
 					else
 						put_pixel(mlx, x * game->scaling + j, y * game->scaling + i, 0x000000); 
 				}
@@ -131,6 +150,8 @@ void	cast_ray_player(t_game *game, t_mlx *mlx, float x, float y, int color)
 		p_y += delta[1];
 		if (game->map[(int) p_y / game->scaling][(int) p_x / game->scaling] == '1')
 			break ;
+		if (game->map[(int) p_y / game->scaling][(int) p_x / game->scaling] == 'D')
+			break ;
 	}
 }
 
@@ -151,17 +172,6 @@ void	draw_player(t_game *game)
 
 void	show_minimap(t_game *game)
 {
-	int	x_max;
-	int	y_max;
-	int	max;
-
-	x_max = game->config->width;
-	y_max = game->config->height;
-	max = fmax(y_max, x_max);
-	if (max == y_max)
-		game->scaling = (HEIGHT / 3) / max;
-	else
-		game->scaling = (WIDTH / 3) / max;
 	draw_map(game, &game->mlx);
 	draw_fov(game, &game->player);
 	draw_player(game);

@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 21:45:11 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/13 12:43:39 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/13 21:14:46 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	digital_differential_analyzer(t_game *game, t_ray *ray)
 			map_y += ray->y_step;
 			ray->side_hit = VERTICAL;
 		}
-		if (game->map[map_y][map_x] == '1')
+		if (game->map[map_y][map_x] == '1' || game->map[map_y][map_x] == 'D')
 			hit = 1;
 	}
 	if (ray->side_hit == 0)
@@ -99,5 +99,6 @@ void	raycasting(t_game *game)
 		ray.wall.x = p.x + ray.wall_dis * ray.vector_x;
 		ray.wall.y = p.y + ray.wall_dis * ray.vector_y;
 		draw_wall_line(game, x, ray);
+		//printf("raywall = %d | %d\n", (int) ray.wall.x,(int) ray.wall.y);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/13 16:58:39 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/13 20:02:16 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,13 @@ typedef struct s_game
 	t_img		west;
 	t_img		east;
 	t_img		floor_ceil;
+	t_img		door;
 	t_player	player;
 	t_config	*config;
 }	t_game;
 
+void	open_door(t_game *game);
+t_point	near_wall(t_game *game, float delta[2], int color, char *set);
 
 /******************** INIT *******************/
 

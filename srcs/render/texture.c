@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 21:45:23 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/13 11:49:34 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/13 21:31:52 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ static void	draw_collumn_loop(t_game *game, t_ray ray, float sprite[2], int x)
 		texture = &game->north;
 	else
 		texture = &game->south;
+	if (game->map[(int) ray.wall.y][(int) ray.wall.x] == 'D')
+	{
+		printf("ENTERING HERE TOO\n");
+		texture = &game->door;
+		printf("width = %d\n", texture->width);
+	}
 	y_sprite_step = texture->height / (float) ray.wall.height;
 	y = -1;
 	while (++y < drawend && start_wall + y < HEIGHT)

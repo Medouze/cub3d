@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:47:59 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/13 19:04:15 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/13 21:29:46 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,12 +129,24 @@ t_game	init_window(t_config *data)
 	game.show_map = 0;
 	game.config = data;
 	game.map = data->map;
-	//game.map[1][3] = 'D'; // TO REMOVE
+	game.map[1][3] = 'D'; // TO REMOVE
 	game.player = init_player(game);
 	game.north = init_sprite(&game.mlx, game.config->no_texture);
 	game.south = init_sprite(&game.mlx, game.config->so_texture);
 	game.west = init_sprite(&game.mlx, game.config->we_texture);
 	game.east = init_sprite(&game.mlx, game.config->ea_texture);
+	game.door = init_sprite(&game.mlx, "./texture/door.xpm");
 	game.floor_ceil = create_floor_ceil(&game, &game.mlx);
+	int	x_max;
+	int	y_max;
+	int	max;
+
+	x_max = game.config->width;
+	y_max = game.config->height;
+	max = fmax(y_max, x_max);
+	if (max == y_max)
+		game.scaling = (HEIGHT / 3) / max;
+	else
+		game.scaling = (WIDTH / 3) / max;
 	return (game);
 }
