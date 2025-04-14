@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 22:26:03 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/13 11:37:38 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:19:29 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	destroy_window(void *ptr)
 	free_img(mlx, &game->west);
 	free_img(mlx, &game->east);
 	free_img(mlx, &game->floor_ceil);
+	free_img(mlx, &game->door);
 	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
 	mlx_destroy_display(mlx->mlx_ptr);
 	free(mlx->mlx_ptr);

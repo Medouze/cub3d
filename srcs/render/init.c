@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:47:59 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 14:57:34 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:24:40 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ t_game	init_window(t_config *data)
 	t_game		game;
 
 	game.mlx = init_mlx();
-	game.show_map = 0;
+	game.show_map = 1;
 	game.config = data;
 	game.map = data->map;
 	game.map[1][3] = 'D'; // TO REMOVE

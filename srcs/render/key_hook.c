@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:48:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 13:35:29 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:23:47 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,13 @@ int	handle_keypress(int key, t_game *game)
 {
 	if (key == XK_Escape)
 		destroy_window(game);
-	else if (key == XK_Up)
+	else if (key == XK_Up || key == XK_w)
 		move_forward(game, &game->player);
-	else if (key == XK_Down)
+	else if (key == XK_Down || key == XK_s)
 		move_backward(game, &game->player);
-	else if (key == XK_Left)
+	else if (key == XK_Left || key == XK_a)
 		rotate_player_vector(game, -7);
-	else if (key == XK_Right)
+	else if (key == XK_Right || key == XK_d)
 		rotate_player_vector(game, 7);
 	else if (key == XK_m)
 		game->show_map = !game->show_map;

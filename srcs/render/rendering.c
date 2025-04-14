@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 13:07:46 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:22:24 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,13 @@ void	render_frame(t_game *game, t_mlx *mlx)
 		mlx_destroy_image(mlx->mlx_ptr, mlx->main.img);
 	mlx->main.img = mlx_new_image(mlx->mlx_ptr, WIDTH, HEIGHT);
 	if (!mlx->main.img)
-	{
-		printf("ERROR");
-		exit(0);
-	}
+		destroy_window(game);
 	mlx->main.add = mlx_get_data_addr(mlx->main.img, &mlx->main.bpp,
 			&mlx->main.size_line, &mlx->main.endians);
 	tmp = mlx_get_data_addr(game->floor_ceil.img, &mlx->main.bpp,
 			&mlx->main.size_line, &mlx->main.endians);
 	if (!mlx->main.add)
-	{
-		printf("ERROR");
-		exit(0);
-	}
+		destroy_window(game);
 	mlx->main.add = ft_memcpy(mlx->main.add, tmp, mlx->main.size_line * HEIGHT);
 	raycasting(game);
 	if (game->show_map)
@@ -45,7 +39,7 @@ void	rendering(t_config data)
 	t_game	game;
 
 	game = init_window(&data);
-	//mlx_mouse_hide(game.mlx.mlx_ptr, game.mlx.win_ptr);
+	mlx_mouse_hide(game.mlx.mlx_ptr, game.mlx.win_ptr);
 	render_frame(&game, &game.mlx);
 	mlx_hook(game.mlx.win_ptr, 17, 0, destroy_window, &game.mlx);
 	//mlx_hook(game.mlx.win_ptr, 6, 1L << 6, handle_mouse_move, &game.mlx);
