@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 16:31:36 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/14 15:15:42 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:03:07 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	check_tab_start(t_config *data, char *line)
 
 void	check_valid_door(t_config *data, char **map, int i, int j)
 {
+	if (data->door_texture == NULL)
+		print_error(ERR_DOORFILE, data);
 	if (map[i][j - 1] == '1' && map[i][j + 1] == '1')
 		return ;
 	else if (map[i + 1][j] == '1' && map[i - 1][j] == '1')
