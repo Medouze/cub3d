@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_infos.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:57:23 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/12 22:25:29 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/15 14:15:28 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	copy_map(t_config *data, int fd, char *path)
 	while (1)
 	{
 		line = get_next_line(fd);
-		printf("line = %s\n", line);
 		if (!line)
 			break ;
 		if (ft_strchr(VALID_STARTMAP, line[0]))
@@ -104,14 +103,14 @@ void	fill_data(t_config *data, char *path)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (!is_only_whitespace(line))
-			check_valid_infos(data, line);
 		if (ft_strchr(VALID_STARTMAP, line[0]))
 		{
 			if (info_empty(data))
 				print_error(ERR_MISSINGTEXT, data);
 			copy_map(data, fd, path);
 		}
+		if (!is_only_whitespace(line))
+			check_valid_infos(data, line);
 		free(line);
 	}
 	return ;

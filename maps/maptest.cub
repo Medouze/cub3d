@@ -8,6 +8,10 @@ NO ./texture/eagle.xpm
 SO ./texture/blue_stone.xpm
 WE ./texture/mossy.xpm
 EA ./texture/wood.xpm
+<<<<<<< Updated upstream
+=======
+DT ./texture/door.xpm ./texture/door2.xpm hello
+>>>>>>> Stashed changes
 F 255,0,255
 C 0,255,255
 
