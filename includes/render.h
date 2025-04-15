@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 22:31:09 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/15 12:28:19 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ typedef struct s_mlx
 
 typedef struct s_game
 {
-	int			is_animating;
 	t_mlx		mlx;
 	char		**map;
 	int			scaling;
@@ -96,6 +95,8 @@ typedef struct s_game
 	t_img		*door_array;
 	t_player	player;
 	t_config	*config;
+	int			is_animating;
+	long		tmp_time;
 }	t_game;
 
 void	open_door(t_game *game);

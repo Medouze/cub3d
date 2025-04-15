@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 22:33:39 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/15 12:51:29 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,75 @@ void	render_frame(t_game *game, t_mlx *mlx)
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->main.img, 0, 0);
 }
 
+static	void	increment_door(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (game->map[++i])
+	{
+		j = -1;
+		while (game->map[i][++j])
+		{
+			if (game->map[i][j] == '9')
+				game->map[i][j] = 'd';
+			else if (game->map[i][j] == 'z')
+				game->map[i][j] = 'D';
+			else if (game->map[i][j] >= '2' && game->map[i][j] <= '9')
+				game->map[i][j]++;
+			else if (game->map[i][j] <= 'z' && game->map[i][j] >= 's')
+				game->map[i][j]++;
+		}
+	}
+}
+
+void	check_animation(t_game *game)
+{
+	int	i;
+	int	j;
+
+	i = -1;
+	while (game->map[++i])
+	{
+		j = -1;
+		while (game->map[i][++j])
+		{
+			if (game->map[i][j] >= '2' && game->map[i][j] <= '9')
+				return ;
+			else if (game->map[i][j] <= 'z' && game->map[i][j] >= 's')
+				return ;
+		}
+	}
+	game->is_animating = 0;
+}
+
+static	void	door_animation(t_game *game)
+{
+	struct timeval	tv;
+	int				i;
+	long			now;
+
+	i = -1;
+	gettimeofday(&tv, NULL);
+	now = (tv.tv_sec * 1000) + (tv.tv_usec * 0.001);
+	if (now - game->tmp_time > 200)
+	{
+		increment_door(game);
+		game->tmp_time = now;
+	}
+}
+
 int	loop(void *ptr)
 {
 	t_game *game;
 
 	game = (t_game *) ptr;
+	check_animation(game);
+	if (game->is_animating)
+	{
+		door_animation(game);
+	}
 	render_frame(game, &game->mlx);
 	return (0);
 }
@@ -50,8 +114,8 @@ void	rendering(t_config data)
 	game = init_window(&data);
 	//mlx_mouse_hide(game.mlx.mlx_ptr, game.mlx.win_ptr);
 	mlx_hook(game.mlx.win_ptr, 17, 0, destroy_window, &game.mlx);
-	mlx_hook(game.mlx.win_ptr, 6, 1L << 6, handle_mouse_move, &game.mlx);
+	//mlx_hook(game.mlx.win_ptr, 6, 1L << 6, handle_mouse_move, &game.mlx);
 	mlx_hook(game.mlx.win_ptr, 2, 1L << 0, handle_keypress, &game.mlx);
-	//mlx_loop_hook(game.mlx.mlx_ptr, loop, &game);
+	mlx_loop_hook(game.mlx.mlx_ptr, loop, &game);
 	mlx_loop(game.mlx.mlx_ptr);
 }

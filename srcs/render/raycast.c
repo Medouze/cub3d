@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 21:45:11 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 22:32:25 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/15 12:50:17 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	is_wall_set(t_game *game, t_ray *ray, char *set)
 	i = -1;
 	while (set[++i])
 	{
-		printf("y = %d, x = %d_n", ray->map_y, ray->map_x);
+		//printf("y = %d, x = %d_n", ray->map_y, ray->map_x);
 		if (game->map[ray->map_y][ray->map_x] == set[i])
 			return (1);
 	}
@@ -98,7 +98,7 @@ void	raycasting(t_game *game)
 		ray.map_x = (int) p.x;
 		ray.map_y = (int) p.y;
 		init_raycasting(&p, &ray, x);
-		digital_differential_analyzer(game, &ray, "1D");
+		digital_differential_analyzer(game, &ray, "123456789stuvwxyzD");
 		ray.wall.height = (int)(HEIGHT / ray.wall_dis);
 		ray.wall.x = p.x + ray.wall_dis * ray.vector_x;
 		ray.wall.y = p.y + ray.wall_dis * ray.vector_y;

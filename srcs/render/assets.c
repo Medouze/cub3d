@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:04:25 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 22:35:57 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/15 12:48:39 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,14 @@ static void	load_sprite_door(t_game *game)
 	i = -1;
 	while (++i < 4) //to change to the nbr of sprite
 		game->door_array[i] = init_img();
-	i = -1;
-	while (++i < 4)
-	{
-		printf("load 0\n");
+	i = 0;
 		load_sprite(game, &game->door_array[i], "./texture/door_0.xpm"); //change to sprite array
 		i++;
-		printf("load 1\n");
 		load_sprite(game, &game->door_array[i], "./texture/door_1.xpm");
 		i++;
-		printf("load 2\n");
 		load_sprite(game, &game->door_array[i], "./texture/door_2.xpm");
 		i++;
-		printf("load 3\n");
 		load_sprite(game, &game->door_array[i], "./texture/door_3.xpm");
-	}
 }
 
 t_game init_assets(t_game *game)
