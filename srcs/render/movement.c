@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 17:28:39 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 17:31:49 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:53:23 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	move_forward(t_game *game, t_player *player)
 	float	velocity;
 	
 	margin = 0.7;
-	velocity = 0.20;
+	velocity = 0.15;
 	new_x = player->x + player->vx * velocity;
 	new_y = player->y + player->vy * velocity;
 	if (!mov_is_wall(game, margin, new_x, player->y))
@@ -37,7 +37,7 @@ void	move_backward(t_game *game, t_player *player)
 	float	velocity;
 
 	margin = 0.7;
-	velocity = 0.20;
+	velocity = 0.15;
 	new_x = player->x + -player->vx * velocity;
 	new_y = player->y + -player->vy * velocity;
 	if (!mov_is_wall(game, margin, new_x, player->y))
@@ -54,7 +54,7 @@ void	move_left(t_game *game, t_player *player)
 	float	velocity;
 
 	margin = 0.7;
-	velocity = 0.20;
+	velocity = 0.15;
 	new_x = player->x + player->vy  * velocity;
 	new_y = player->y + -player->vx * velocity;
 	if (!mov_is_wall(game, margin, new_x, player->y))
@@ -71,7 +71,7 @@ void	move_right(t_game *game, t_player *player)
 	float	velocity;
 
 	margin = 0.7;
-	velocity = 0.20;
+	velocity = 0.15;
 	new_x = player->x + -player->vy * velocity;
 	new_y = player->y + player->vx * velocity;
 	if (!mov_is_wall(game, margin, new_x, player->y))

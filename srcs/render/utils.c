@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 22:27:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 17:31:17 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:37:10 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ double	to_degree(double radian)
 
 int	mov_is_wall(t_game *game, float margin, float new_x, float new_y)
 {
+	char	c;
 	int		i;
 	int		j;
 	int		px_cell;
@@ -57,7 +58,8 @@ int	mov_is_wall(t_game *game, float margin, float new_x, float new_y)
 		{
 			if (i == 0 && j == 0)
 				continue ;
-			if (game->map[py_cell + j][px_cell + i] == '1' || game->map[py_cell + j][px_cell + i] == 'D')
+			c = game->map[py_cell + j][px_cell + i];
+			if ((c >= '1' && c <= '9') || (c >= 's' && c <= 'z') || c == 'D')
 			{
 				if (fabs(px_cell + i + 0.5 - new_x) < margin
 					&& fabs(py_cell + j + 0.5 - new_y) < margin)
