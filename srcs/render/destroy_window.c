@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 22:26:03 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 16:44:50 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:02:21 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	destroy_sprite_img(t_game *game, int exit)
 	free_img(&game->mlx, &game->east);
 	free_img(&game->mlx, &game->floor_ceil);
 	if (game->config->door_texture)
-		free_img(&game->mlx, &game->door);
+		free_img(&game->mlx, &game->door); // free all door img
 	if (exit)
 	{
 		mlx_destroy_window(game->mlx.mlx_ptr, game->mlx.win_ptr);
@@ -43,7 +43,7 @@ int	destroy_window(void *ptr)
 	game = (t_game *) ptr;
 	mlx = &game->mlx;
 	mlx_loop_end(mlx->mlx_ptr);
-	//mlx_mouse_show(mlx->mlx_ptr, mlx->win_ptr);
+	mlx_mouse_show(mlx->mlx_ptr, mlx->win_ptr);
 	destroy_sprite_img(game, 0);
 	free_img(&game->mlx, &game->mlx.main);
 	free(mlx->mlx_ptr);

@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/15 18:17:45 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:58:19 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,15 @@ typedef struct s_game
 	long		tmp_time;
 }	t_game;
 
+/******************** DOOR *******************/
+
 void	open_door(t_game *game);
+t_img 	*door_texture_animation(t_game *game, char c);
 
 /******************** INIT *******************/
 
-t_game 		init_assets(t_game *game);
-t_game		init_window(t_config *data);
+t_game 	init_assets(t_game *game);
+t_game	init_window(t_config *data);
 
 /******************** MLX ********************/
 
@@ -138,13 +141,13 @@ void	move_forward(t_game *game, t_player *player);
 
 /****************** MINIMAP ******************/
 
-void	draw_line_minimap(t_game *game, int x, t_ray ray);
 void	show_minimap(t_game *game);
 
 /******************* UTILS *******************/
 
+void	put_pixel(t_mlx *mlx, int x, int y, int color);
+int		is_wall_set(t_game *game, t_ray *ray, char *set);
 double	to_degree(double radian);
 double	to_radians(double degree);
-void	put_pixel(t_mlx *mlx, int x, int y, int color);
 
 #endif

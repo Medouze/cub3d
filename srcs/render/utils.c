@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 22:27:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/16 10:37:10 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:04:36 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,19 @@ int	mov_is_wall(t_game *game, float margin, float new_x, float new_y)
 					return (1);
 			}
 		}
+	}
+	return (0);
+}
+
+int	is_wall_set(t_game *game, t_ray *ray, char *set)
+{
+	int	i;
+
+	i = -1;
+	while (set[++i])
+	{
+		if (game->map[ray->map_y][ray->map_x] == set[i])
+			return (1);
 	}
 	return (0);
 }

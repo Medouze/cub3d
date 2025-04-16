@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 21:45:23 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/15 12:44:30 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:55:44 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,21 +24,6 @@ static int	fetch_texture_color(int x, int y, t_img *img)
 		color = *(int *)(img->add + offset);
 	}
 	return (color);
-}
-
- t_img *door_texture_animation(t_game *game, char c) // stuvwxyz
-{
-	t_img	*texture;
-
-	if (c == '5' || c == '9' || c == 'w' || c == 's' || c == 'D')
-		texture = &game->door_array[0];
-	if (c == '2' || c == '6' || c == 'z' || c == 'v')
-		texture = &game->door_array[1];
-	if (c == '3' || c == '7' || c == 'y' || c == 'u')
-		texture = &game->door_array[2];
-	if (c == '4' || c == '8' || c == 'x' || c == 't')
-		texture = &game->door_array[3];
-	return (texture);
 }
 
 static void	draw_collumn_loop(t_game *game, t_ray ray, float sprite[2], int x)
