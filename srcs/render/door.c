@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:45:14 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/16 10:56:00 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:18:26 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ static t_ray	detect_door(t_game *game)
 
 void	open_door(t_game *game)
 {
-	struct timeval tv;
-	float	dis_x;
-	float	dis_y;
-	t_ray	ray;
-		
+	float			dis_x;
+	float			dis_y;
+	struct timeval	tv;
+	t_ray			ray;
+
 	ray = detect_door(game);
 	dis_x = fabs((ray.map_x + 0.5) - game->player.x);
 	dis_y = fabs((ray.map_y + 0.5) - game->player.y);
@@ -48,17 +48,17 @@ void	open_door(t_game *game)
 			game->is_animating = 1;
 			game->map[ray.map_y][ray.map_x] = '2';
 		}
-		else if (game->map[ray.map_y][ray.map_x] == 'd'  && !game->is_animating)
+		else if (game->map[ray.map_y][ray.map_x] == 'd' && !game->is_animating)
 		{
 			gettimeofday(&tv, NULL);
 			game->tmp_time = (tv.tv_sec * 1000) + (tv.tv_usec * 0.001);
 			game->is_animating = 1;
 			game->map[ray.map_y][ray.map_x] = 's';
-		}	
+		}
 	}
 }
 
-t_img *door_texture_animation(t_game *game, char c)
+t_img	*door_texture_animation(t_game *game, char c)
 {
 	t_img	*texture;
 

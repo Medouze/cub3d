@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:04:25 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/16 11:01:57 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:45:00 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ static void	load_sprite(t_game *game, t_img *img, char *path)
 		destroy_sprite_img(game, 1);
 		print_error(".xpm file doesn't exist.", game->config);
 	}
-	img->add =  mlx_get_data_addr(img->img, &img->bpp, &img->size_line, &img->endians);
+	img->add = mlx_get_data_addr(img->img,
+			&img->bpp, &img->size_line, &img->endians);
 	if (!img->add)
 	{
 		destroy_sprite_img(game, 1);
@@ -56,22 +57,22 @@ static t_img	*init_img_door(t_config	*data)
 
 static void	load_sprite_door(t_game *game)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < 4) //to change to the nbr of sprite
 		game->door_array[i] = init_img();
 	i = 0;
-		load_sprite(game, &game->door_array[i], "./texture/door_0.xpm"); //change to sprite array
-		i++;
-		load_sprite(game, &game->door_array[i], "./texture/door_1.xpm");
-		i++;
-		load_sprite(game, &game->door_array[i], "./texture/door_2.xpm");
-		i++;
-		load_sprite(game, &game->door_array[i], "./texture/door_3.xpm");
+	load_sprite(game, &game->door_array[i], "./texture/door_0.xpm"); //change to sprite array
+	i++;
+	load_sprite(game, &game->door_array[i], "./texture/door_1.xpm");
+	i++;
+	load_sprite(game, &game->door_array[i], "./texture/door_2.xpm");
+	i++;
+	load_sprite(game, &game->door_array[i], "./texture/door_3.xpm");
 }
 
-t_game init_assets(t_game *game)
+t_game	init_assets(t_game *game)
 {
 	game->door_array = init_img_door(game->config);
 	game->north = init_img();

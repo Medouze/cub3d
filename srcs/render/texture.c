@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 21:45:23 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/16 10:55:44 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:14:09 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,25 @@ static int	fetch_texture_color(int x, int y, t_img *img)
 	return (color);
 }
 
+static t_img	*set_texture(t_game *game, t_ray *ray)
+{
+	if (game->map[ray->map_y][ray->map_x] != '0'
+		&& game->map[ray->map_y][ray->map_x] != '1')
+		return (door_texture_animation(game,
+				game->map[ray->map_y][ray->map_x]));
+	else
+	{
+		if (ray->side_hit == HORIZONTAL && ray->x_step < 0)
+			return (&game->east);
+		else if (ray->side_hit == HORIZONTAL)
+			return (&game->west);
+		else if (ray->y_step < 0)
+			return (&game->south);
+		else
+			return (&game->north);
+	}
+}
+
 static void	draw_collumn_loop(t_game *game, t_ray ray, float sprite[2], int x)
 {
 	int		y;
@@ -36,21 +55,7 @@ static void	draw_collumn_loop(t_game *game, t_ray ray, float sprite[2], int x)
 
 	start_wall = -ray.wall.height / 2 + HEIGHT / 2;
 	drawend = ray.wall.height / 2 + HEIGHT / 2;
-	
-	texture = &game->door;
-	if (game->map[ray.map_y][ray.map_x] != '0' && game->map[ray.map_y][ray.map_x] != '1')
-		texture = door_texture_animation(game, game->map[ray.map_y][ray.map_x]);
-	else
-	{
-		if (ray.side_hit == HORIZONTAL && ray.x_step < 0)
-			texture = &game->east;
-		else if (ray.side_hit == HORIZONTAL)
-			texture = &game->west;
-		else if (ray.y_step < 0)
-			texture = &game->south;
-		else
-			texture = &game->north;
-	}
+	texture = set_texture(game, &ray);
 	y_sprite_step = texture->height / (float) ray.wall.height;
 	y = -1;
 	while (++y < drawend && start_wall + y < HEIGHT)

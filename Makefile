@@ -21,12 +21,14 @@ MLX_INC = minilibx-linux
 
 # Source and Object files
 SRC_LIST = main.c\
+			render/main_render.c\
 			render/key_hook.c\
 			render/mouse_hook.c\
 			render/init.c\
 			render/rendering.c\
 			render/destroy_window.c\
 			render/minimap.c\
+			render/minimap_utils.c\
 			render/movement.c\
 			render/door.c\
 			render/raycast.c\

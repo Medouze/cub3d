@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 17:28:39 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/16 10:53:23 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:17:30 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	move_forward(t_game *game, t_player *player)
 	float	new_x;
 	float	new_y;
 	float	velocity;
-	
+
 	margin = 0.7;
 	velocity = 0.15;
 	new_x = player->x + player->vx * velocity;
@@ -55,7 +55,7 @@ void	move_left(t_game *game, t_player *player)
 
 	margin = 0.7;
 	velocity = 0.15;
-	new_x = player->x + player->vy  * velocity;
+	new_x = player->x + player->vy * velocity;
 	new_y = player->y + -player->vx * velocity;
 	if (!mov_is_wall(game, margin, new_x, player->y))
 		player->x = new_x;

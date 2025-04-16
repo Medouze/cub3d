@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/16 10:58:19 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:27:04 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void	digital_differential_analyzer(t_game *game, t_ray *ray, char *set);
 
 /******************* RENDER ******************/
 
+int		render_loop(void *ptr);
 void	render_frame(t_game *game, t_mlx *mlx);
 void	draw_wall_line(t_game *game, int x, t_ray ray);
 
@@ -141,6 +142,8 @@ void	move_forward(t_game *game, t_player *player);
 
 /****************** MINIMAP ******************/
 
+void	draw_player(t_game *game);
+void	draw_fov(t_game *game, t_player *player);
 void	show_minimap(t_game *game);
 
 /******************* UTILS *******************/
