@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse_hook.c                                       :+:      :+:    :+:   */
+/*   main_render.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/12 15:52:48 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/16 11:45:41 by qmorinea         ###   ########.fr       */
+/*   Created: 2025/04/16 11:15:02 by qmorinea          #+#    #+#             */
+/*   Updated: 2025/04/16 11:17:14 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <X11/Xlib.h>
 
-int	handle_mouse_move(int x, int y, void *param)
+void	rendering(t_config data)
 {
-	int		dx;
-	t_game	*game;
+	t_game	game;
 
-	dx = x - WIDTH * 0.5;
-	game = (t_game *) param;
-	(void) y;
-	if (fabs(x - WIDTH * 0.5) > 3)
-		rotate_player_vector(game, (float) dx * 0.07);
-	mlx_mouse_move(game->mlx.mlx_ptr,
-		game->mlx.win_ptr, WIDTH * 0.5, HEIGHT * 0.5);
-	return (0);
+	game = init_window(&data);
+	mlx_mouse_hide(game.mlx.mlx_ptr, game.mlx.win_ptr);
+	mlx_hook(game.mlx.win_ptr, 17, 0, destroy_window, &game.mlx);
+	mlx_hook(game.mlx.win_ptr, 6, 1L << 6, handle_mouse_move, &game.mlx);
+	mlx_hook(game.mlx.win_ptr, 2, 1L << 0, handle_keypress, &game.mlx);
+	mlx_loop_hook(game.mlx.mlx_ptr, render_loop, &game);
+	mlx_loop(game.mlx.mlx_ptr);
 }

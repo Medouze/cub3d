@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 16:43:21 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:27:04 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,25 +83,31 @@ typedef struct s_mlx
 typedef struct s_game
 {
 	t_mlx		mlx;
-	char		**map;
 	int			scaling;
+	int			is_animating;
 	int			show_map;
+	char		**map;
 	t_img		north;
 	t_img		south;
 	t_img		west;
 	t_img		east;
 	t_img		floor_ceil;
 	t_img		door;
+	t_img		*door_array;
 	t_player	player;
 	t_config	*config;
+	long		tmp_time;
 }	t_game;
 
+/******************** DOOR *******************/
+
 void	open_door(t_game *game);
+t_img 	*door_texture_animation(t_game *game, char c);
 
 /******************** INIT *******************/
 
-t_game 		init_assets(t_game *game);
-t_game		init_window(t_config *data);
+t_game 	init_assets(t_game *game);
+t_game	init_window(t_config *data);
 
 /******************** MLX ********************/
 
@@ -122,18 +128,29 @@ void	digital_differential_analyzer(t_game *game, t_ray *ray, char *set);
 
 /******************* RENDER ******************/
 
+int		render_loop(void *ptr);
 void	render_frame(t_game *game, t_mlx *mlx);
 void	draw_wall_line(t_game *game, int x, t_ray ray);
 
+/****************** MOVEMENT ******************/
+
+int		mov_is_wall(t_game *game, float margin, float new_x, float new_y);
+void	move_left(t_game *game, t_player *player);
+void	move_right(t_game *game, t_player *player);
+void	move_backward(t_game *game, t_player *player);
+void	move_forward(t_game *game, t_player *player);
+
 /****************** MINIMAP ******************/
 
-void	draw_line_minimap(t_game *game, int x, t_ray ray);
+void	draw_player(t_game *game);
+void	draw_fov(t_game *game, t_player *player);
 void	show_minimap(t_game *game);
 
 /******************* UTILS *******************/
 
+void	put_pixel(t_mlx *mlx, int x, int y, int color);
+int		is_wall_set(t_game *game, t_ray *ray, char *set);
 double	to_degree(double radian);
 double	to_radians(double degree);
-void	put_pixel(t_mlx *mlx, int x, int y, int color);
 
 #endif

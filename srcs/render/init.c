@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:47:59 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 16:30:18 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:44:40 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ static t_mlx	init_mlx(t_config *data)
 	mlx.mlx_ptr = NULL;
 	img.img = NULL;
 	img.add = NULL;
-    img.bpp = 0;
-    img.size_line = 0;
-    img.endians = 0;
+	img.bpp = 0;
+	img.size_line = 0;
+	img.endians = 0;
 	mlx.main = img;
 	mlx.mlx_ptr = mlx_init();
 	if (!mlx.mlx_ptr)
@@ -57,13 +57,26 @@ static t_mlx	init_mlx(t_config *data)
 	return (mlx);
 }
 
-t_img	create_floor_ceil(t_game *game, t_mlx *mlx)
+static void	floor_ceil_loop(t_game *game, t_img *ceil_floor, int x, int y)
+{
+	int		half_height;
+	char	*ceil;
+	char	*floor;
+
+	half_height = HEIGHT / 2;
+	ceil = ceil_floor->add + y * game->mlx.main.size_line + x
+		* (game->mlx.main.bpp / 8);
+	*(unsigned int *)ceil = game->config->ceiling_color;
+	floor = ceil_floor->add + (y + half_height) * game->mlx.main.size_line
+		+ x * (game->mlx.main.bpp / 8);
+	*(unsigned int *)floor = game->config->floor_color;
+}
+
+static t_img	create_floor_ceil(t_game *game, t_mlx *mlx)
 {
 	int			x;
 	int			y;
 	int			half_height;
-	char		*ceil;
-	char		*floor;
 	t_img		ceil_floor;		
 
 	ceil_floor.img = mlx_new_image(mlx->mlx_ptr, WIDTH, HEIGHT);
@@ -77,33 +90,26 @@ t_img	create_floor_ceil(t_game *game, t_mlx *mlx)
 	{
 		x = -1;
 		while (++x < WIDTH)
-		{
-			ceil = ceil_floor.add + y * mlx->main.size_line + x
-				* (mlx->main.bpp / 8);
-			*(unsigned int *)ceil = game->config->ceiling_color;
-			floor = ceil_floor.add + (y + half_height) * mlx->main.size_line
-				+ x * (mlx->main.bpp / 8);
-			*(unsigned int *)floor = game->config->floor_color;
-		}
+			floor_ceil_loop(game, &ceil_floor, x, y);
 	}
 	return (ceil_floor);
 }
 
 t_game	init_window(t_config *data)
 {
-	t_game		game;
+	int		x_max;
+	int		y_max;
+	int		max;
+	t_game	game;
 
 	game.mlx = init_mlx(data);
 	game.show_map = 1;
+	game.is_animating = 0;
 	game.config = data;
 	game.map = data->map;
 	game.player = init_player(game);
 	game = init_assets(&game);
 	game.floor_ceil = create_floor_ceil(&game, &game.mlx);
-	int	x_max;
-	int	y_max;
-	int	max;
-
 	x_max = game.config->width;
 	y_max = game.config->height;
 	max = fmax(y_max, x_max);

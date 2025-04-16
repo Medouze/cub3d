@@ -6,24 +6,11 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 21:45:11 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 14:29:50 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/16 10:57:59 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static int	is_wall_set(t_game *game, t_ray *ray, char *set)
-{
-	int	i;
-
-	i = -1;
-	while (set[++i])
-	{
-		if (game->map[ray->map_y][ray->map_x] == set[i])
-			return (1);
-	}
-	return (0);
-}
 
 void	digital_differential_analyzer(t_game *game, t_ray *ray, char *set)
 {
@@ -97,7 +84,7 @@ void	raycasting(t_game *game)
 		ray.map_x = (int) p.x;
 		ray.map_y = (int) p.y;
 		init_raycasting(&p, &ray, x);
-		digital_differential_analyzer(game, &ray, "1D");
+		digital_differential_analyzer(game, &ray, "123456789stuvwxyzD");
 		ray.wall.height = (int)(HEIGHT / ray.wall_dis);
 		ray.wall.x = p.x + ray.wall_dis * ray.vector_x;
 		ray.wall.y = p.y + ray.wall_dis * ray.vector_y;

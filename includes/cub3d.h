@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:19:26 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/15 13:59:57 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/16 12:04:19 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <X11/Xlib.h>
 # include <X11/keysym.h>
 # include <stdio.h>
+# include <sys/time.h>
+# include <time.h>
 # include "mlx.h"
 # include "libft.h"
 # include "errors.h"

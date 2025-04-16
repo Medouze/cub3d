@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 22:27:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/14 13:20:47 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:04:36 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,47 @@ double	to_radians(double degree)
 double	to_degree(double radian)
 {
 	return (radian * 180 / M_PI);
+}
+
+int	mov_is_wall(t_game *game, float margin, float new_x, float new_y)
+{
+	char	c;
+	int		i;
+	int		j;
+	int		px_cell;
+	int		py_cell;
+
+	px_cell = (int) game->player.x;
+	py_cell = (int) game->player.y;
+	i = -2;
+	while (++i < 2)
+	{
+		j = -2;
+		while (++j < 2)
+		{
+			if (i == 0 && j == 0)
+				continue ;
+			c = game->map[py_cell + j][px_cell + i];
+			if ((c >= '1' && c <= '9') || (c >= 's' && c <= 'z') || c == 'D')
+			{
+				if (fabs(px_cell + i + 0.5 - new_x) < margin
+					&& fabs(py_cell + j + 0.5 - new_y) < margin)
+					return (1);
+			}
+		}
+	}
+	return (0);
+}
+
+int	is_wall_set(t_game *game, t_ray *ray, char *set)
+{
+	int	i;
+
+	i = -1;
+	while (set[++i])
+	{
+		if (game->map[ray->map_y][ray->map_x] == set[i])
+			return (1);
+	}
+	return (0);
 }
