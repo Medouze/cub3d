@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   walls.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 13:48:29 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/14 14:46:08 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:10:30 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 char	get_tile(char **map, int i, int j)
 {
 	if (i < 0 || !map[i])
+	{
+		printf("entered\n");
 		return (0);
+	}
 	if (j < 0 || j >= (int)ft_strlen(map[i]))
 		return (0);
 	return (map[i][j]);

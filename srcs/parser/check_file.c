@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:41:03 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/14 15:27:11 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/16 15:00:34 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,37 @@ int	info_empty(t_config *data)
 		|| data->floor_color == -1 || data->ceiling_color == -1)
 		return (1);
 	return (0);
+}
+
+void	split_xmp(t_config *data, char ***data_text, char *texture)
+{
+	int		i;
+	int		len;
+	char	*new_str;
+	char **test;
+
+	i = 0;
+	if (*data_text)
+		print_error(ERR_MULTI, data);
+	while (ft_strchr(VALID_ID, texture[i]))
+		i++;
+	new_str = ft_strdup(texture + i);
+	test = ft_split(new_str, ' ');
+	i = 0;
+	while (test[i])
+	{
+		ft_trim_in_place(test[i], " \n\t");
+		len = ft_strlen(test[i]);
+		if (test[i][len - 1] == 'm' && test[i][len - 2] == 'p'
+			&& test[i][len - 3] == 'x' && test[i][len - 4] == '.')
+		{
+			if (has_spaces(test[i]))
+				print_error(ERR_XPMSPACE, data);
+		}
+		else
+			print_error(ERR_XPMSYNTAX, data);
+		i++;
+	}
 }
 
 void	check_valid_infos(t_config *data, char *line)
