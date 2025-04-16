@@ -6,9 +6,10 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:40:41 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/15 18:40:41 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/16 22:10:25 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "cub3d.h"
 
@@ -44,12 +45,24 @@ void	check_tab_start(t_config *data, char *line)
 
 void	check_valid_door(t_config *data, char **map, int i, int j)
 {
-	if (*data->door_texture == NULL)
+	if (data->door_texture == NULL)
 		print_error(ERR_DOORFILE, data);
+
+	if (i <= 0 || map[i + 1] == NULL || j <= 0 || map[i][j + 1] == '\0')
+		print_error(ERR_DOOR, data);
 	if (map[i][j - 1] == '1' && map[i][j + 1] == '1')
+	{
+		if (map[i - 1] == NULL || map[i + 1] == NULL)
+			print_error(ERR_DOOR, data);
 		return ;
-	else if (map[i + 1][j] == '1' && map[i - 1][j] == '1')
+	}
+	else if (map[i - 1] && map[i + 1] &&
+			map[i - 1][j] == '1' && map[i + 1][j] == '1')
+	{
+		if (j <= 0 || map[i][j - 1] == '\0' || map[i][j + 1] == '\0')
+			print_error(ERR_DOOR, data);
 		return ;
+	}
 	print_error(ERR_DOOR, data);
 }
 
@@ -87,7 +100,7 @@ void	valid_map(t_config *data)
 
 	check_map_info(data, data->map);
 	map_copy = pad_map_lines(data, data->map);
-	check_player_stuck(data);
+	//check_player_stuck(data);
 	check_walls(map_copy, data);
 	free_double(map_copy);
 }

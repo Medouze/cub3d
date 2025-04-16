@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/16 11:16:21 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/16 22:11:17 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,8 @@ static	void	increment_door(t_game *game)
 static	void	door_animation(t_game *game)
 {
 	struct timeval	tv;
-	int				i;
 	long			now;
 
-	i = -1;
 	gettimeofday(&tv, NULL);
 	now = (tv.tv_sec * 1000) + (tv.tv_usec * 0.001);
 	if (now - game->tmp_time > 200)

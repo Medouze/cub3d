@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:19:26 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/16 12:04:19 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/16 22:10:38 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_config
 	char	*so_texture;
 	char	*we_texture;
 	char	*ea_texture;
-	char	**door_texture;
+	char	*door_texture;
 	int		player_pos_x;
 	int		player_pos_y;
 	char	player_direction;
