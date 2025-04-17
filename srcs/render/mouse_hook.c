@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_hook.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/12 15:52:48 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/17 17:38:33 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/17 22:08:39 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	handle_mouse_move(int x, int y, void *param)
 		game->is_using_mouse = 1;
 		rotate_player_vector(game, (float) dx * 0.07);
 		mlx_mouse_move(game->mlx.mlx_ptr,
-		game->mlx.win_ptr, WIDTH * 0.5, HEIGHT * 0.5);
+			game->mlx.win_ptr, WIDTH * 0.5, HEIGHT * 0.5);
 	}
 	return (0);
 }
