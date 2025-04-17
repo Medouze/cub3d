@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:19:26 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/16 22:10:38 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/17 21:57:50 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_config
 	char	*so_texture;
 	char	*we_texture;
 	char	*ea_texture;
-	char	*door_texture;
+	char	**door_texture;
 	int		player_pos_x;
 	int		player_pos_y;
 	char	player_direction;
@@ -58,6 +58,7 @@ void	check_file(char *path);
 void	check_valid_infos(t_config *data, char *line);
 int		info_empty(t_config *data);
 void	valid_map(t_config *data);
+int		is_valid_xpm(const char *s);
 /*map*/
 char	**pad_map_lines(t_config *data, char **map);
 void	check_walls(char **map, t_config *data);

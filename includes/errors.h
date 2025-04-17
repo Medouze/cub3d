@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 21:16:42 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/14 17:03:36 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/17 21:59:50 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,5 @@
 # define ERR_RGBCHAR "RGB must be numbers only"
 # define ERR_DOOR "Door should be between walls"
 # define ERR_DOORFILE "Door texture missing in .cub file"
+# define ERR_4DOOR "Cant put more than 4 xpm for doors"
 #endif

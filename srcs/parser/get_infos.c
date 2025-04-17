@@ -6,29 +6,21 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:57:23 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/15 14:15:28 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/17 22:01:39 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void	print_infos(char **infos) // delete plus tard
+int	is_valid_xpm(const char *s)
 {
-	char	*str;
+	int	len;
 
-	if (infos == NULL)
-		return ;
-	while (*infos != NULL)
-	{
-		str = *infos;
-		while (*str != '\0')
-		{
-			//write(1, str, 1);
-			str++;
-		}
-		//write(1, "\n", 1);
-		infos++;
-	}
+	len = ft_strlen(s);
+	if (len < 5)
+		return (0);
+	return (s[len - 4] == '.' && s[len - 3] == 'x'
+		&& s[len - 2] == 'p' && s[len - 1] == 'm');
 }
 
 int	count_check_map_lines(t_config *data, int fd)

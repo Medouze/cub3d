@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/16 11:27:04 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/17 22:02:48 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ typedef struct s_ray
 {
 	int		map_x;
 	int		map_y;
-	int 	side_hit;
-	int 	x_step;
-	int 	y_step;
+	int		side_hit;
+	int		x_step;
+	int		y_step;
 	float	plane_x;
 	float	plane_y;
 	float	camera_x;
@@ -102,18 +102,18 @@ typedef struct s_game
 /******************** DOOR *******************/
 
 void	open_door(t_game *game);
-t_img 	*door_texture_animation(t_game *game, char c);
+t_img	*door_texture_animation(t_game *game, char c);
 
 /******************** INIT *******************/
 
-t_game 	init_assets(t_game *game);
+t_game	init_assets(t_game *game);
 t_game	init_window(t_config *data);
 
 /******************** MLX ********************/
 
 void	destroy_sprite_img(t_game *game, int exit);
 int		destroy_window(void *ptr);
-int		handle_mouse_move(int x,int y, void *param);
+int		handle_mouse_move(int x, int y, void *param);
 int		handle_keypress(int key, t_game *mlx);
 
 /****************** PLAYER *******************/
