@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 23:31:04 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/16 11:28:42 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:10:57 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,27 @@
 
 static void	draw_map_loop(t_game *game, t_mlx *mlx, int ij[2], int xy[2])
 {
-	int	i;
-	int	j;
-	int	x;
-	int	y;
+	char	c;
+	int		i;
+	int		j;
+	int		x;
+	int		y;
 
 	i = ij[0];
 	j = ij[1];
 	x = xy[0];
 	y = xy[1];
-	if (game->map[y][x] == '1')
+	c = game->map[y][x];
+	if (c == '1')
 		put_pixel(mlx, x * game->scaling + j, y * game->scaling + i, 0xFFFFFF);
-	else if (game->map[y][x] == 'D')
+	else if (c == 'D')
 		put_pixel(mlx, x * game->scaling + j, y * game->scaling + i, 0xFF0000);
-	else if (game->map[y][x] == 'd')
+	else if (c == 'd')
 		put_pixel(mlx, x * game->scaling + j, y * game->scaling + i, 0x00FF00);
-	else if (game->map[y][x] == '0')
+	else if (c == '0')
 		put_pixel(mlx, x * game->scaling + j, y * game->scaling + i, 0x000000);
+	else if ((c >= '2' && c <= '9') || (c >= 's' && c <= 'z'))
+		put_pixel(mlx, x * game->scaling + j, y * game->scaling + i, 0xFFAA00);
 }
 
 static void	draw_map(t_game *game, t_mlx *mlx)

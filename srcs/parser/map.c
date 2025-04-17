@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 18:40:41 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/16 22:10:25 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/17 14:46:54 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ void	valid_map(t_config *data)
 
 	check_map_info(data, data->map);
 	map_copy = pad_map_lines(data, data->map);
-	//check_player_stuck(data);
 	check_walls(map_copy, data);
 	free_double(map_copy);
 }

@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:04:25 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/16 11:45:00 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/17 15:05:08 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,12 @@ static void	load_sprite(t_game *game, t_img *img, char *path)
 static t_img	*init_img_door(t_config	*data)
 {
 	t_img	*array;
+	int		len;
 
-	array = ft_calloc(5, sizeof(t_img)); //to change to the nbr of sprite
+	len = 0;
+	while (data->door_texture[len])
+		len++;
+	array = ft_calloc(len + 1, sizeof(t_img));
 	if (!array)
 		print_error("Not enough memory.", data);
 	return (array);
@@ -58,18 +62,17 @@ static t_img	*init_img_door(t_config	*data)
 static void	load_sprite_door(t_game *game)
 {
 	int	i;
+	int	len;
 
+	len = 0;
+	while (game->config->door_texture[len])
+		len++;
 	i = -1;
-	while (++i < 4) //to change to the nbr of sprite
+	while (++i < len)
 		game->door_array[i] = init_img();
-	i = 0;
-	load_sprite(game, &game->door_array[i], "./texture/door_0.xpm"); //change to sprite array
-	i++;
-	load_sprite(game, &game->door_array[i], "./texture/door_1.xpm");
-	i++;
-	load_sprite(game, &game->door_array[i], "./texture/door_2.xpm");
-	i++;
-	load_sprite(game, &game->door_array[i], "./texture/door_3.xpm");
+	i = -1;
+	while (++i < len)
+		load_sprite(game, &game->door_array[i], game->config->door_texture[i]);
 }
 
 t_game	init_assets(t_game *game)

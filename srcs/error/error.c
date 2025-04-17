@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:02:49 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/16 22:09:34 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/17 14:37:35 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,17 @@
 void	free_config(t_config *config)
 {
 	char	**map_ptr;
+	int		i;
 
+	i = -1;
 	if (!config)
 		return ;
 	free(config->no_texture);
 	free(config->so_texture);
 	free(config->we_texture);
 	free(config->ea_texture);
+	while (config->door_texture[++i])
+		free(config->door_texture[i]);
 	free(config->door_texture);
 	if (config->map)
 	{

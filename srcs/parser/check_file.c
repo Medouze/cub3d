@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:41:03 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/16 15:00:34 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/17 16:07:08 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,25 +66,28 @@ int	info_empty(t_config *data)
 	return (0);
 }
 
-void	split_xmp(t_config *data, char ***data_text, char *texture)
+char	**split_xmp(t_config *data, char **data_text, char *texture)
 {
 	int		i;
 	int		len;
 	char	*new_str;
-	char **test;
+	char	**test;
 
 	i = 0;
-	if (*data_text)
+	if (data_text)
 		print_error(ERR_MULTI, data);
 	while (ft_strchr(VALID_ID, texture[i]))
 		i++;
 	new_str = ft_strdup(texture + i);
+	ft_trim_in_place(new_str, " \n\t");
 	test = ft_split(new_str, ' ');
+	free(new_str);
 	i = 0;
 	while (test[i])
 	{
 		ft_trim_in_place(test[i], " \n\t");
 		len = ft_strlen(test[i]);
+		printf("test[%d] = %s\n", i, test[i]);
 		if (test[i][len - 1] == 'm' && test[i][len - 2] == 'p'
 			&& test[i][len - 3] == 'x' && test[i][len - 4] == '.')
 		{
@@ -95,6 +98,7 @@ void	split_xmp(t_config *data, char ***data_text, char *texture)
 			print_error(ERR_XPMSYNTAX, data);
 		i++;
 	}
+	return (test);
 }
 
 void	check_valid_infos(t_config *data, char *line)
@@ -108,7 +112,7 @@ void	check_valid_infos(t_config *data, char *line)
 	else if (ft_strncmp(line, "EA", 2) == 0)
 		add_xmp(data, &data->ea_texture, line);
 	else if (ft_strncmp(line, "DT", 2) == 0)
-		add_xmp(data, &data->door_texture, line);
+		data->door_texture = split_xmp(data, data->door_texture, line);
 	else if (ft_strncmp(line, "F", 1) == 0)
 		check_valid_rgb(data, &data->floor_color, line);
 	else if (ft_strncmp(line, "C", 1) == 0)

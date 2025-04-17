@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:45:14 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/16 11:18:26 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/17 16:12:09 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,36 @@ void	open_door(t_game *game)
 	}
 }
 
+static t_img	*fetch_door_texture(t_game *game, char c1, char c2, int len)
+{
+	int	tmp;
+
+	tmp = abs(c1 - c2);
+	if (tmp % len == 0)
+		return (&game->door_array[0]);
+	else if (tmp % len == 1)
+		return (&game->door_array[1]);
+	else if (tmp % len == 2)
+		return (&game->door_array[2]);
+	else if (tmp % len == 3)
+		return (&game->door_array[3]);
+	else
+		return (NULL);
+}
+
 t_img	*door_texture_animation(t_game *game, char c)
 {
 	t_img	*texture;
+	int		len;
 
-	if (c == '5' || c == '9' || c == 'w' || c == 's' || c == 'D')
+	len = 0;
+	while (game->config->door_texture[len])
+		len++;
+	if (c == 'D')
 		texture = &game->door_array[0];
-	if (c == '2' || c == '6' || c == 'z' || c == 'v')
-		texture = &game->door_array[1];
-	if (c == '3' || c == '7' || c == 'y' || c == 'u')
-		texture = &game->door_array[2];
-	if (c == '4' || c == '8' || c == 'x' || c == 't')
-		texture = &game->door_array[3];
+	else if (c >= '2' && c <= '9')
+		texture = fetch_door_texture(game, '2', c, len);
+	else
+		texture = fetch_door_texture(game, 's', c, len);
 	return (texture);
 }
