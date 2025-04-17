@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/16 11:27:04 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/17 17:59:44 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct s_game
 	int			scaling;
 	int			is_animating;
 	int			show_map;
+	int			is_using_mouse;
 	char		**map;
 	t_img		north;
 	t_img		south;
@@ -97,6 +98,7 @@ typedef struct s_game
 	t_player	player;
 	t_config	*config;
 	long		tmp_time;
+	int			is_key_pressed;
 }	t_game;
 
 /******************** DOOR *******************/

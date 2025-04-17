@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:47:59 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/16 11:44:40 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/17 17:59:02 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,8 @@ t_game	init_window(t_config *data)
 	game.mlx = init_mlx(data);
 	game.show_map = 1;
 	game.is_animating = 0;
+	game.is_using_mouse = 0;
+	game.is_key_pressed = 0;
 	game.config = data;
 	game.map = data->map;
 	game.player = init_player(game);

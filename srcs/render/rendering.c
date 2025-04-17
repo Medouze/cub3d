@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/16 22:11:17 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/17 18:04:28 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,16 @@ void	render_frame(t_game *game, t_mlx *mlx)
 {
 	char	*tmp;
 
-	if (mlx->main.img)
-		mlx_destroy_image(mlx->mlx_ptr, mlx->main.img);
-	mlx->main.img = mlx_new_image(mlx->mlx_ptr, WIDTH, HEIGHT);
+	if (!mlx->main.img)
+		mlx->main.img = mlx_new_image(mlx->mlx_ptr, WIDTH, HEIGHT);
 	if (!mlx->main.img)
 		destroy_window(game);
-	mlx->main.add = mlx_get_data_addr(mlx->main.img, &mlx->main.bpp,
-			&mlx->main.size_line, &mlx->main.endians);
-	tmp = mlx_get_data_addr(game->floor_ceil.img, &mlx->main.bpp,
+	if (!mlx->main.add)
+		mlx->main.add = mlx_get_data_addr(mlx->main.img, &mlx->main.bpp,
 			&mlx->main.size_line, &mlx->main.endians);
 	if (!mlx->main.add)
 		destroy_window(game);
+	tmp = game->floor_ceil.add;
 	mlx->main.add = ft_memcpy(mlx->main.add, tmp, mlx->main.size_line * HEIGHT);
 	raycasting(game);
 	if (game->show_map)
@@ -36,23 +35,27 @@ void	render_frame(t_game *game, t_mlx *mlx)
 
 static	void	increment_door(t_game *game)
 {
-	int	i;
-	int	j;
+	char	c;
+	int		i;
+	int		j;
 
 	i = -1;
 	while (game->map[++i])
 	{
-		j = -1;
-		while (game->map[i][++j])
+		j = 0;
+		c = game->map[i][j];
+		while (c)
 		{
-			if (game->map[i][j] == '9')
+			
+			if (c == '9')
 				game->map[i][j] = 'd';
-			else if (game->map[i][j] == 'z')
+			else if (c == 'z')
 				game->map[i][j] = 'D';
-			else if (game->map[i][j] >= '2' && game->map[i][j] <= '9')
+			else if (c >= '2' && c <= '9')
 				game->map[i][j]++;
-			else if (game->map[i][j] <= 'z' && game->map[i][j] >= 's')
+			else if (c <= 'z' && c >= 's')
 				game->map[i][j]++;
+			c = game->map[i][++j];
 		}
 	}
 }
@@ -71,34 +74,45 @@ static	void	door_animation(t_game *game)
 	}
 }
 
-static void	check_animation(t_game *game)
+static int	check_animation(t_game *game)
 {
-	int	i;
-	int	j;
+	char	c;
+	int		i;
+	int		j;
 
 	i = -1;
 	while (game->map[++i])
 	{
-		j = -1;
-		while (game->map[i][++j])
+		j = 0;
+		c = game->map[i][j];
+		while (c)
 		{
-			if (game->map[i][j] >= '2' && game->map[i][j] <= '9')
-				return ;
-			else if (game->map[i][j] <= 'z' && game->map[i][j] >= 's')
-				return ;
+			if (c >= '2' && c <= '9')
+				return (0);
+			else if (c <= 'z' && c >= 's')
+				return (0);
+			c = game->map[i][++j];
 		}
 	}
-	game->is_animating = 0;
+	return (1);
 }
 
 int	render_loop(void *ptr)
 {
 	t_game	*game;
 
+	
 	game = (t_game *) ptr;
-	check_animation(game);
-	if (game->is_animating)
-		door_animation(game);
+	if (game->is_animating || game->is_using_mouse)
+	{
+		if (check_animation(game))
+			game->is_animating = 0;
+		if (game->is_animating)
+			door_animation(game);
+		render_frame(game, &game->mlx);
+		game->is_using_mouse = 0;
+		game->is_key_pressed = 0;
+	}
 	render_frame(game, &game->mlx);
 	return (0);
 }

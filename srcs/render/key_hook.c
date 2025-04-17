@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:48:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/16 11:08:42 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/17 17:59:09 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,8 @@ int	handle_keypress(int key, t_game *game)
 		game->show_map = !game->show_map;
 	else if (key == XK_space)
 		open_door(game);
+	else
+		return (0);
+	game->is_key_pressed = 1;
 	return (0);
 }
