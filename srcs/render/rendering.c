@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/17 18:04:28 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/17 18:06:16 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static	void	door_animation(t_game *game)
 	}
 }
 
-static int	check_animation(t_game *game)
+static int	is_animating(t_game *game)
 {
 	char	c;
 	int		i;
@@ -88,13 +88,13 @@ static int	check_animation(t_game *game)
 		while (c)
 		{
 			if (c >= '2' && c <= '9')
-				return (0);
+				return (1);
 			else if (c <= 'z' && c >= 's')
-				return (0);
+				return (1);
 			c = game->map[i][++j];
 		}
 	}
-	return (1);
+	return (0);
 }
 
 int	render_loop(void *ptr)
@@ -105,7 +105,7 @@ int	render_loop(void *ptr)
 	game = (t_game *) ptr;
 	if (game->is_animating || game->is_using_mouse)
 	{
-		if (check_animation(game))
+		if (!is_animating(game))
 			game->is_animating = 0;
 		if (game->is_animating)
 			door_animation(game);
