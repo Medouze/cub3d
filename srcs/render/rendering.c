@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:52:31 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/17 18:06:16 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/18 10:25:47 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	render_frame(t_game *game, t_mlx *mlx)
 		destroy_window(game);
 	if (!mlx->main.add)
 		mlx->main.add = mlx_get_data_addr(mlx->main.img, &mlx->main.bpp,
-			&mlx->main.size_line, &mlx->main.endians);
+				&mlx->main.size_line, &mlx->main.endians);
 	if (!mlx->main.add)
 		destroy_window(game);
 	tmp = game->floor_ceil.add;
@@ -46,7 +46,6 @@ static	void	increment_door(t_game *game)
 		c = game->map[i][j];
 		while (c)
 		{
-			
 			if (c == '9')
 				game->map[i][j] = 'd';
 			else if (c == 'z')
@@ -101,7 +100,6 @@ int	render_loop(void *ptr)
 {
 	t_game	*game;
 
-	
 	game = (t_game *) ptr;
 	if (game->is_animating || game->is_using_mouse)
 	{
