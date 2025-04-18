@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 22:27:58 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/16 11:04:36 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/18 10:47:00 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ int	mov_is_wall(t_game *game, float margin, float new_x, float new_y)
 		j = -2;
 		while (++j < 2)
 		{
-			if (i == 0 && j == 0)
-				continue ;
 			c = game->map[py_cell + j][px_cell + i];
 			if ((c >= '1' && c <= '9') || (c >= 's' && c <= 'z') || c == 'D')
 			{
