@@ -6,7 +6,11 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 12:58:50 by qmorinea          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/04/17 22:02:48 by mlavergn         ###   ########.fr       */
+=======
+/*   Updated: 2025/04/18 10:23:55 by qmorinea         ###   ########.fr       */
+>>>>>>> 87efb7c2b26d782019ae27ad498d5dd74a39fa4e
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +90,7 @@ typedef struct s_game
 	int			scaling;
 	int			is_animating;
 	int			show_map;
+	int			is_using_mouse;
 	char		**map;
 	t_img		north;
 	t_img		south;
@@ -97,6 +102,7 @@ typedef struct s_game
 	t_player	player;
 	t_config	*config;
 	long		tmp_time;
+	int			is_key_pressed;
 }	t_game;
 
 /******************** DOOR *******************/
@@ -111,7 +117,7 @@ t_game	init_window(t_config *data);
 
 /******************** MLX ********************/
 
-void	destroy_sprite_img(t_game *game, int exit);
+void	destroy_sprite_img(t_game *game, int exiting);
 int		destroy_window(void *ptr);
 int		handle_mouse_move(int x, int y, void *param);
 int		handle_keypress(int key, t_game *mlx);

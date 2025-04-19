@@ -6,7 +6,7 @@
 /*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 09:47:59 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/16 11:44:40 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/18 10:44:57 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,27 +72,33 @@ static void	floor_ceil_loop(t_game *game, t_img *ceil_floor, int x, int y)
 	*(unsigned int *)floor = game->config->floor_color;
 }
 
-static t_img	create_floor_ceil(t_game *game, t_mlx *mlx)
+static void	create_floor_ceil(t_game *game, t_mlx *mlx)
 {
 	int			x;
 	int			y;
 	int			half_height;
-	t_img		ceil_floor;		
 
-	ceil_floor.img = mlx_new_image(mlx->mlx_ptr, WIDTH, HEIGHT);
-	//protect
+	game->floor_ceil.img = mlx_new_image(mlx->mlx_ptr, WIDTH, HEIGHT);
+	if (!game->floor_ceil.img)
+	{
+		destroy_sprite_img(game, 1);
+		print_error("Function 'mlx_new_image()' failed.", game->config);
+	}
 	half_height = HEIGHT / 2;
 	y = -1;
-	ceil_floor.add = mlx_get_data_addr(ceil_floor.img, &mlx->main.bpp,
-			&mlx->main.size_line, &mlx->main.endians);
-	//protect
+	game->floor_ceil.add = mlx_get_data_addr(game->floor_ceil.img,
+			&mlx->main.bpp, &mlx->main.size_line, &mlx->main.endians);
+	if (!game->floor_ceil.add)
+	{
+		destroy_sprite_img(game, 1);
+		print_error("Function 'mlx_new_image()' failed.", game->config);
+	}
 	while (++y < half_height)
 	{
 		x = -1;
 		while (++x < WIDTH)
-			floor_ceil_loop(game, &ceil_floor, x, y);
+			floor_ceil_loop(game, &game->floor_ceil, x, y);
 	}
-	return (ceil_floor);
 }
 
 t_game	init_window(t_config *data)
@@ -105,11 +111,13 @@ t_game	init_window(t_config *data)
 	game.mlx = init_mlx(data);
 	game.show_map = 1;
 	game.is_animating = 0;
+	game.is_using_mouse = 0;
+	game.is_key_pressed = 0;
 	game.config = data;
 	game.map = data->map;
 	game.player = init_player(game);
 	game = init_assets(&game);
-	game.floor_ceil = create_floor_ceil(&game, &game.mlx);
+	create_floor_ceil(&game, &game.mlx);
 	x_max = game.config->width;
 	y_max = game.config->height;
 	max = fmax(y_max, x_max);

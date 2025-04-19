@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:41:03 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/17 22:00:03 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/19 16:38:38 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,12 @@ char	**split_xmp(t_config *data, char **data_text, char *texture)
 {
 	char	**split;
 	int		i;
+<<<<<<< HEAD
+=======
+	int		len;
+	char	*new_str;
+	char	**test;
+>>>>>>> 87efb7c2b26d782019ae27ad498d5dd74a39fa4e
 
 	i = 0;
 	if (data_text)
