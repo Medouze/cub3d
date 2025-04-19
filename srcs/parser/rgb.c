@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rgb.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 21:23:07 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/09 18:15:08 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/19 16:54:35 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	check_valid_rgb(t_config *data, int *value, char *rgb)
 	int		count;
 
 	count = 0;
+	if (*value != -1)
+		print_error(ERR_MULTI, data);
 	ft_trim_in_place(rgb, " \n\t");
 	while (*rgb && !ft_is_digit(*rgb) && *rgb != '-')
 		rgb++;

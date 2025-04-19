@@ -6,11 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:45:14 by qmorinea          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/04/17 22:04:13 by mlavergn         ###   ########.fr       */
-=======
-/*   Updated: 2025/04/17 16:35:12 by qmorinea         ###   ########.fr       */
->>>>>>> 87efb7c2b26d782019ae27ad498d5dd74a39fa4e
+/*   Updated: 2025/04/19 16:40:55 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,22 +91,3 @@ void	open_door(t_game *game)
 		}
 	}
 }
-<<<<<<< HEAD
-
-t_img	*door_texture_animation(t_game *game, char c)
-{
-	t_img	*texture;
-
-	texture = NULL;
-	if (c == '5' || c == '9' || c == 'w' || c == 's' || c == 'D')
-		texture = &game->door_array[0];
-	if (c == '2' || c == '6' || c == 'z' || c == 'v')
-		texture = &game->door_array[1];
-	if (c == '3' || c == '7' || c == 'y' || c == 'u')
-		texture = &game->door_array[2];
-	if (c == '4' || c == '8' || c == 'x' || c == 't')
-		texture = &game->door_array[3];
-	return (texture);
-}
-=======
->>>>>>> 87efb7c2b26d782019ae27ad498d5dd74a39fa4e

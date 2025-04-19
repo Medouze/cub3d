@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assets.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
+/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:04:25 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/17 15:05:08 by qmorinea         ###   ########.fr       */
+/*   Updated: 2025/04/19 16:56:28 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	load_sprite(t_game *game, t_img *img, char *path)
 
 	height = 0;
 	width = 0;
-	printf("sprite = %s\n", path);
 	img->img = mlx_xpm_file_to_image(game->mlx.mlx_ptr, path, &width, &height);
 	if (!img->img)
 	{

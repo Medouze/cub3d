@@ -6,17 +6,13 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 17:34:46 by mlavergn          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/04/17 22:04:24 by mlavergn         ###   ########.fr       */
-=======
-/*   Updated: 2025/04/16 15:45:40 by mlavergn         ###   ########.fr       */
->>>>>>> 87efb7c2b26d782019ae27ad498d5dd74a39fa4e
+/*   Updated: 2025/04/19 16:45:44 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-
+/*
 void	print_config(const t_config *config)
 {
 	int	i;
@@ -59,7 +55,7 @@ void	print_config(const t_config *config)
 	else
 		printf("  (null)\n");
 }
-
+*/
 
 void	parser(t_config *data, char *path)
 {
@@ -67,5 +63,4 @@ void	parser(t_config *data, char *path)
 	fill_data(data, path);
 	if (info_empty(data) || !data->map)
 		print_error(ERR_MISSINGTEXT, data);
-	print_config(data);
 }

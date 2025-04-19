@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 21:16:42 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/17 21:59:50 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/19 16:54:59 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define ERR_OPEN   "Error while opening file"
 # define ERR_ARGDIR "Argument can't be a directory"
 # define ERR_NOARG "Fix arguments"
-# define ERR_MULTI "Multiple declaration xpm"
+# define ERR_MULTI "Multiple declaration in .cub file"
 # define ERR_UNKNOWNID "Invalid line in .cub file"
 # define ERR_MISSINGTEXT "Invalid .cub file"
 # define ERR_EMPTYMAP "Empty line in map"

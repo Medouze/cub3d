@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 16:41:03 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/19 16:38:38 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/19 16:50:58 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,6 @@ char	**split_xmp(t_config *data, char **data_text, char *texture)
 {
 	char	**split;
 	int		i;
-<<<<<<< HEAD
-=======
-	int		len;
-	char	*new_str;
-	char	**test;
->>>>>>> 87efb7c2b26d782019ae27ad498d5dd74a39fa4e
 
 	i = 0;
 	if (data_text)
@@ -88,13 +82,13 @@ char	**split_xmp(t_config *data, char **data_text, char *texture)
 	i = 0;
 	while (split[i])
 	{
-		if (i > 4)
+		if (i > 3)
 			print_error(ERR_4DOOR, data);
 		ft_trim_in_place(split[i], " \n\t");
 		if (!is_valid_xpm(split[i]))
 			print_error(ERR_XPMSYNTAX, data);
 		if (has_spaces(split[i]))
-			print_error(ERR_XPMSPACE, data);
+			print_error(ERR_XPMSYNTAX, data);
 		i++;
 	}
 	return (split);
