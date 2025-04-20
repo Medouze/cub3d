@@ -6,7 +6,7 @@
 /*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 21:16:42 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/19 16:54:59 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/21 00:38:02 by mlavergn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # define VALID_ID "NSWAEODT  \t"
 # define VALID_MAPCHAR "10NESWD  \n"
 # define PLAYERCHAR "NESW"
-# define VALID_STARTMAP "1 "
+# define VALID_STARTMAP "10 "
 # define ERR_MALLOC "Malloc failed"
 # define ERR_XPMSPACE "Has space in xpm name"
 # define ERR_XPMSYNTAX "Texture syntax"
