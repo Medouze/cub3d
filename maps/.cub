@@ -4,7 +4,7 @@ WE ./texture/mossy.xpm
 NO ./texture/eagle.xpm
 SO ./texture/blue_stone.xpm
 EA ./texture/wood.xpm
-DT ./texture/door_0.xpm
+DT ./texture/door_0.xpm ./texture/door_2.xpm
 F 255,0,255
 C 0,255,255 
 

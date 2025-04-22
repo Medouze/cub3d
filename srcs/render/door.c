@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 19:45:14 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/19 16:40:55 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/22 12:43:45 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,14 @@ void	open_door(t_game *game)
 	dis_y = fabs((ray.map_y + 0.5) - game->player.y);
 	if (dis_x < 2 && dis_y < 2 && fmax(dis_x, dis_y) >= 0.7)
 	{
-		if (game->map[ray.map_y][ray.map_x] == 'D' && !game->is_animating)
+		if (game->map[ray.map_y][ray.map_x] == 'D')
 		{
 			gettimeofday(&tv, NULL);
 			game->tmp_time = (tv.tv_sec * 1000) + (tv.tv_usec * 0.001);
 			game->is_animating = 1;
 			game->map[ray.map_y][ray.map_x] = '2';
 		}
-		else if (game->map[ray.map_y][ray.map_x] == 'd' && !game->is_animating)
+		else if (game->map[ray.map_y][ray.map_x] == 'd')
 		{
 			gettimeofday(&tv, NULL);
 			game->tmp_time = (tv.tv_sec * 1000) + (tv.tv_usec * 0.001);
