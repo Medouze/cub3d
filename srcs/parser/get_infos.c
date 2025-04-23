@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_infos.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:57:23 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/17 22:01:39 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/23 17:07:19 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	allocate_map(t_config *data, int fd)
 	int		size;
 
 	size = count_check_map_lines(data, fd);
-	data->map = malloc(sizeof(char *) * (size + 2));
+	data->map = ft_calloc(sizeof(char *), size + 2);
 	if (!data->map)
 		print_error(ERR_MALLOC, data);
 	close(fd);
@@ -98,12 +98,15 @@ void	fill_data(t_config *data, char *path)
 		if (ft_strchr(VALID_STARTMAP, line[0]))
 		{
 			if (info_empty(data))
+			{
+				free_gnl(fd, line);
 				print_error(ERR_MISSINGTEXT, data);
+			}
 			copy_map(data, fd, path);
 		}
 		if (!is_only_whitespace(line))
 			check_valid_infos(data, line);
 		free(line);
 	}
-	return ;
+	close(fd);
 }

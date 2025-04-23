@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/05 11:19:26 by mlavergn          #+#    #+#             */
-/*   Updated: 2025/04/19 16:40:53 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:46:24 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ char	**pad_map_lines(t_config *data, char **map);
 void	check_walls(char **map, t_config *data);
 void	check_player_stuck(t_config *data);
 /*utils*/
+void	free_gnl(int fd, char *line);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		is_only_whitespace(const char *str);
 char	*ft_strdup(const char *s);
