@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   assets.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mlavergn <mlavergn@student.s19.be>         +#+  +:+       +#+        */
+/*   By: qmorinea <qmorinea@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:04:25 by qmorinea          #+#    #+#             */
-/*   Updated: 2025/04/19 16:56:28 by mlavergn         ###   ########.fr       */
+/*   Updated: 2025/04/23 16:33:51 by qmorinea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ static void	load_sprite_door(t_game *game)
 
 t_game	init_assets(t_game *game)
 {
-	game->door_array = init_img_door(game->config);
+	if (game->config->door_texture)
+		game->door_array = init_img_door(game->config);
 	game->north = init_img();
 	game->south = init_img();
 	game->west = init_img();
@@ -88,6 +89,7 @@ t_game	init_assets(t_game *game)
 	load_sprite(game, &game->south, game->config->so_texture);
 	load_sprite(game, &game->west, game->config->we_texture);
 	load_sprite(game, &game->east, game->config->ea_texture);
-	game->door = game->door_array[0];
+	if (game->config->door_texture)
+		game->door = game->door_array[0];
 	return (*game);
 }
